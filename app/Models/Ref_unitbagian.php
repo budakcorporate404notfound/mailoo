@@ -19,6 +19,7 @@ class Ref_unitbagian extends Model
     protected $table = "ref_unitbagian";
     protected $fillable = [
         'id',
-        'nama_unitbagian',
+        'name',
+        'sortname'
     ];
 }

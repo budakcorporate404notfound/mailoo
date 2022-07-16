@@ -78,53 +78,85 @@
 
                             <input type="checkbox" onclick="myFunction()"> Show Password
 
-                            <script>
-                                function myFunction() {
-                                    var x = document.getElementById("password");
-                                    if (x.type === "password") {
-                                        x.type = "text";
-                                    } else {
-                                        x.type = "password";
-                                    }
-                                }
-                            </script>
+                            <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
+                                <input type="checkbox" class="custom-control-input" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
 
-                            <div class="d-inline-block w-100">
-                                <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                    <input type="checkbox" class="custom-control-input" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="custom-control-label" for="remember">Remember Me</label>
-
-                                </div>
-                                <button type="submit" class="btn btn-primary float-right">Masuk</button>
+                                <label class="custom-control-label" for="remember">Remember Me</label>
 
                             </div>
-                            <div class="sign-info">
 
-                                <span class="dark-color d-inline-block line-height-2">Belum mempunyai akun ?
-                                    @if (Route::has('register'))
-                                    <a class="btn btn-link" href="{{ route('register') }}">Registrasi</a>
-                                    @endif
-                                </span>
+                            {{-- <div class="form-group">
+                                <label for="exampleInputEmail1">Tahun Anggaran</label>
+                                <input type="email" class="form-control mb-0" id="exampleInputEmail1"
+                                    placeholder="Enter email">
 
-                                {{-- @if (Route::has('register'))
+                                <input id="tahunanggaran" type="tahunanggaran"
+                                    class="form-control mb-0 @error('tahunanggaran') is-invalid @enderror" name="tahunanggaran"
+                                    value="{{ old('tahunanggaran') }}" required autocomplete="tahunanggaran" autofocus
+                            placeholder="Input Tahun Anggaran">
+
+                            @error('tahunanggaran')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+
+                    </div> --}}
+
+                    <script>
+                        function myFunction() {
+                            var x = document.getElementById("password");
+                            if (x.type === "password") {
+                                x.type = "text";
+                            } else {
+                                x.type = "password";
+                            }
+                        }
+                    </script>
+
+                     <div class="form-group">
+                            {{-- <label class="col-sm-12 control-label">Tahun Anggaran</label> --}}
+                               {{-- <label for="exampleInputPassword1">Tahun Anggaran</label> --}}
+                               {{-- <br> --}}
+                                <select id="tahunanggaran" name="tahunanggaran" required>
+                                    <option value="">tahun anggaran</option>
+                                    @foreach($tahunanggarans as $tahunanggaran)
+                                    <option value="{{ $tahunanggaran->tahun}}"> {{$tahunanggaran->tahun}}
+                                    </option>
+                                    @endforeach
+                                </select>
+
+                        </div>
+
+                    <div class="d-inline-block w-100">
+                        <button type="submit" class="btn btn-primary float-right">Masuk</button>
+                    </div>
+                    <div class="sign-info">
+
+                        <span class="dark-color d-inline-block line-height-2">Belum mempunyai akun ?
+                            @if (Route::has('register'))
+                            <a class="btn btn-link" href="{{ route('register') }}">Registrasi</a>
+                            @endif
+                        </span>
+
+                        {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                                @endif --}}
+                        </li>
+                        @endif --}}
 
-                                {{-- <ul class="iq-social-media">
+                        {{-- <ul class="iq-social-media">
                                     <li><a href="#"><i class="ri-facebook-box-line"></i></a></li>
                                     <li><a href="#"><i class="ri-twitter-line"></i></a></li>
                                     <li><a href="#"><i class="ri-instagram-line"></i></a></li>
                                 </ul> --}}
-                            </div>
-
-                        </form>
                     </div>
+
+                    </form>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <!-- Sign in END -->
@@ -132,6 +164,8 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
     @livewireScripts
+
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
@@ -161,5 +195,12 @@
     <!-- Custom JavaScript -->
     <script src="assets/js/custom.js"></script>
 </body>
+
+<script>
+    $(document).ready(function() {
+        // Initialize select2
+        $("#tahunanggaran").select2();
+    });
+</script>
 
 </html>
