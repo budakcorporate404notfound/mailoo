@@ -12,13 +12,14 @@ class T_realisasi_rkkl extends Model
 
     protected $table = "t_realisasi_rkkl";
     protected $fillable = [
+        'ref_unitbagian_id',
         'nomor_surat_tugas',
         'tanggal_surat_tugas',
-        'tempat_pelaksana',
-        'id_kode_uraian_kegiatan',
-        'nilai_pagu_realisasi',
         'tanggal_pelaksana_dari',
-        'tanggal_pelaksana_sampai'
+        'tanggal_pelaksana_sampai',
+        'verifikasi_kelengkapan',
+        'user_penginput_data',
+        'tahun_anggaran'
     ];
 
     public function T_realisasi_tempatpelaksanaans()
@@ -26,14 +27,20 @@ class T_realisasi_rkkl extends Model
         return $this->hasMany('App\Models\T_realisasi_tempatpelaksanaan');
     }
 
-    public function T_cobas()
+
+    public function T_pengirim_laporans()
     {
-        return $this->hasMany('App\Models\T_coba');
+        return $this->hasMany('App\Models\T_pengirim_laporan');
     }
 
     public function T_pembuat_laporans()
     {
         return $this->hasMany('App\Models\T_pembuat_laporan');
+    }
+
+    public function T_realisasi_pagu_rkkls()
+    {
+        return $this->hasMany('App\Models\T_realisasi_pagu_rkkl');
     }
 
     public function Ref_satuankerjas()

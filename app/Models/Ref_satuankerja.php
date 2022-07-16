@@ -20,5 +20,6 @@ class Ref_satuankerja extends Model
     protected $fillable = [
         'id',
         'nama_satuankerja',
+        'locked'
     ];
 }

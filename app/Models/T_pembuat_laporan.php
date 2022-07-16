@@ -12,7 +12,11 @@ class T_pembuat_laporan extends Model
 
     protected $table = "t_pembuat_laporan";
     protected $fillable = [
+        'ref_unitbagian_id',
         't_realisasi_rkkl_id',
-        'nama_pelaksana'
+        'nama_pelaksana',
+        'no_surat_tugas',
+        'user_penginput_data',
+        'tahun_anggaran'
     ];
 }

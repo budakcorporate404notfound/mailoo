@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+// use Session;
 
 class LoginController extends Controller
 {
@@ -41,11 +43,22 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
+        // $tahunanggarn = Ref_satuankerja::all();
+
         $input = $request->all();
+        $request->session()->put('tahunanggaran', $input['tahunanggaran']);
+        // $request->session()->put('name', 'john');
+
+        // $request->session()->put('tahun_anggaran', '2021');
+        // $variableSetOnPageA = "Can be anything";
+        // Session::put('variableSetOnPageA', $variableSetOnPageA);
+        // Session::save();
 
         $this->validate($request, [
             'username' => 'required',
             'password' => 'required',
+            'tahunanggaran' => 'required'
         ]);
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';

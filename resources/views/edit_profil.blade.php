@@ -15,6 +15,27 @@
 
 @section('content')
 
+@if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
+<script>
+   $(function() {
+      $('#myModal').modal('show');
+   });
+</script>
+@endif
+
+ @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
+    <script>
+        $(function() {
+            $('#OK00').modal('show');
+        });
+    </script>
+    @endif
+
+
+
+
+
+
 <div class="row">
    <div class="col-lg-12">
       <div class="iq-card">
@@ -46,6 +67,57 @@
          </div>
       </div>
    </div>
+
+
+
+   {{-- modal --}}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informasi</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body" style="text-align: justify">
+            Menu yang anda pilih tidak dapat dibuka <br>
+            pastikan akun user anda terbuka dan <br>
+            menu tersebut adalah kewenangan user anda
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="{{url('statususer')}}"> <button type="button" class="btn btn-primary"> check status
+                  user</button> </a>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade" id="OK00" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informasi</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body" style="text-align: justify">
+            Password berhasil diperbarui <br>
+            Harap selalu mengingat Password Anda <br>
+            Dan jangan berikan password anda kesiapapun <br>
+            Terimakasih
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="{{url('statususer')}}"> <button type="button" class="btn btn-primary"> check status
+                  user</button> </a>
+         </div>
+      </div>
+   </div>
+</div>
+
    <div class="col-lg-12">
       <div class="iq-edit-list-data">
          <div class="tab-content">
@@ -74,7 +146,8 @@
                                     alt="profile-pic" style="width: 150px;height: 150px; padding: 10px; margin: 0px; ">
                                  <div class="p-image">
                                     <label for="file-upload">
-                                       <i class="fas fa-pencil-alt" style="color:white"></i>
+                                       {{-- <i class="las la-bullseye" style="color: white; font-size:20px;"></i> --}}
+                                        <i class="ri-pencil-line upload-button" style="color: white"></i>
                                     </label>
                                     <input id="file-upload" class="file-upload" type="file" name="image" />
                                  </div>
@@ -94,25 +167,10 @@
                            </div>
                            <div class="form-group col-sm-6">
                               <label for="uname">Unit Kerja</label>
-                              <input type="text" class="form-control" id="uname" @if (Auth::user()->unit_kerja
-                              == 1 )
-                              value="Kepala Biro";
-                              @elseif(Auth::user()->unit_kerja == 2)
-                              value="Tata Usaha (Persuratan)";
-                              @elseif(Auth::user()->unit_kerja == 3)
-                              value="Inventarisasi Kekayaan Negara";
-                              @elseif(Auth::user()->unit_kerja == 4)
-                              value="Bimbingan Monitoring";
-                              @elseif(Auth::user()->unit_kerja == 5)
-                              value="Penghapusan";
-                              @elseif(Auth::user()->unit_kerja == 6)
-                              value="Pengadaan Barang Wilayah I";
-                              @elseif(Auth::user()->unit_kerja == 7)
-                              value="Pengadaan Barang Wilayah II";
-                              @elseif(Auth::user()->unit_kerja == 8)
-                              value="Super User";
-                              @endif
-                              value="{{ Auth::user()->unit_kerja }}"
+                              <input type="text" class="form-control" id="uname"
+                              @foreach ($unitbagian as $unitbagians)
+                              value="{{$unitbagians->name}}"
+                              @endforeach
                               readonly>
                            </div>
                            <div class="form-group col-sm-6">
@@ -211,6 +269,9 @@ Zip Code: 85001
                   <div class="iq-card-header d-flex justify-content-between">
                      <div class="iq-header-title">
                         <h4 class="card-title">Change Password</h4>
+                           @if (\Session::has('success'))
+                              {!! \Session::get('success') !!}
+                           @endif
                      </div>
                   </div>
                   <div class="iq-card-body">
@@ -377,8 +438,9 @@ Zip Code: 85001
                         <div class="form-group">
                            <label for="new_confirm_password">Confirm Password Baru:</label>
                            <input type="Password" class="form-control" id="new_confirm_password"
-                              name="new_confirm_password" autocomplete="current-password" value=""  placeholder="Masukan Confirm Password Baru">
-                                <input type="checkbox" onclick="myFunctionss()"> Show Confirm Password Baru
+                              name="new_confirm_password" autocomplete="current-password" value=""
+                              placeholder="Masukan Confirm Password Baru">
+                           <input type="checkbox" onclick="myFunctionss()"> Show Confirm Password Baru
 
                            <script>
                               function myFunctionss() {
@@ -512,7 +574,6 @@ Zip Code: 85001
    </div>
 </div>
 
-   <script src="assets/js/jquery.min.js"></script>
-
+<script src="assets/js/jquery.min.js"></script>
 
 @endsection

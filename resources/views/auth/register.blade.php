@@ -36,7 +36,8 @@
                   <form method="POST" action="{{ route('register') }}">
                      @csrf
                      <div class="form-group">
-                        <label for="name">Nama User</label>
+                        <label for="name">Nama User <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                            placeholder="masukan nama user" required>
@@ -51,8 +52,8 @@
                      <div class="form-group">
                         <label for="nip">Nomor Induk Pegawai</label>
                         <input id="nip" type="number" class="form-control @error('nip') is-invalid @enderror" name="nip"
-                           value="{{ old('nip') }}" required autocomplete="nip" autofocus
-                           placeholder="masukan nomor induk pegawai" required>
+                           value="{{ old('nip') }}" autocomplete="nip" autofocus
+                           placeholder="masukan nomor induk pegawai">
 
                         @error('nip')
                         <span class="invalid-feedback" role="alert">
@@ -62,7 +63,8 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="unit_kerja">Unit Kerja</label>
+                        <label for="unit_kerja">Unit Kerja <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <select id="unit_kerja" name="unit_kerja" class="form-control" required>
                            <option value="" selected disabled>Select Items</option>
                            @foreach ($referensi_unitbagian as $key => $unit_kerja)
@@ -71,12 +73,14 @@
                         </select>
                      </div>
                      <div class="form-group">
-                        <label for="jabatan">Jabatan</label>
+                        <label for="jabatan">Jabatan <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <select name="jabatan" id="jabatan" class="form-control" required></select>
                      </div>
 
                      <div class="form-group">
-                        <label for="unit_kerja">Konfirmasi Jabatan</label>
+                        <label for="unit_kerja">Konfirmasi Jabatan <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <select class="form-control" name="confirm_jabatan" id="confirm_jabatan" required>
 
                            <option>Select Items</option>
@@ -89,7 +93,8 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="jabatanlengkap">Jabatan Lengkap</label>
+                        <label for="jabatanlengkap">Jabatan Lengkap <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <select name="jabatanlengkap" id="jabatanlengkap" class="form-control" required></select>
                      </div>
 
@@ -145,10 +150,13 @@
                               $("#jabatanlengkap").empty();
                            }
                         });
+
+
                      </script>
 
                      <div class="form-group">
-                        <label for="referensi_atasanlangsung">Referensi Atasan Langsung</label>
+                        <label for="referensi_atasanlangsung">Referensi Atasan Langsung <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <select class="form-control" name="referensi_atasanlangsung" id="referensi_atasanlangsung">
 
                            <option value="">Select Items</option>
@@ -161,7 +169,8 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
                            name="email" value="{{ old('email') }}" required autocomplete="email"
                            placeholder="masukan alamat email">
@@ -174,7 +183,8 @@
                      </div>
 
                      <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <input id="password" type="password"
                            class="form-control @error('password') is-invalid @enderror" name="password" required
                            autocomplete="new-password" placeholder="masukan password user">
@@ -202,7 +212,8 @@
                      </script>
 
                      <div class="form-group">
-                        <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                        <label for="password-confirm">{{ __('Confirm Password') }} <span
+                                        style="color:red;font-weight:bold">*</span></label>
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
                            required autocomplete="new-password" placeholder="confirm password user">
                      </div>

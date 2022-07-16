@@ -15,6 +15,40 @@
 
 @section('content')
 
+ @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
+    <script>
+        $(function() {
+            $('#myModal').modal('show');
+        });
+    </script>
+    @endif
+
+    {{-- modal --}}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: justify">
+                    Menu yang anda pilih tidak dapat dibuka <br>
+                    pastikan akun user anda terbuka dan <br>
+                    menu tersebut adalah kewenangan user anda
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="{{url('statususer')}}"> <button type="button" class="btn btn-primary"> check status
+                            user</button> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 <div class="row">
    <div class="col-lg-12">
       <div class="iq-card">
@@ -74,7 +108,7 @@
                                     alt="profile-pic" style="width: 150px;height: 150px; padding: 10px; margin: 0px; ">
                                  <div class="p-image" >
                                     <label for="file-upload">
-                                       <i class="fas fa-pencil-alt" style="color:white">edit</i>
+                                      <i class="ri-pencil-line upload-button" style="color: white"></i>
                                     </label>
                                     <input id="file-upload" class="file-upload" type="file" name="image" style="color: pink"/>
                                  </div>
