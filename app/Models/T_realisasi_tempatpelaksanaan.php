@@ -20,7 +20,10 @@ class T_realisasi_tempatpelaksanaan extends Model
         'nama_pelaksana',
         'nip',
         'golongan',
-        'jabatan'
+        'eselon',
+        'jabatan',
+        'user_penginput_data',
+        'tahun_anggaran'
 
     ];
 

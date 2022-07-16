@@ -26,6 +26,19 @@
 
    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
+   <link rel="stylesheet" href="assets/fullcalendar/fullcalendar.css" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    {{-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> --}}
+
+    {{-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> --}}
+
    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
@@ -36,13 +49,25 @@
       integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
    </script> --}}
 
+   <style>
 
+      .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+
+      .topnav-right {
+  float: right;
+}
+   </style>
 
    @livewireStyles
 
 </head>
 
 <body class="header-top-bg">
+
    {{-- {{$slot}} --}}
 
    <!-- loader Start -->
@@ -72,7 +97,7 @@
             <nav class="iq-sidebar-menu">
                <ul id="iq-sidebar-toggle" class="iq-menu">
                   <li class="iq-menu-title"><i class="ri-separator"></i><span>Main</span></li>
-                  <li>
+                  {{-- <li>
 
                      <a href="#dashboard" class="iq-waves-effect collapsed" data-toggle="collapse"
                         aria-expanded="false"><i class="las la-envelope-open"></i><span>Dashboard</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
@@ -80,51 +105,152 @@
                         <li class="active"><a href="index.html">Dashboard 1</a></li>
                         <li><a href="dashboard1.html">Dashboard 2</a></li>
                      </ul>
-                  </li>
-                  <li>
+                  </li> --}}
+                  {{-- <li>
                      <a href="#mailbox" class="iq-waves-effect collapsed" data-toggle="collapse"
                         aria-expanded="false"><i class="las la-envelope-open"></i><span>Surat Masuk</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                      <ul id="mailbox" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li><a href="{{url('/InputSuratMasuk')}}">Input Surat Masuk</a></li>
 
-                        <li><a href="{{url('/DataInputSuratMasuk')}}">data input surat masuk</a></li>
-                     </ul>
-                  </li>
-                   <li>
-                     <a href="#keuangan" class="iq-waves-effect collapsed" data-toggle="collapse"
-                        aria-expanded="false"><i class="las la-dollar-sign"></i><span>Keuangan</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                     <ul id="keuangan" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li><a href="{{url('/ReferensiUraianKegiatan')}}">Ref Uraian Kegiatan</a></li>
+                  <li><a href="{{url('/DataInputSuratMasuk')}}">data input surat masuk</a></li>
+               </ul>
+               </li> --}}
+               <li><a href="{{url('fullcalender')}}" class="iq-waves-effect"><i
+                        class="las la-calendar"></i><span>Kalender Kegiatan</span></a></li>
+               <li>
+                  <a href="#keuangan" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                        class="las la-balance-scale"></i><span>Keuangan</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="keuangan" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                     <li>
+                        <a href="#sub-menu-dashboard" class="iq-waves-effect collapsed" data-toggle="collapse"
+                           aria-expanded="false"><i class="las la-home"></i><span>Dashboard</span><i
+                              class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul id="sub-menu-dashboard" class="iq-submenu iq-submenu-data collapse">
+                           {{-- <li><a href="{{url('rincianpelaksanaan')}}"><i
+                              class="las la-campground"></i>Pelaksanaan</a>
+                     </li> --}}
+                     <li><a href="{{url('dashboard_1')}}"><i class="las la-chart-pie"></i>Dashboard I </a></li>
+                     <li><a href="{{url('dashboard_3')}}"><i class="las la-chart-area"></i>Dashboard II </a></li>
+                     <li><a href="{{url('dashboard_2')}}"><i class="las la-chart-bar"></i>Dashboard III </a></li>
 
-                        <li><a href="{{url('/RealisasiRKKL')}}">Realiasasi RKKL</a></li>
 
-                        {{-- <li><a href="{{url('ajaxproducts')}}">datatable</a></li> --}}
-                        <li><a href="{{url('realisasirkkl')}}">datatable</a></li>
-                     </ul>
-                  </li>
-                  <li>
+                  </ul>
+
+                  {{-- <li><a href="{{url('/ReferensiUraianKegiatan')}}">Ref Uraian Kegiatan</a>
+               </li> --}}
+
+               <li>
+                  <a href="#sub-referensi" class="iq-waves-effect collapsed" data-toggle="collapse"
+                     aria-expanded="false"><i class="lab la-pagelines"></i><span>Referensi</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="sub-referensi" class="iq-submenu iq-submenu-data collapse">
+                     {{-- <li><a href="{{url('rincianpelaksanaan')}}"><i class="las la-campground"></i>Pelaksanaan</a>
+               </li> --}}
+               <li><a href="{{url('referensi')}}"><i class="las la-money-bill-wave"></i> Anggaran </a></li>
+               <li>
+                  <a href="#sub-surattugas" class="iq-waves-effect collapsed" data-toggle="collapse"
+                     aria-expanded="false"><i class="las la-ribbon"></i><span>Surat Tugas</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="sub-surattugas" class="iq-submenu iq-submenu-data collapse">
+                     <li><a href="{{url('menimbang')}}"> &nbsp; &nbsp; &nbsp; <i
+                              class="las la-hand-point-right"></i>Menimbang</a></li>
+                     <li><a href="{{url('dasar')}}"> &nbsp; &nbsp; &nbsp; <i
+                              class="las la-hand-point-right"></i>Dasar</a></li>
+                     <li><a href="{{url('untuk')}}"> &nbsp; &nbsp; &nbsp; <i
+                              class="las la-hand-point-right"></i>Untuk</a></li>
+                     <li><a href="{{url('kodemak')}}"> &nbsp; &nbsp; &nbsp; <i class="las la-hand-point-right"></i>Kode
+                           Mak</a></li>
+                     <li><a href="{{url('tertanda')}}"> &nbsp; &nbsp; &nbsp; <i
+                              class="las la-hand-point-right"></i>Tertanda</a></li>
+                  </ul>
+               </li>
+
+               </ul>
+               </li>
+
+               <li><a href="{{url('konsepst')}}"><i class="las la-file-alt"></i> Konsep Surat Tugas </a></li>
+
+               {{-- <li><a href="{{url('/RealisasiRKKL')}}">Realiasasi RKKL</a></li> --}}
+
+               {{-- <li><a href="{{url('ajaxproducts')}}">datatable</a></li> --}}
+               <li><a href="{{url('realisasirkkl')}}"><i class="las la-file-invoice-dollar"></i> Realisasi </a></li>
+               <li><a href="{{url('unggahlaporan')}}"><i class="lar la-file-pdf"></i> Unggah Laporan </a></li>
+
+               <li>
+                  <a href="#sub-menu" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                        class="ri-record-circle-line"></i><span>Rincian</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="sub-menu" class="iq-submenu iq-submenu-data collapse">
+                     {{-- <li><a href="{{url('rincianpelaksanaan')}}"><i class="las la-campground"></i>Pelaksanaan</a>
+               </li> --}}
+               <li><a href="{{url('rincianpelaksanaan')}}"><i class="las la-campground"></i>Pelaksanaan</a></li>
+               <li><a href="{{url('rincianpengeluaran')}}"><i class="las la-coins"></i>Pengeluaran</a></li>
+               <li>
+                  <a href="#sub-laporan" class="iq-waves-effect collapsed" data-toggle="collapse"
+                     aria-expanded="false"><i class="las la-clipboard-check"></i><span>Laporan</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="sub-laporan" class="iq-submenu iq-submenu-data collapse">
+                     <li><a href="{{url('rincianpembuatlaporan')}}"> &nbsp; &nbsp; &nbsp; <i
+                              class="las la-hand-point-right"></i>Pembuat</a></li>
+                     <li><a href="{{url('rincianlaporan')}}"> &nbsp; &nbsp; &nbsp; <i
+                              class="las la-hand-point-right"></i>Pengirim</a></li>
+
+                  </ul>
+               </li>
+               </ul>
+               </li>
+
+               </ul>
+               </li>
+
+               {{-- <li>
                      <a href="#bagianpenghapusan" class="iq-waves-effect collapsed" data-toggle="collapse"
                         aria-expanded="false"><i class="las la-eraser"></i><span>Adm Penghapusan</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                      <ul id="bagianpenghapusan" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                         <li><a href="{{url('/RekapPerjanjianSewa')}}">Perjanjian Sewa</a></li>
 
-                        <li><a href="{{url('/DataInputSuratMasuk')}}">Keuangan 2</a></li>
-                     </ul>
-                  </li>
-                  <li><a href="{{url('/Inputsurat')}}" class="iq-waves-effect"><i
-                           class="far fa-envelope"></i><span>Input Surat</span></a></li>
+               <li><a href="{{url('/DataInputSuratMasuk')}}">Keuangan 2</a></li>
+               </ul>
+               </li> --}}
+               {{-- <li><a href="{{url('/Inputsurat')}}" class="iq-waves-effect"><i
+                  class="far fa-envelope"></i><span>Input Surat</span></a></li> --}}
 
-                  <li class="iq-menu-title"><i class="ri-separator"></i><span>Pengaturan Data Pribadi</span></li>
+               <li class="iq-menu-title"><i class="ri-separator"></i><span>Pengaturan</span></li>
 
-                  <li>
+               <li>
 
-                     <a href="#user-info" class="iq-waves-effect collapsed" data-toggle="collapse"
-                        aria-expanded="false"><i class="las la-user-tie"></i><span>User</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                     <ul id="user-info" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li><a href="{{url('/Profil_saya')}}">profil saya</a></li>
-                        <li><a href="{{url('/Edit_profil')}}">Edit Profil</a></li>
-                     </ul>
-                  </li>
+                  <a href="#user-info" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                        class="las la-user-circle"></i><span>User</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="user-info" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                     <li><a href="{{url('/Profil_saya')}}"><i class="las la-user-shield"></i> Profil user</a></li>
+                     <li><a href="{{url('/Edit_profil')}}"><i class="las la-user-edit"></i> Edit Profil</a></li>
+                     <li><a href="{{url('statususer')}}"><i class="las la-user-lock"></i> Status User </a></li>
+                  </ul>
+               </li>
+
+               <li>
+
+                  <a href="#user-cog" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
+                        class="las la-cog"></i><span>Configure</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="user-cog" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                     {{-- <li><a href="{{url('unitbagian')}}"><i class="las la-users-cog"></i> Unit Bagian</a>
+               </li>
+               <li><a href="{{url('jabatan')}}"><i class="las la-users-cog"></i> Jabatan</a></li>
+               <li><a href="{{url('unitbagianxjabatan')}}"><i class="las la-users-cog"></i> Unit Bagian x Jabatan </a>
+               </li> --}}
+               <li><a href="{{url('satuankerja')}}"><i class="las la-users-cog"></i> Satuan Kerja </a></li>
+                <li><a href="{{url('namapelaksana')}}"><i class="las la-id-card-alt"></i> Nama Pelaksana </a></li>
+               <li><a href="{{url('tahunanggaran')}}"><i class="las la-calendar-minus"></i> Tahun Anggaran </a></li>
+
+               </ul>
+               </li>
+
+               <li class="iq-menu-title"><i class="ri-separator"></i><span>Soon</span></li>
+
+               <li><a href="{{url('nominatif')}}" class="iq-waves-effect"><i class="las la-percentage"></i><span>Nominatif</span></a></li>
 
                </ul>
                </li>
@@ -161,7 +287,7 @@
                      <div class="line-menu half end"></div>
                   </div>
                </div>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav ml-auto navbar-list">
                      <li class="nav-item">
                         <a class="search-toggle iq-waves-effect" href="#"><i class="ri-search-line"></i></a>
@@ -307,11 +433,18 @@
                      <li class="nav-item iq-full-screen"><a href="#" class="iq-waves-effect" id="btnFullscreen"><i
                               class="ri-fullscreen-line"></i></a></li>
                   </ul>
-               </div>
+               </div> --}}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav ml-auto navbar-list">
+                   <li class="nav-item">
+                        <a> {{Auth::user()->name}} as {{Auth::user()->jabatanlengkap}} | tahun anggaran {{Session::get('tahunanggaran')}} </a>
+                        <form action="#" class="search-box">
+                           <input type="text" class="text search-input" placeholder="Type here to search..." />
+                        </form>
+                     </li>
 
-               <ul class="navbar-list">
 
-                  <li>
+                  <li >
                      <a href="#" class="search-toggle iq-waves-effect text-white"><img class="image rounded-circle"
                            alt="profile_image" src="{{asset('/storage/images/'.Auth::user()->image)}}"
                            class="img-fluid rounded" alt="Sign out"></a>
@@ -373,8 +506,9 @@
                   @endguest
 
                   </li>
-               </ul>
 
+               </ul>
+            </div>
             </nav>
          </div>
       </div>
@@ -456,35 +590,28 @@
       window.livewire.on('studentUpdated', () => {
          $('#updateStudentsModal').modal('hide')
       });
-   window.livewire.on('studentUpdated_referensiuraiankegiatan', () => {
+      window.livewire.on('studentUpdated_referensiuraiankegiatan', () => {
          $('#updateStudentsModal_referensiuraiankegiatan').modal('hide')
       });
-
-
       window.livewire.on('fileUploaded', () => {
          $('#form-upload')[0].reset();
       });
       window.livewire.on('ImagesUploaded', () => {
          $('#upload-images')[0].reset();
       });
-
-       window.livewire.on('studentAdded_ReferensiUraianKegiatan', () => {
+      window.livewire.on('studentAdded_ReferensiUraianKegiatan', () => {
          $('#addStudentsModal_ReferensiUraianKegiatan').modal('hide')
          $('body').removeClass('modal-open');
          $('.modal-backdrop').remove();
          $('#upload-images')[0].reset();
       });
-
-        window.livewire.on('studentAdded_RealisasiRKKL', () => {
+      window.livewire.on('studentAdded_RealisasiRKKL', () => {
          $('#addStudentsModal_RealisasiRKKL').modal('hide')
          $('body').removeClass('modal-open');
          $('.modal-backdrop').remove();
          $('#upload-images')[0].reset();
       });
    </script>
-
-
-
 
 </body>
 

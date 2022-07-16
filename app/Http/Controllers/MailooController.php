@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Ref_Confirmjabatan;
 use Illuminate\Http\Request;
 use App\Models\Ref_jabatan;
+use App\Models\Ref_unitbagian;
 use App\Models\User;
 use App\Models\Ref_unitbagian_4_surat_masuk;
 use App\Models\Ref_unitbagian_4_surat_masuk as ModelsRef_unitbagian_4_surat_masuk;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeCoverage\Report\Xml\Unit;
 
 class MailooController extends Controller
 {
+
+
     //
     // public function Referensi(Request $request)
 
@@ -59,8 +63,13 @@ class MailooController extends Controller
 
     public function Edit_profil()
     {
+
+        $unitbagian = Ref_unitbagian::select('id', 'name')
+            ->where('id', Auth::user()->unit_kerja)
+            ->get();
+
         return
-            view('edit_profil');
+            view('edit_profil', compact('unitbagian'));
     }
 
     public function Profil_saya()

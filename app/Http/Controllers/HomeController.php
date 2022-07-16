@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('livewire.home');
+        return view('homes');
     }
 
     public function Upload(Request $request)
