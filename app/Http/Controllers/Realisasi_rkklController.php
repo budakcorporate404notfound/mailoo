@@ -231,14 +231,30 @@ class Realisasi_rkklController extends Controller
         // $save->name = $name;
         // $save->path = $path;
 
-        if (empty($request->nip) || empty($request->golongan)) {
+
+
+        if ((empty($request->nip) || empty($request->golongan)) && empty($request->eselon)) {
             DB::table('t_realisasi_tempatpelaksanaan')->insert([
                 't_realisasi_rkkl_id' => $request->product_id,
                 'nama_pelaksana' => $request->nama_pelaksana,
                 'nip' => '-',
                 'golongan' => '-',
-                'eselon' => $request->eselon,
+                'eselon' => '-',
                 'jabatan' => $request->jabatan,
+                'tempat_pelaksana' => $request->tempat_pelaksana,
+                'user_penginput_data' => Auth::user()->id,
+                'tahun_anggaran' => Session::get('tahunanggaran')
+
+
+            ]);
+        } elseif ((!empty($request->nip) || !empty($request->golongan)) && is_null($request->eselon)) {
+            DB::table('t_realisasi_tempatpelaksanaan')->insert([
+                't_realisasi_rkkl_id' => $request->product_id,
+                'nama_pelaksana' => $request->nama_pelaksana,
+                'nip' => $request->nip,
+                'golongan' => $request->golongan,
+                'jabatan' => $request->jabatan,
+                'eselon' => '-',
                 'tempat_pelaksana' => $request->tempat_pelaksana,
                 'user_penginput_data' => Auth::user()->id,
                 'tahun_anggaran' => Session::get('tahunanggaran')

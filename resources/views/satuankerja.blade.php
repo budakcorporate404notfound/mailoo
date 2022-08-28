@@ -137,6 +137,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>kode wilayah</th>
+                                <th>nama wilayah</th>
                                 <th>Satuan Kerja</th>
                                 <th>locked</th>
                                 <th width="280px">Action</th>
@@ -148,6 +150,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -204,6 +208,35 @@
 
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="kode_wilayah">kode wilayah <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <br>
+                                <select id="kode_wilayah" name="kode_wilayah">
+                                    <option value=""> pilih kode wilayah ...</option>
+                                    @foreach($autofills as $autofill)
+                                    <option value="{{ $autofill->kode_wilayah}}">
+                                        {{$autofill->kode_wilayah}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                                <div class="col">
+                                <label for="nama_wilayah">nama wilayah</label>
+                                <input type="text" id="nama_wilayah" name="nama_wilayah" placeholder="nama wilayah ..." class="form-control" readonly autocomplete="on">
+                                @error('nama_wilayah')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+
+
+                        </div>
+
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save
@@ -366,6 +399,34 @@
 
 </body>
 
+<script>
+    $(document).ready(function() {
+        // Initialize select2
+        $("#kode_wilayah").select2();
+    });
+</script>
+
+
+  <script>
+    $('#kode_wilayah').change(function(){
+    var id = $(this).val();
+    var url = '{{ route("getDetailAutofillSatuankerjas", ":id") }}';
+    url = url.replace(':id', id);
+
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        success: function(response){
+            if(response != null){
+                $('#nama_wilayah').val(response.nama_wilayah);
+
+            }
+        }
+    });
+});
+</script>
+
 <script type="text/javascript">
     $('.livesearch').select2({
         placeholder: 'Pilih nama pembuat laporan ...',
@@ -459,6 +520,14 @@
                     searchable: false
                 },
                 {
+                    data: 'kode_wilayah',
+                    name: 'ref_satuankerja.kode_wilayah'
+                },
+                {
+                    data: 'nama_wilayah',
+                    name: 'ref_satuankerja.nama_wilayah'
+                },
+                {
                     data: 'nama_satuankerja',
                     name: 'ref_satuankerja.nama_satuankerja'
                 },
@@ -517,6 +586,8 @@
                 // $('#id_unitbagian').val(data.id_unitbagian);
                 // $('#urutan').val(data.urutan);
                 $('#nama_satuankerja').val(data.nama_satuankerja);
+                $('#kode_wilayah').val(data.kode_wilayah);
+                $('#nama_wilayah').val(data.nama_wilayah);
                 $('#locked').val(data.locked);
             })
         });
@@ -565,7 +636,9 @@
                 // The key name on the left side is the name attribute
                 // of an input field. Validation rules are defined
                 // on the right side
-                nama_satuankerja: "required"
+                nama_satuankerja: "required",
+                nama_wilayah: "required",
+                kode_wilayah: "required"
             },
         });
         $('#saveBtn').click(function(e) {

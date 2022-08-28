@@ -299,7 +299,6 @@ class InputSuratMasuk extends Component
         //     echo "kasub";
         // }
 
-
         $data = T_realisasi_tempatpelaksanaan::select(
             't_realisasi_rkkl.nomor_surat_tugas',
             't_realisasi_tempatpelaksanaan.nama_pelaksana',
@@ -310,16 +309,24 @@ class InputSuratMasuk extends Component
             't_realisasi_tempatpelaksanaan.tempat_pelaksana',
             't_realisasi_tempatpelaksanaan.user_penginput_data',
             't_realisasi_tempatpelaksanaan.tahun_anggaran',
-            'ref_satuankerja.nominatif_penginapan->II as test',
             't_realisasi_tempatpelaksanaan.created_at',
-            't_realisasi_tempatpelaksanaan.updated_at'
-
+            't_realisasi_tempatpelaksanaan.updated_at',
+            DB::raw('(CASE
+            WHEN t_realisasi_tempatpelaksanaan.eselon = "I" THEN  json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`,"$.I"))
+            WHEN t_realisasi_tempatpelaksanaan.eselon = "II" THEN json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`, "$.II"))
+            WHEN t_realisasi_tempatpelaksanaan.eselon = "III" THEN json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`, "$.III"))
+            ELSE json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`, "$.IV"))
+            END) AS active_lable')
         )
             ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
             ->join('ref_satuankerja', 't_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'ref_satuankerja.nama_satuankerja')
             ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
-            ->where('t_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'pta bandung')
-            ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'))
+            ->where('t_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'pengadilan tinggi agama bandung')
+            ->where(
+                't_realisasi_tempatpelaksanaan.tahun_anggaran',
+                '=',
+                Session::get('tahunanggaran')
+            )
             ->get();
 
         foreach ($data as $x) {
@@ -344,8 +351,10 @@ class InputSuratMasuk extends Component
             echo $x->user_penginput_data;
             echo "\t";
             echo $x->tahun_anggaran;
-            echo "<br>";
+            echo "\t";
             echo $x->test;
+            echo "\t";
+            echo $x->active_lable;
             echo "<br>";
         }
     }

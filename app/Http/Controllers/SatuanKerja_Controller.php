@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ref_kodewilayah;
 use App\Models\Ref_Menimbang;
 use App\Models\Ref_satuankerja;
 use App\Models\Ref_unitbagian;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+
 use DataTables;
 
 class SatuanKerja_Controller extends Controller
@@ -22,9 +24,15 @@ class SatuanKerja_Controller extends Controller
      */
     public function index(Request $request)
     {
+
+        $autofills = Ref_kodewilayah::all();
+
+
         if ($request->ajax()) {
             $data = Ref_satuankerja::select(
                 'ref_satuankerja.id',
+                'ref_satuankerja.kode_wilayah',
+                'ref_satuankerja.nama_wilayah',
                 'ref_satuankerja.nama_satuankerja',
                 'ref_satuankerja.locked'
             );
@@ -54,7 +62,7 @@ class SatuanKerja_Controller extends Controller
                 ->make(true);
         }
 
-        return view('satuankerja');
+        return view('satuankerja', compact('autofills'));
     }
 
     /**
@@ -71,6 +79,8 @@ class SatuanKerja_Controller extends Controller
             ['id' => $request->product_id],
             [
                 'nama_satuankerja' => $request->nama_satuankerja,
+                'nama_wilayah' => $request->nama_wilayah,
+                'kode_wilayah' => $request->kode_wilayah,
                 'locked' => $request->locked
 
             ]
@@ -101,5 +111,11 @@ class SatuanKerja_Controller extends Controller
         Ref_satuankerja::find($id)->delete();
 
         return response()->json(['success' => 'success']);
+    }
+
+    public function getDetailAutofillSatuankerjas($id = 0)
+    {
+        $data = Ref_satuankerja::where('kode_wilayah', $id)->first();
+        return response()->json($data);
     }
 }

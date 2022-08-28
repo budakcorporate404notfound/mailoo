@@ -187,6 +187,7 @@ Route::group(
     ['middleware' => ['roleadmin']],
     function () {
         Route::resource('satuankerja', SatuanKerja_Controller::class);
+        Route::get('get/detail_satuankerjas/{id}', [App\Http\Controllers\SatuanKerja_Controller::class, 'getDetailAutofillSatuankerjas'])->name('getDetailAutofillSatuankerjas');
         Route::resource('tahunanggaran', TahunAnggaran_Controller::class);
         Route::resource('namapelaksana', NamaPelaksana_Controller::class);
     }
