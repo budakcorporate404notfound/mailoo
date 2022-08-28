@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Ref_satuankerja extends Model
+class Ref_kodewilayah extends Model
 {
     use HasFactory;
 
@@ -16,12 +16,10 @@ class Ref_satuankerja extends Model
      * @var string[]
      */
 
-    protected $table = "ref_satuankerja";
+    protected $table = "ref_kodewilayah";
     protected $fillable = [
         'id',
         'kode_wilayah',
-        'nama_wilayah',
-        'nama_satuankerja',
-        'locked'
+        'nama_wilayah'
     ];
 }

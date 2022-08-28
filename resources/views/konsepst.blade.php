@@ -397,7 +397,7 @@
                         <div class="form-row">
 
                             <div class="col">
-                              <div class="col">
+                            <div class="col">
                                 <label for="nama_pelaksana">nama <span
                                         style="color:red;font-weight:bold">*</span></label>
                                 <br>
@@ -413,7 +413,7 @@
                             </div>
                             <div class="col">
                                 <label for="tanggal_surat_tugas">nip</label>
-                                <input type="number" id="nip" name="nip" placeholder="nip ..." class="form-control" autocomplete="on">
+                                <input type="number" id="nip" name="nip" placeholder="nip ..." class="form-control" readonly autocomplete="on">
                                 @error('nip')
                                 <span class="text-danger"> {{$message}} </span>
                                 @enderror
@@ -424,7 +424,7 @@
 
                         <div class="form-row">
                             <div class="col">
-                                <label for="nomor_surat_tugas">golongan </label>
+                                <label for="nomor_surat_tugas">golongan </label></span>
                                 <input type="text" id="golongan" name="golongan" placeholder="golongan ..."
                                     class="form-control" readonly autocomplete="on">
                                 @error('golongan')
@@ -451,9 +451,9 @@
                                 </div> --}}
 
                         <div class="form-row">
-                              <div class="col">
-                                <label for="eselon">eselon <span style="color:red;font-weight:bold">*</span></label>
-                                <input type="text" id="eselon" name="eselon" required required=""
+                            <div class="col">
+                                <label for="eselon">eselon </label>
+                                <input type="text" id="eselon" name="eselon"
                                     placeholder="eselon ..." readonly class="form-control" autocomplete="on">
                                 @error('eselon')
                                 <span class="text-danger"> {{$message}} </span>
@@ -726,8 +726,6 @@
 </body>
 
   <script>
-
-
     $('#nama_pelaksana').change(function(){
     var id = $(this).val();
     var url = '{{ route("getDetailAutofills", ":id") }}';

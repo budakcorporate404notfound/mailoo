@@ -237,6 +237,7 @@ class KonsepST_Controller extends Controller
             't_realisasi_rkkl.id',
             't_realisasi_rkkl.ref_unitbagian_id',
             't_realisasi_rkkl.tanggal_surat_tugas',
+            (DB::raw('SUBSTRING(t_realisasi_rkkl.tanggal_surat_tugas, 6, 2) as hanya_bulan')),
             't_realisasi_rkkl.tanggal_pelaksana_dari',
             't_realisasi_rkkl.tanggal_pelaksana_sampai',
             't_realisasi_rkkl.user_penginput_data',
@@ -246,13 +247,57 @@ class KonsepST_Controller extends Controller
             ->get();
 
         $tanggal = $tanggal_stx[0]->tanggal_surat_tugas;
+        $hanya_bulan = $tanggal_stx[0]->hanya_bulan;
+
+
+        switch ($hanya_bulan) {
+            case '01':
+                $only_bulan = '1';
+                break;
+            case '02':
+                $only_bulan = '2';
+                break;
+            case '03':
+                $only_bulan = '3';
+                break;
+            case '04':
+                $only_bulan = '4';
+                break;
+            case '05':
+                $only_bulan = '5';
+                break;
+            case '06':
+                $only_bulan = '6';
+                break;
+            case '07':
+                $only_bulan = '7';
+                break;
+            case '08':
+                $only_bulan = '8';
+                break;
+            case '09':
+                $only_bulan = '9';
+                break;
+            case '10':
+                $only_bulan = '10';
+                break;
+            case '11':
+                $only_bulan = '11';
+                break;
+            case '12':
+                $only_bulan = '12';
+                break;
+            default:
+                $only_bulan = '00';
+                break;
+        }
         $tanggal_pelaksanaan = $tanggal_stx[0]->tanggal_pelaksana_dari;
         $tanggal_sampai = $tanggal_stx[0]->tanggal_pelaksana_sampai;
         $years = Carbon::now()->format('Y');
         $months = Carbon::now()->format('m');
 
 
-        $tanggalparse = Carbon::parse($tanggal)->isoFormat('D MMMM Y');
+        $tanggalparse = Carbon::parse($tanggal)->isoFormat(' MMMM Y');
         $tanggalparse_pelaksanaan = Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y');
         $tanggalparse_sampai = Carbon::parse($tanggal_sampai)->isoFormat('D MMMM Y');
 
@@ -269,8 +314,67 @@ class KonsepST_Controller extends Controller
             ->where('locked', '=', '1')
             ->get();
 
+        $jumlahrow = T_realisasi_tempatpelaksanaan::where('t_realisasi_rkkl_id', $request->product_id)->count();
+
         $datax = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax2 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax3 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax4 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax5 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax6 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax7 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax8 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+
         $tempat_pelx = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx2 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx3 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx4 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx5 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx6 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx7 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx8 = T_realisasi_tempatpelaksanaan::select(
             'tempat_pelaksana'
         )
             ->where('t_realisasi_rkkl_id', '=', $request->product_id)
@@ -284,7 +388,94 @@ class KonsepST_Controller extends Controller
             ->distinct('tempat_pelaksana')
             ->count('tempat_pelaksana');
 
-        $pdf = PDF::loadView('stpdf', compact('datax', 'years', 'months', 'menimbangx', 'dasarx', 'untukx', 'tempat_pelx', 'count_tempat_pelx', 'kodemakx', 'tanggalparse', 'tertandax', 'tanggalparse_pelaksanaan', 'tanggalparse_sampai'));
+        $count_tempat_pelx2 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx3 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx4 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx5 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx6 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx7 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx8 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $pdf = PDF::loadView('stpdf', compact(
+            'datax',
+            'datax2',
+            'datax3',
+            'datax4',
+            'datax5',
+            'datax6',
+            'datax7',
+            'datax8',
+            'tempat_pelx',
+            'tempat_pelx2',
+            'tempat_pelx3',
+            'tempat_pelx4',
+            'tempat_pelx5',
+            'tempat_pelx6',
+            'tempat_pelx7',
+            'tempat_pelx8',
+            'count_tempat_pelx',
+            'count_tempat_pelx2',
+            'count_tempat_pelx3',
+            'count_tempat_pelx4',
+            'count_tempat_pelx5',
+            'count_tempat_pelx6',
+            'count_tempat_pelx7',
+            'count_tempat_pelx8',
+            'tanggalparse',
+            'tanggalparse_pelaksanaan',
+            'tanggalparse_sampai',
+            'menimbangx',
+            'dasarx',
+            'untukx',
+            'years',
+            'months',
+            'only_bulan',
+            'kodemakx',
+            'tertandax',
+            'jumlahrow'
+        ));
+
         // $pdf->setPaper('A3');
 
         return $pdf->download('sketsa_surattugas.pdf');
@@ -367,6 +558,7 @@ class KonsepST_Controller extends Controller
             't_realisasi_rkkl.id',
             't_realisasi_rkkl.ref_unitbagian_id',
             't_realisasi_rkkl.tanggal_surat_tugas',
+            (DB::raw('SUBSTRING(t_realisasi_rkkl.tanggal_surat_tugas, 6, 2) as hanya_bulan')),
             't_realisasi_rkkl.tanggal_pelaksana_dari',
             't_realisasi_rkkl.tanggal_pelaksana_sampai',
             't_realisasi_rkkl.user_penginput_data',
@@ -376,12 +568,56 @@ class KonsepST_Controller extends Controller
             ->get();
 
         $tanggal = $tanggal_stx[0]->tanggal_surat_tugas;
+
+        $hanya_bulan = $tanggal_stx[0]->hanya_bulan;
+        switch ($hanya_bulan) {
+            case '01':
+                $only_bulan = '1';
+                break;
+            case '02':
+                $only_bulan = '2';
+                break;
+            case '03':
+                $only_bulan = '3';
+                break;
+            case '04':
+                $only_bulan = '4';
+                break;
+            case '05':
+                $only_bulan = '5';
+                break;
+            case '06':
+                $only_bulan = '6';
+                break;
+            case '07':
+                $only_bulan = '7';
+                break;
+            case '08':
+                $only_bulan = '8';
+                break;
+            case '09':
+                $only_bulan = '9';
+                break;
+            case '10':
+                $only_bulan = '10';
+                break;
+            case '11':
+                $only_bulan = '11';
+                break;
+            case '12':
+                $only_bulan = '12';
+                break;
+            default:
+                $only_bulan = '00';
+                break;
+        }
+
         $tanggal_pelaksanaan = $tanggal_stx[0]->tanggal_pelaksana_dari;
         $tanggal_sampai = $tanggal_stx[0]->tanggal_pelaksana_sampai;
         $years = Carbon::now()->format('Y');
         $months = Carbon::now()->format('m');
 
-        $tanggalparse = Carbon::parse($tanggal)->isoFormat('D MMMM Y');
+        $tanggalparse = Carbon::parse($tanggal)->isoFormat(' MMMM Y');
         $tanggalparse_pelaksanaan = Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y');
         $tanggalparse_sampai = Carbon::parse($tanggal_sampai)->isoFormat('D MMMM Y');
 
@@ -397,8 +633,75 @@ class KonsepST_Controller extends Controller
             ->where('locked', '=', '1')
             ->get();
 
-        $datax = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $jumlahrow = T_realisasi_tempatpelaksanaan::where('t_realisasi_rkkl_id', $request->product_id)->count();
+
+        $datax = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where(
+            'id',
+            '=',
+            $request->product_id
+        )->get();
+        $datax2 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax3 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax4 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax5 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where(
+            'id',
+            '=',
+            $request->product_id
+        )->get();
+        $datax6 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax7 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+        $datax8 = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans')->where('id', '=', $request->product_id)->get();
+
         $tempat_pelx = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx2 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx3 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx4 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx5 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx6 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx7 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct()
+            ->get();
+
+        $tempat_pelx8 = T_realisasi_tempatpelaksanaan::select(
             'tempat_pelaksana'
         )
             ->where('t_realisasi_rkkl_id', '=', $request->product_id)
@@ -412,7 +715,93 @@ class KonsepST_Controller extends Controller
             ->distinct('tempat_pelaksana')
             ->count('tempat_pelaksana');
 
-        $pdf = PDF::loadView('stpdffix', compact('datax', 'years', 'months', 'menimbangx', 'dasarx', 'untukx', 'tempat_pelx', 'count_tempat_pelx', 'kodemakx', 'tanggalparse', 'tertandax', 'tanggalparse_pelaksanaan', 'tanggalparse_sampai'));
+        $count_tempat_pelx2 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx3 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx4 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx5 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx6 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx7 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $count_tempat_pelx8 = T_realisasi_tempatpelaksanaan::select(
+            'tempat_pelaksana'
+        )
+            ->where('t_realisasi_rkkl_id', '=', $request->product_id)
+            ->distinct('tempat_pelaksana')
+            ->count('tempat_pelaksana');
+
+        $pdf = PDF::loadView('stpdffix', compact(
+            'datax',
+            'datax2',
+            'datax3',
+            'datax4',
+            'datax5',
+            'datax6',
+            'datax7',
+            'datax8',
+            'tempat_pelx',
+            'tempat_pelx2',
+            'tempat_pelx3',
+            'tempat_pelx4',
+            'tempat_pelx5',
+            'tempat_pelx6',
+            'tempat_pelx7',
+            'tempat_pelx8',
+            'count_tempat_pelx',
+            'count_tempat_pelx2',
+            'count_tempat_pelx3',
+            'count_tempat_pelx4',
+            'count_tempat_pelx5',
+            'count_tempat_pelx6',
+            'count_tempat_pelx7',
+            'count_tempat_pelx8',
+            'tanggalparse',
+            'tanggalparse_pelaksanaan',
+            'tanggalparse_sampai',
+            'menimbangx',
+            'dasarx',
+            'untukx',
+            'years',
+            'months',
+            'only_bulan',
+            'kodemakx',
+            'tertandax',
+            'jumlahrow'
+        ));
 
 
         return $pdf->download('surattugas.pdf');
@@ -539,6 +928,7 @@ class KonsepST_Controller extends Controller
                 'nama_pelaksana' => $request->nama_pelaksana,
                 'nip' => '-',
                 'golongan' => '-',
+                'eselon' => '-',
                 'jabatan' => $request->jabatan,
                 'tempat_pelaksana' => $request->tempat_pelaksana,
                 'user_penginput_data' => Auth::user()->id,
@@ -553,6 +943,7 @@ class KonsepST_Controller extends Controller
                 'nama_pelaksana' => $request->nama_pelaksana,
                 'nip' => $request->nip,
                 'golongan' => $request->golongan,
+                'eselon' => $request->eselon,
                 'jabatan' => $request->jabatan,
                 'tempat_pelaksana' => $request->tempat_pelaksana,
                 'user_penginput_data' => Auth::user()->id,
