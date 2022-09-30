@@ -71,6 +71,43 @@
     tfoot input {
         width: 100%;
     }
+
+
+    .bg-cream{
+    background-color: #FFCC8F;
+    }
+
+    .bg-softcream{
+    background-color: #FFE182;
+    }
+
+    .bg-softred{
+    background-color: #FFA282;
+    }
+
+    .bg-blue-soft{
+    background-color: #35F2EF;
+    }
+
+    .bg-green-soft{
+    background-color: #7BE897;
+    }
+
+    .bg-purple-soft{
+    background-color: #DB9FD5;
+    }
+
+    .bg-grey-soft{
+    background-color: #ABADB0;
+    }
+
+    .bg-pink-soft{
+    background-color: #FF798A;
+    }
+
+    .bg-yellow-soft{
+    background-color: #FFFA55;
+    }
 </style>
 
 <body>
@@ -136,13 +173,31 @@
                     <table id="datatable" class="table table-striped table-bordered data-table">
                         <thead>
                             <tr>
+                                <th colspan="4"  style="text-align: center">data satuan kerja</th>
+                                <th colspan="3"  style="text-align: center">sbu uangharian </th>
+                                <th colspan="2"  style="text-align: center">sbu penginapan </th>
+                                <th colspan="2"  style="text-align: center">sbu taksi</th>
+                                <th colspan="2"  style="text-align: center">sbu pesawat</th>
+                                <th>locked</th>
+                                <th width="280px">Action</th>
+                            </tr>
+
+                            <tr>
                                 <th>No</th>
                                 <th>kode wilayah</th>
                                 <th>nama wilayah</th>
                                 <th>Satuan Kerja</th>
+                                <th>luarkota</th>
+                                <th>dalamkota</th>
+                                <th>diklat</th>
+                                <th style="text-align: center">eselon</th>
+                                <th style="text-align: center">golongan</th>
+                                <th>asal</th>
+                                <th>tujuan</th>
+                                <th>bisnis</th>
+                                <th>ekonomi</th>
                                 <th>locked</th>
                                 <th width="280px">Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -150,6 +205,15 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -223,7 +287,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                                 <div class="col">
                                 <label for="nama_wilayah">nama wilayah</label>
                                 <input type="text" id="nama_wilayah" name="nama_wilayah" placeholder="nama wilayah ..." class="form-control" readonly autocomplete="on">
@@ -232,9 +295,106 @@
                                 @enderror
                                 <br>
                             </div>
+                        </div>
 
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_uangharian_luarkota">sbu uang harian luar kota</label>
+                                <input type="text" id="sbu_uangharian_luarkota" name="sbu_uangharian_luarkota"
+                                    placeholder="sbu uang harian luar kota ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_uangharian_luarkota')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
 
+                            <div class="col">
+                                <label for="sbu_uangharian_dalamkota">sbu uang harian dalam kota</label>
+                                <input type="text" id="sbu_uangharian_dalamkota" name="sbu_uangharian_dalamkota"
+                                    placeholder="sbu uang harian dalam kota ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_uangharian_dalamkota')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
 
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_uangharian_diklat">sbu uang harian diklat</label>
+                                <input type="text" id="sbu_uangharian_diklat" name="sbu_uangharian_diklat"
+                                    placeholder="sbu uang harian diklat ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_uangharian_diklat')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <label for="sbu_penginapan_eselon">sbu penginapan eselon</label>
+                                <input type="text" id="sbu_penginapan_eselon" name="sbu_penginapan_eselon"
+                                    placeholder="sbu penginapan eselon ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_penginapan_eselon')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_penginapan_golongan">sbu penginapan golongan</label>
+                                <input type="text" id="sbu_penginapan_golongan" name="sbu_penginapan_golongan"
+                                    placeholder="sbu penginapan golongan ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_penginapan_golongan')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <label for="sbu_taksi_tempat_asal">sbu taksi tempat asal</label>
+                                <input type="text" id="sbu_taksi_tempat_asal" name="sbu_taksi_tempat_asal"
+                                    placeholder="sbu taksi tempat asal ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_taksi_tempat_asal')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_taksi_tempat_tujuan">sbu taksi tempat tujuan</label>
+                                <input type="text" id="sbu_taksi_tempat_tujuan" name="sbu_taksi_tempat_tujuan"
+                                    placeholder="sbu taksi tempat tujuan ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_taksi_tempat_tujuan')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <label for="sbu_pesawat_bisnis">sbu pesawat bisnis</label>
+                                <input type="text" id="sbu_pesawat_bisnis" name="sbu_pesawat_bisnis"
+                                    placeholder="sbu pesawat bisnis ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_pesawat_bisnis')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_pesawat_ekonomi">sbu pesawat ekonomi</label>
+                                <input type="text" id="sbu_pesawat_ekonomi" name="sbu_pesawat_ekonomi"
+                                    placeholder="sbu pesawat ekonomi ..." class="form-control" readonly autocomplete="on">
+                                @error('sbu_pesawat_ekonomi')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
                         </div>
 
 
@@ -410,7 +570,7 @@
   <script>
     $('#kode_wilayah').change(function(){
     var id = $(this).val();
-    var url = '{{ route("getDetailAutofillSatuankerjas", ":id") }}';
+    var url = '{{ route("getDetailAutofillKodeWilayahs", ":id") }}';
     url = url.replace(':id', id);
 
     $.ajax({
@@ -420,7 +580,15 @@
         success: function(response){
             if(response != null){
                 $('#nama_wilayah').val(response.nama_wilayah);
-
+                $('#sbu_uangharian_luarkota').val(response.sbu_uangharian_luarkota);
+                $('#sbu_uangharian_dalamkota').val(response.sbu_uangharian_dalamkota);
+                $('#sbu_uangharian_diklat').val(response.sbu_uangharian_diklat);
+                $('#sbu_penginapan_eselon').val(response.sbu_penginapan_eselon);
+                $('#sbu_penginapan_golongan').val(response.sbu_penginapan_golongan);
+                $('#sbu_taksi_tempat_asal').val(response.sbu_taksi_tempat_asal);
+                $('#sbu_taksi_tempat_tujuan').val(response.sbu_taksi_tempat_tujuan);
+                $('#sbu_pesawat_bisnis').val(response.sbu_pesawat_bisnis);
+                $('#sbu_pesawat_ekonomi').val(response.sbu_pesawat_ekonomi);
             }
         }
     });
@@ -506,7 +674,28 @@
         var table = $('.data-table').DataTable({
             dom: 'lBfrtip',
             buttons: [
-                'copy', 'excel', 'pdf', 'csv', 'print'
+                {
+                    extend:    'copyHtml5',
+                    text:      '<i class="fa fa-files-o"></i>',
+                    titleAttr: 'Copy'
+                },
+                {
+                    extend:    'excelHtml5',
+                    text:      '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend:    'csvHtml5',
+                    text:      '<i class="fa fa-file-text-o"></i>',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend:    'pdfHtml5',
+                    text:      '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF'
+                },
+
+
             ],
             autoWidth: true,
             processing: true,
@@ -517,19 +706,276 @@
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
                 },
                 {
                     data: 'kode_wilayah',
-                    name: 'ref_satuankerja.kode_wilayah'
+                    name: 'ref_satuankerja.kode_wilayah',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
                 },
                 {
                     data: 'nama_wilayah',
-                    name: 'ref_satuankerja.nama_wilayah'
+                    name: 'ref_satuankerja.nama_wilayah',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
                 },
                 {
                     data: 'nama_satuankerja',
-                    name: 'ref_satuankerja.nama_satuankerja'
+                    name: 'ref_satuankerja.nama_satuankerja',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_uangharian_luarkota',
+                    name: 'ref_satuankerja.sbu_uangharian_luarkota',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+
+                },
+                {
+                    data: 'sbu_uangharian_dalamkota',
+                    name: 'ref_satuankerja.sbu_uangharian_dalamkota',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_uangharian_diklat',
+                    name: 'ref_satuankerja.sbu_uangharian_diklat',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_penginapan_eselon',
+                    name: 'ref_satuankerja.sbu_penginapan_eselon',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_penginapan_golongan',
+                    name: 'ref_satuankerja.sbu_penginapan_golongan',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_taksi_tempat_asal',
+                    name: 'ref_satuankerja.sbu_taksi_tempat_asal',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_taksi_tempat_tujuan',
+                    name: 'ref_satuankerja.sbu_taksi_tempat_tujuan',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_pesawat_bisnis',
+                    name: 'ref_satuankerja.sbu_pesawat_bisnis',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
+                },
+                {
+                    data: 'sbu_pesawat_ekonomi',
+                    name: 'ref_satuankerja.sbu_pesawat_ekonomi',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
+                    }
                 },
                 {
                     data: 'locked',
@@ -588,6 +1034,15 @@
                 $('#nama_satuankerja').val(data.nama_satuankerja);
                 $('#kode_wilayah').val(data.kode_wilayah);
                 $('#nama_wilayah').val(data.nama_wilayah);
+                $('#sbu_uangharian_luarkota').val(data.sbu_uangharian_luarkota);
+                $('#sbu_uangharian_dalamkota').val(data.sbu_uangharian_dalamkota);
+                $('#sbu_uangharian_diklat').val(data.sbu_uangharian_diklat);
+                $('#sbu_penginapan_eselon').val(data.sbu_penginapan_eselon);
+                $('#sbu_penginapan_golongan').val(data.sbu_penginapan_golongan);
+                $('#sbu_taksi_tempat_asal').val(data.sbu_taksi_tempat_asal);
+                $('#sbu_taksi_tempat_tujuan').val(data.sbu_taksi_tempat_tujuan);
+                $('#sbu_pesawat_bisnis').val(data.sbu_pesawat_bisnis);
+                $('#sbu_pesawat_ekonomi').val(data.sbu_pesawat_ekonomi);
                 $('#locked').val(data.locked);
             })
         });
@@ -638,7 +1093,16 @@
                 // on the right side
                 nama_satuankerja: "required",
                 nama_wilayah: "required",
-                kode_wilayah: "required"
+                kode_wilayah: "required",
+                sbu_uangharian_luarkota: "required",
+                sbu_uangharian_dalamkota: "required",
+                sbu_uangharian_diklat: "required",
+                sbu_penginapan_eselon: "required",
+                sbu_penginapan_golongan: "required",
+                sbu_taksi_tempat_asal: "required",
+                sbu_taksi_tempat_tujuan: "required",
+                 sbu_pesawat_bisnis: "required",
+                sbu_pesawat_ekonomi: "required"
             },
         });
         $('#saveBtn').click(function(e) {

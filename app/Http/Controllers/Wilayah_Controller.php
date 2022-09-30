@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 
 use DataTables;
 
-class SatuanKerja_Controller extends Controller
+class Wilayah_Controller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,21 +29,21 @@ class SatuanKerja_Controller extends Controller
 
 
         if ($request->ajax()) {
-            $data = Ref_satuankerja::select(
-                'ref_satuankerja.id',
-                'ref_satuankerja.kode_wilayah',
-                'ref_satuankerja.nama_wilayah',
-                'ref_satuankerja.nama_satuankerja',
-                'ref_satuankerja.sbu_uangharian_luarkota',
-                'ref_satuankerja.sbu_uangharian_dalamkota',
-                'ref_satuankerja.sbu_uangharian_diklat',
-                'ref_satuankerja.sbu_penginapan_eselon',
-                'ref_satuankerja.sbu_penginapan_golongan',
-                'ref_satuankerja.sbu_taksi_tempat_asal',
-                'ref_satuankerja.sbu_taksi_tempat_tujuan',
-                'ref_satuankerja.sbu_pesawat_bisnis',
-                'ref_satuankerja.sbu_pesawat_ekonomi',
-                'ref_satuankerja.locked'
+            $data = Ref_kodewilayah::select(
+                'ref_kodewilayah.id',
+                'ref_kodewilayah.kode_wilayah',
+                'ref_kodewilayah.nama_wilayah',
+                // 'ref_satuankerja.nama_satuankerja',
+                'ref_kodewilayah.sbu_uangharian_luarkota',
+                'ref_kodewilayah.sbu_uangharian_dalamkota',
+                'ref_kodewilayah.sbu_uangharian_diklat',
+                'ref_kodewilayah.sbu_penginapan_eselon',
+                'ref_kodewilayah.sbu_penginapan_golongan',
+                'ref_kodewilayah.sbu_taksi_tempat_asal',
+                'ref_kodewilayah.sbu_taksi_tempat_tujuan',
+                'ref_kodewilayah.sbu_pesawat_bisnis',
+                'ref_kodewilayah.sbu_pesawat_ekonomi',
+                // 'ref_kodewilayah.locked'
             );
 
             return Datatables::eloquent($data)
@@ -71,7 +71,7 @@ class SatuanKerja_Controller extends Controller
                 ->make(true);
         }
 
-        return view('satuankerja', compact('autofills'));
+        return view('wilayah', compact('autofills'));
     }
 
     /**
@@ -84,10 +84,10 @@ class SatuanKerja_Controller extends Controller
     {
 
 
-        Ref_satuankerja::updateOrCreate(
+        Ref_kodewilayah::updateOrCreate(
             ['id' => $request->product_id],
             [
-                'nama_satuankerja' => $request->nama_satuankerja,
+                // 'nama_satuankerja' => $request->nama_satuankerja,
                 'nama_wilayah' => $request->nama_wilayah,
                 'kode_wilayah' => $request->kode_wilayah,
                 'sbu_uangharian_luarkota' => $request->sbu_uangharian_luarkota,
@@ -99,7 +99,7 @@ class SatuanKerja_Controller extends Controller
                 'sbu_taksi_tempat_tujuan' => $request->sbu_taksi_tempat_tujuan,
                 'sbu_pesawat_bisnis' => $request->sbu_pesawat_bisnis,
                 'sbu_pesawat_ekonomi' => $request->sbu_pesawat_ekonomi,
-                'locked' => $request->locked
+                // 'locked' => $request->locked
             ]
         );
 
@@ -113,7 +113,7 @@ class SatuanKerja_Controller extends Controller
      */
     public function edit($id)
     {
-        $product = Ref_satuankerja::find($id);
+        $product = Ref_kodewilayah::find($id);
         return response()->json($product);
     }
 
@@ -125,7 +125,7 @@ class SatuanKerja_Controller extends Controller
      */
     public function destroy($id)
     {
-        Ref_satuankerja::find($id)->delete();
+        Ref_kodewilayah::find($id)->delete();
 
         return response()->json(['success' => 'success']);
     }

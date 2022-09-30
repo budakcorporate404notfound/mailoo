@@ -34,6 +34,7 @@ use App\Http\Controllers\HomeController2;
 use App\Http\Controllers\Jabatan_Controller;
 use App\Http\Controllers\KodemakController;
 use App\Http\Controllers\MenimbangController;
+use App\Http\Controllers\Wilayah_Controller;
 use App\Http\Controllers\SatuanKerja_Controller;
 use App\Http\Controllers\TahunAnggaran_Controller;
 use App\Http\Controllers\TertandaController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\UnitBagianxJabatan_Controller;
 use App\Http\Controllers\UntukController;
 use App\Http\Controllers\Rincian_PembuatLaporanController;
 use App\Http\Middleware\UserActivity;
+use App\Http\Controllers\SPJ_Controller;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Dashboard3_Controller;
@@ -78,6 +80,12 @@ Route::post('realisasirkkl/storey', [App\Http\Controllers\Realisasi_rkklControll
 Route::post('realisasirkkl/storez', [App\Http\Controllers\Realisasi_rkklController::class, 'storez'])->name('realisasirkkl.storez');
 Route::post('realisasirkkl/storev', [App\Http\Controllers\Realisasi_rkklController::class, 'storev'])->name('realisasirkkl.storev');
 Route::resource('realisasirkkl', Realisasi_rkklController::class);
+
+Route::post('spj/storex', [App\Http\Controllers\SPJ_Controller::class, 'storex'])->name('spj.storex');
+Route::post('spj/storey', [App\Http\Controllers\SPJ_Controller::class, 'storey'])->name('spj.storey');
+Route::post('spj/storez', [App\Http\Controllers\SPJ_Controller::class, 'storez'])->name('spj.storez');
+Route::post('spj/storev', [App\Http\Controllers\SPJ_Controller::class, 'storev'])->name('spj.storev');
+Route::resource('spj', SPJ_Controller::class);
 
 Route::post('unggahlaporan/storex', [App\Http\Controllers\Unggah_LaporanController::class, 'storex'])->name('unggahlaporan.storex');
 Route::post('unggahlaporan/storey', [App\Http\Controllers\Unggah_LaporanController::class, 'storey'])->name('unggahlaporan.storey');
@@ -186,8 +194,9 @@ Route::group(
 Route::group(
     ['middleware' => ['roleadmin']],
     function () {
+        Route::resource('wilayah', Wilayah_Controller::class);
         Route::resource('satuankerja', SatuanKerja_Controller::class);
-        Route::get('get/detail_satuankerjas/{id}', [App\Http\Controllers\SatuanKerja_Controller::class, 'getDetailAutofillSatuankerjas'])->name('getDetailAutofillSatuankerjas');
+        Route::get('get/detail_kodewilayahs/{id}', [App\Http\Controllers\SatuanKerja_Controller::class, 'getDetailAutofillKodeWilayahs'])->name('getDetailAutofillKodeWilayahs');
         Route::resource('tahunanggaran', TahunAnggaran_Controller::class);
         Route::resource('namapelaksana', NamaPelaksana_Controller::class);
     }

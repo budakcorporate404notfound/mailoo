@@ -3,13 +3,13 @@
 @section('nama_menu')
 
 <h5 class="mb-0">
-    Nominatif
+    Wilayah
 </h5>
 
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Nominatif</li>
+        <li class="breadcrumb-item active" aria-current="page">Configure</li>
+        <li class="breadcrumb-item active" aria-current="page">Wilayah</li>
     </ul>
 </nav>
 @endsection
@@ -72,9 +72,6 @@
         width: 100%;
     }
 
-    .textaligncenter {
-        text-align: center;
-    }
 
     .bg-cream{
     background-color: #FFCC8F;
@@ -111,10 +108,6 @@
     .bg-yellow-soft{
     background-color: #FFFA55;
     }
-
-
-
-
 </style>
 
 <body>
@@ -152,74 +145,26 @@
         </div>
     </div>
 
-    <div class="modal fade" id="ModalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="text-align: justify">
-                    <i class="las la-check-circle" style="color: green"></i>
-                    <br> perubahan data rincian pelaksanaan berhasil dilakukan
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="ModalFailure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="text-align: justify">
-                    <i class="las la-skull-crossbones" style="color: red"></i>
-                    <br> gagal dilakukan penginputan atau perubahan data
-                    <br> pastikan data yang diinputkan sudah benar
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="ModalSuccessDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="text-align: justify">
-                    <i class="las la-check-circle" style="color: green"></i>
-                    <br> data berhasil dilakukan penghapusan dari rincian pelaksanaan
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="ModalFailureDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="text-align: justify">
-                    <i class="las la-skull-crossbones" style="color: red"></i>
-                    <br> gagal dilakukan dilakukan penghapusan
-                </div>
-
-            </div>
-        </div>
-    </div>
-
     <div class="col-sm-12">
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title">Nominatif berdasarkan (60/PMK.02/2021)</h4>
+                    <h4 class="card-title">Data Wilayah</h4>
 
                     <div id="response"></div>
 
                 </div>
 
-                {{-- <div>
+                @switch(Auth::user()->jabatan)
+                @case(5)
+                <div>
                     <br>
                     <a class="btn btn-primary rounded-pill mb-3" href="javascript:void(0)" id="createNewProduct"
-                        title="tambah referensi"> + </a>
-                </div> --}}
+                        title="tambah referensi menimbang"> + </a>
+                </div>
+                @break
+                @default
+                @endswitch
 
             </div>
             <div class="iq-card-body">
@@ -228,44 +173,31 @@
                     <table id="datatable" class="table table-striped table-bordered data-table">
                         <thead>
                             <tr>
-                                <th rowspan="2" style="vertical-align : middle">No</th>
-                                <th colspan="6" style="text-align: center">data surat tugas</th>
-                                <th colspan="5" style="text-align: center">data diri pelaksana</th>
-                                <th rowspan="2" style="vertical-align : middle">tempat pelaksana</th>
-                                <th colspan="3" style="text-align: center">sbu uang harian</th>
-                                <th colspan="2" style="text-align: center">sbu penginapan</th>
-                                <th colspan="2" style="text-align: center">sbu taksi</th>
-                                <th colspan="2" style="text-align: center">sbu pesawat</th>
-                                <th rowspan="2" style="vertical-align: middle">tahun berjalan</th>
-                                <th colspan="2" style="text-align: center">data</th>
-                                {{-- <th rowspan="2" style="vertical-align: middle; text-align: center">Action</th> --}}
-                                {{-- <th>created at</th>
-                                <th>updated at</th> --}}
+                                <th colspan="3"  style="text-align: center">data satuan kerja</th>
+                                <th colspan="3"  style="text-align: center">sbu uangharian </th>
+                                <th colspan="2"  style="text-align: center">sbu penginapan </th>
+                                <th colspan="2"  style="text-align: center">sbu taksi</th>
+                                <th colspan="2"  style="text-align: center">sbu pesawat</th>
+                                {{-- <th>locked</th> --}}
+                                <th rowspan="2" style="vertical-align : middle" width="280px">Action</th>
                             </tr>
+
                             <tr>
-                                <th>id realisasi rkkl</th>
-                                <th style="text-align: center">nomor surat tugas</th>
-                                <th>tanggal surat tugas</th>
-                                <th>pelaksanaan dari</th>
-                                <th>pelaksanaan sampai</th>
-                                <th>lama pelaksanaan</th>
-                                <th style="text-align: center">nama pelaksana</th>
-                                <th style="text-align: center">nip</th>
-                                <th style="text-align: center">golongan</th>
-                                <th style="text-align: center">eselon</th>
-                                <th style="text-align: center">jabatan</th>
-                                <th>luar kota</th>
-                                <th>dalam kota</th>
+                                <th>No</th>
+                                <th>kode wilayah</th>
+                                <th>nama wilayah</th>
+                                {{-- <th>Satuan Kerja</th> --}}
+                                <th>luarkota</th>
+                                <th>dalamkota</th>
                                 <th>diklat</th>
-                                <th>berdasarkan golongan</th>
-                                <th>berdasarkan eselon</th>
-                                <th>kota asal</th>
-                                <th>kota tujuan</th>
+                                <th style="text-align: center">eselon</th>
+                                <th style="text-align: center">golongan</th>
+                                <th>asal</th>
+                                <th>tujuan</th>
                                 <th>bisnis</th>
                                 <th>ekonomi</th>
-                                <th>created at</th>
-                                <th>updated at</th>
-
+                                {{-- <th>locked</th> --}}
+                                {{-- <th width="280px">Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -286,18 +218,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                {{-- <td></td> --}}
                             </tr>
 
                     </table>
@@ -315,96 +236,181 @@
                 <div class="modal-body">
                     <form id="productForm" name="productForm" class="form-horizontal">
                         <input type="hidden" name="product_id" id="product_id">
+                        {{-- <input type="text" name="id_unitbagian" id="id_unitbagian"> --}}
 
                         <div class="form-row">
-                            <div class="col">
-                                <label for="t_realisasi_rkkl_id"> id realisasi rkkl <span style="color:red">read
-                                        only</span></label>
-                                <input id="t_realisasi_rkkl_id" name="t_realisasi_rkkl_id" readonly required=""
-                                    placeholder="id realisasi rkkl ..." class="form-control" autocomplete="on">
-                                @error('t_realisasi_rkkl_id')
-                                <span class="text-danger"> {{$message}} </span>
-                                @enderror
-                            </div>
-                            <div class="col">
-                                <label for="nama_pelaksana">nama pelaksana <span
+                            {{-- <div class="col">
+                                <label for="nama_satuankerja">nama wilayah <span
                                         style="color:red;font-weight:bold">*</span></label>
-                                <input id="nama_pelaksana" name="nama_pelaksana" required=""
-                                    placeholder="nama pelaksana ..." class="form-control" autocomplete="on">
-                                @error('nama_pelaksana')
+                                <input id="nama_satuankerja" name="nama_satuankerja" required=""
+                                    placeholder="nama satuan Kerja ..." class="form-control">
+                                @error('nama_satuankerja')
                                 <span class="text-danger"> {{$message}} </span>
                                 @enderror
-                            </div>
+                            </div> --}}
 
+                            {{-- <div class="col">
+                                <div class="iq-card-body" id="locked">
+                                    <div
+                                        class="custom-control custom-radio custom-radio-color-checked custom-control-inline">
+                                        <input type="radio" id="customRadio-3" name="locked" value="0"
+                                            class="custom-control-input bg-danger">
+                                        <label class="custom-control-label" for="customRadio-3"><i
+                                                class="las la-lock"></i> text terkunci </label>
+                                    </div>
+
+                                    <div
+                                        class="custom-control custom-radio custom-radio-color-checked custom-control-inline">
+                                        <input type="radio" id="customRadio-6" name="locked" value="1"
+                                            class="custom-control-input bg-info">
+                                        <label class="custom-control-label" for="customRadio-6"><i
+                                                class="las la-lock-open"></i> text terbuka </label>
+                                    </div>
+                                </div>
+
+                            </div> --}}
                         </div>
-                        <br>
+
                         <div class="form-row">
-                            <div class="col">
-                                <label for="nip">nip</label>
-                                <input id="nip" name="nip" placeholder="nip ..." class="form-control" autocomplete="on">
-                                @error('nip')
-                                <span class="text-danger"> {{$message}} </span>
-                                @enderror
-                            </div>
-
-                            <div class="col">
-                                <label for="golongan">golongan</label>
-                                <input id="golongan" name="golongan" placeholder="golongan ..." class="form-control" autocomplete="on">
-                                @error('golongan')
-                                <span class="text-danger"> {{$message}} </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="form-row">
-                            <div class="col">
-                                <label for="jabatan">jabatan<span style="color:red;font-weight:bold">*</span></label>
-                                <input type="text" id="jabatan" name="jabatan" required="" placeholder="jabatan ..."
-                                    class="form-control" autocomplete="on">
-                                @error('jabatan')
-                                <span class="text-danger"> {{$message}} </span>
-                                @enderror
-                            </div>
-
-                                <div class="col">
-                                <label for="eselon">eselon</label>
-                                <input type="text" id="eselon" name="eselon" placeholder="eselon ..."
-                                    class="form-control" autocomplete="on">
-                                @error('eselon')
-                                <span class="text-danger"> {{$message}} </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                    <div class="form-row">
-                        <div class="col">
-                                <label for="tempat_pelaksana">tempat pelaksana <span
+                             <div class="col">
+                                <label for="kode_wilayah">kode wilayah <span
                                         style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="kode_wilayah" name="kode_wilayah" placeholder="kode wilayah ..." class="form-control" autocomplete="on">
+                                @error('kode_wilayah')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
                                 <br>
-                                <select id="tempat_pelaksana" name="tempat_pelaksana" required="">
-                                    <option value="">tempat pelaksana ...</option>
-                                    @foreach($tempats as $tempat)
-                                    <option value="{{ $tempat->nama_satuankerja}}">
-                                        {{$tempat->nama_satuankerja}}
-                                    </option>
-                                    @endforeach
-                                </select>
                             </div>
-                    </div>
+                                <div class="col">
+                                <label for="nama_wilayah">nama wilayah <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="nama_wilayah" name="nama_wilayah" placeholder="nama wilayah ..." class="form-control" autocomplete="on">
+                                @error('nama_wilayah')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
 
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_uangharian_luarkota">sbu uang harian luar kota  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_uangharian_luarkota" name="sbu_uangharian_luarkota"
+                                    placeholder="sbu uang harian luar kota ..." class="form-control" autocomplete="on">
+                                @error('sbu_uangharian_luarkota')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <label for="sbu_uangharian_dalamkota">sbu uang harian dalam kota  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_uangharian_dalamkota" name="sbu_uangharian_dalamkota"
+                                    placeholder="sbu uang harian dalam kota ..." class="form-control" autocomplete="on">
+                                @error('sbu_uangharian_dalamkota')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_uangharian_diklat">sbu uang harian diklat  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_uangharian_diklat" name="sbu_uangharian_diklat"
+                                    placeholder="sbu uang harian diklat ..." class="form-control" autocomplete="on">
+                                @error('sbu_uangharian_diklat')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <label for="sbu_penginapan_eselon">sbu penginapan eselon  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_penginapan_eselon" name="sbu_penginapan_eselon"
+                                    placeholder="sbu penginapan eselon ..." class="form-control" autocomplete="on">
+                                @error('sbu_penginapan_eselon')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_penginapan_golongan">sbu penginapan golongan  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_penginapan_golongan" name="sbu_penginapan_golongan"
+                                    placeholder="sbu penginapan golongan ..." class="form-control" autocomplete="on">
+                                @error('sbu_penginapan_golongan')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <label for="sbu_taksi_tempat_asal">sbu taksi tempat asal  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_taksi_tempat_asal" name="sbu_taksi_tempat_asal"
+                                    placeholder="sbu taksi tempat asal ..." class="form-control" autocomplete="on">
+                                @error('sbu_taksi_tempat_asal')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_taksi_tempat_tujuan">sbu taksi tempat tujuan  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_taksi_tempat_tujuan" name="sbu_taksi_tempat_tujuan"
+                                    placeholder="sbu taksi tempat tujuan ..." class="form-control" autocomplete="on">
+                                @error('sbu_taksi_tempat_tujuan')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <label for="sbu_pesawat_bisnis">sbu pesawat bisnis  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_pesawat_bisnis" name="sbu_pesawat_bisnis"
+                                    placeholder="sbu pesawat bisnis ..." class="form-control" autocomplete="on">
+                                @error('sbu_pesawat_bisnis')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="sbu_pesawat_ekonomi">sbu pesawat ekonomi  <span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <input type="text" id="sbu_pesawat_ekonomi" name="sbu_pesawat_ekonomi"
+                                    placeholder="sbu pesawat ekonomi ..." class="form-control" autocomplete="on">
+                                @error('sbu_pesawat_ekonomi')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                                <br>
+                            </div>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save
+                                changes</button>
+                        </div>
+
+                    </form>
                 </div>
-
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save
-                        changes</button>
-                </div>
-
-                </form>
             </div>
         </div>
-    </div>
     </div>
 
     <div class="modal fade" id="ajaxModelx" aria-hidden="true">
@@ -432,14 +438,15 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 control-label">nip</label>
                                     <div class="col-sm-12">
-                                        <input type="text" id="nip" name="nip" class="form-control">
+                                        <input type="text" id="nip" name="nip" required="" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-12 control-label">golongan</label>
                                     <div class="col-sm-12">
-                                        <input type="text" id="golongan" required="" class="form-control">
+                                        <input type="text" id="golongan" name="golongan" required=""
+                                            class="form-control">
                                     </div>
                                 </div>
 
@@ -450,13 +457,13 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="form-group">
+                                <div class="form-group">
                                     <label class="col-sm-12 control-label">tempat pelaksana</label>
                                     <div class="col-sm-12">
                                         <select class="livesearch form-control" style="width: 100%"
                                             name="tempat_pelaksana" id="livesearch"></select>
                                     </div>
-                                </div> --}}
+                                </div>
 
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-primary" id="saveBtnx" value="create">Save
@@ -556,11 +563,40 @@
 
 </body>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         // Initialize select2
-        $("#tempat_pelaksana").select2();
+        $("#kode_wilayah").select2();
     });
+</script> --}}
+
+
+  <script>
+    $('#kode_wilayah').change(function(){
+    var id = $(this).val();
+    var url = '{{ route("getDetailAutofillKodeWilayahs", ":id") }}';
+    url = url.replace(':id', id);
+
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        success: function(response){
+            if(response != null){
+                $('#nama_wilayah').val(response.nama_wilayah);
+                $('#sbu_uangharian_luarkota').val(response.sbu_uangharian_luarkota);
+                $('#sbu_uangharian_dalamkota').val(response.sbu_uangharian_dalamkota);
+                $('#sbu_uangharian_diklat').val(response.sbu_uangharian_diklat);
+                $('#sbu_penginapan_eselon').val(response.sbu_penginapan_eselon);
+                $('#sbu_penginapan_golongan').val(response.sbu_penginapan_golongan);
+                $('#sbu_taksi_tempat_asal').val(response.sbu_taksi_tempat_asal);
+                $('#sbu_taksi_tempat_tujuan').val(response.sbu_taksi_tempat_tujuan);
+                $('#sbu_pesawat_bisnis').val(response.sbu_pesawat_bisnis);
+                $('#sbu_pesawat_ekonomi').val(response.sbu_pesawat_ekonomi);
+            }
+        }
+    });
+});
 </script>
 
 <script type="text/javascript">
@@ -640,23 +676,41 @@
             }
         });
         var table = $('.data-table').DataTable({
-
             dom: 'lBfrtip',
             buttons: [
-                'copy', 'excel', 'pdf', 'csv', 'print'
-            ],
+                {
+                    extend:    'copyHtml5',
+                    text:      '<i class="fa fa-files-o"></i>',
+                    titleAttr: 'Copy'
+                },
+                {
+                    extend:    'excelHtml5',
+                    text:      '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend:    'csvHtml5',
+                    text:      '<i class="fa fa-file-text-o"></i>',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend:    'pdfHtml5',
+                    text:      '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF'
+                },
 
+
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
             // scrollX: true,
-            ajax: "{{ route('nominatif.index') }}",
+            ajax: "{{ route('wilayah.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
                     searchable: false,
-                    className: 'textaligncenter',
                     render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
@@ -675,9 +729,8 @@
                     }
                 },
                 {
-                    data: 't_realisasi_rkkl_id',
-                    name: 't_realisasi_rkkl_id',
-                    className: 'textaligncenter',
+                    data: 'kode_wilayah',
+                    name: 'ref_satuankerja.kode_wilayah',
                     searchable: true,
                     render: function(data, type, row) {
                         console.log('content of data is :' + data);
@@ -697,32 +750,8 @@
                     }
                 },
                 {
-                    data: 'nomor_surat_tugas',
-                    name: 't_realisasi_rkkl.nomor_surat_tugas',
-                    searchable: true,
-                    className: 'textaligncenter',
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-
-                },
-                {
-                    data: 'tanggal_surat_tugas',
-                    name: 't_realisasi_rkkl.tanggal_surat_tugas',
-                    className: 'textaligncenter',
+                    data: 'nama_wilayah',
+                    name: 'ref_satuankerja.nama_wilayah',
                     searchable: true,
                     render: function(data, type, row) {
                         console.log('content of data is :' + data);
@@ -741,254 +770,64 @@
                         return badge;
                     }
                 },
-                    {
-                    data: 'tanggal_pelaksana_dari',
-                    name: 't_realisasi_rkkl.tanggal_pelaksana_dari',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                    {
-                    data: 'tanggal_pelaksana_sampai',
-                    name: 't_realisasi_rkkl.tanggal_pelaksana_sampai',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'lama_pelaksanaan',
-                    name: 't_realisasi_rkkl.lama_pelaksanaan',
-                    className: 'textaligncenter',
-                    render: function ( data, type, row ) {
-                        return row.lama_pelaksanaan + ' hari';
-                    },
-                    searchable: false,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'nama_pelaksana',
-                    name: 'nama_pelaksana',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'nip',
-                    name: 'nip',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'golongan',
-                    name: 'golongan',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'eselon',
-                    name: 'eselon',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'jabatan',
-                    name: 'jabatan',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'tempat_pelaksana',
-                    name: 'tempat_pelaksana',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
+                // {
+                //     data: 'nama_satuankerja',
+                //     name: 'ref_satuankerja.nama_satuankerja',
+                //     searchable: true,
+                //     render: function(data, type, row) {
+                //         console.log('content of data is :' + data);
+                //         badge = '';
+                //         switch (data) {
+                //             case 0:
+                //                 badge = '<span class="badge bg-cream" style="width : 100%">' +
+                //                     data + '</span>';
+                //                 break;
+                //             default:
+                //                 badge = '<span class="badge bg-cream" style="width : 100%">' +
+                //                     data + '</span>';
+                //                 break;
+                //         }
+                //         console.log('content of badge is' + badge);
+                //         return badge;
+                //     }
+                // },
                 {
                     data: 'sbu_uangharian_luarkota',
                     name: 'ref_satuankerja.sbu_uangharian_luarkota',
-                    className: 'textaligncenter',
                     searchable: true,
-                    render: function ( data, type, row ) {
+                    render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
-                                   parseInt(row.sbu_uangharian_luarkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_luarkota * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_uangharian_luarkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_luarkota * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                         }
                         console.log('content of badge is' + badge);
-                        return badge  ;
+                        return badge;
                     }
 
                 },
                 {
                     data: 'sbu_uangharian_dalamkota',
                     name: 'ref_satuankerja.sbu_uangharian_dalamkota',
-                    className: 'textaligncenter',
                     searchable: true,
-                    searchable: true,
-                    render: function ( data, type, row ) {
+                    render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_uangharian_dalamkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_dalamkota * row.lama_pelaksanaan).toLocaleString('id')   + '</span>';
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_uangharian_dalamkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_dalamkota * row.lama_pelaksanaan).toLocaleString('id')   + '</span>';
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                         }
                         console.log('content of badge is' + badge);
@@ -998,88 +837,81 @@
                 {
                     data: 'sbu_uangharian_diklat',
                     name: 'ref_satuankerja.sbu_uangharian_diklat',
-                    className: 'textaligncenter',
                     searchable: true,
-                    render: function ( data, type, row ) {
+                    render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
-                                     parseInt(row.sbu_uangharian_diklat).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_diklat * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
-                                     parseInt(row.sbu_uangharian_diklat).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_diklat * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                         }
                         console.log('content of badge is' + badge);
                         return badge;
-                    }
-
-                },
-                {
-                    data: 'sbu_penginapan_golongan',
-                    name: 'ref_satuankerja.sbu_penginapan_golongan',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function ( data, type, row ) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
-                                     parseInt(row.sbu_penginapan_golongan).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_golongan * ( row.lama_pelaksanaan - 1) ).toLocaleString('id')   + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
-                                     parseInt(row.sbu_penginapan_golongan).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_golongan * ( row.lama_pelaksanaan - 1) ).toLocaleString('id')   + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-
                     }
                 },
                 {
                     data: 'sbu_penginapan_eselon',
                     name: 'ref_satuankerja.sbu_penginapan_eselon',
-                    className: 'textaligncenter',
                     searchable: true,
-                    render: function ( data, type, row ) {
+                    render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_penginapan_eselon).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_eselon  * ( row.lama_pelaksanaan - 1) ).toLocaleString('id') + '</span>';
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_penginapan_eselon).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_eselon  * ( row.lama_pelaksanaan - 1) ).toLocaleString('id') + '</span>';
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                         }
                         console.log('content of badge is' + badge);
                         return badge;
-                        return ;
+                    }
+                },
+                {
+                    data: 'sbu_penginapan_golongan',
+                    name: 'ref_satuankerja.sbu_penginapan_golongan',
+                    searchable: true,
+                    render: function(data, type, row) {
+                        console.log('content of data is :' + data);
+                        badge = '';
+                        switch (data) {
+                            case 0:
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                            default:
+                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                    data + '</span>';
+                                break;
+                        }
+                        console.log('content of badge is' + badge);
+                        return badge;
                     }
                 },
                 {
                     data: 'sbu_taksi_tempat_asal',
                     name: 'ref_satuankerja.sbu_taksi_tempat_asal',
-                    className: 'textaligncenter',
                     searchable: true,
-                    render: function ( data, type, row ) {
+                    render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_taksi_tempat_asal).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt( row.sbu_taksi_tempat_asal * 2).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_taksi_tempat_asal).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt( row.sbu_taksi_tempat_asal * 2).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                         }
                         console.log('content of badge is' + badge);
@@ -1087,21 +919,20 @@
                     }
                 },
                 {
-                    data: "sbu_taksi_tempat_tujuan",
+                    data: 'sbu_taksi_tempat_tujuan',
                     name: 'ref_satuankerja.sbu_taksi_tempat_tujuan',
-                    className: 'textaligncenter',
                     searchable: true,
-                    render: function ( data, type, row ) {
+                    render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_taksi_tempat_tujuan).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt(row.sbu_taksi_tempat_tujuan * 2).toLocaleString('id')   + '</span>';
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_taksi_tempat_tujuan).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt(row.sbu_taksi_tempat_tujuan * 2).toLocaleString('id')   + '</span>';
+                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                         }
                         console.log('content of badge is' + badge);
@@ -1111,67 +942,38 @@
                 {
                     data: 'sbu_pesawat_bisnis',
                     name: 'ref_satuankerja.sbu_pesawat_bisnis',
-                    className: 'textaligncenter',
                     searchable: true,
-                    render: function ( data, type, row ) {
+                    render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_pesawat_bisnis).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_pesawat_bisnis).toLocaleString('id')  + '</span>';
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                    data + '</span>';
                                 break;
                         }
                         console.log('content of badge is' + badge);
                         return badge;
-
                     }
-
                 },
                 {
                     data: 'sbu_pesawat_ekonomi',
                     name: 'ref_satuankerja.sbu_pesawat_ekonomi',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function ( data, type, row ) {
-                    console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_pesawat_ekonomi).toLocaleString('id') + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
-                                    parseInt(row.sbu_pesawat_ekonomi).toLocaleString('id') + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-
-                    }
-
-                },
-
-                {
-                    data: 'tahun_anggaran',
-                    name: 'tahun_anggaran',
-                    className: 'textaligncenter',
                     searchable: true,
                     render: function(data, type, row) {
                         console.log('content of data is :' + data);
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-pink-soft" style="width : 100%">' +
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-pink-soft" style="width : 100%">' +
+                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1179,50 +981,16 @@
                         return badge;
                     }
                 },
+                // {
+                //     data: 'locked',
+                //     name: 'ref_satuankerja.locked'
+                // },
                 {
-                    data: 'created_at',
-                    name: 'created_at',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
                 },
-                {
-                    data: 'updated_at',
-                    name: 'updated_at',
-                    className: 'textaligncenter',
-                    searchable: true,
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                }
             ],
             // initComplete: function() {
             //     this.api().columns().every(function() {
@@ -1255,24 +1023,31 @@
             $('#saveBtn').val("create-product");
             $('#product_id').val('');
             $('#productForm').trigger("reset");
-            $('#modelHeading').html("Tambah referensi");
+            $('#modelHeading').html("Tambah Wilayah");
             $('#ajaxModel').modal('show');
         });
         $('body').on('click', '.editProduct', function() {
             var product_id = $(this).data('id');
-            $.get("{{ route('nominatif.index') }}" + '/' + product_id + '/edit', function(
-                data) {
-                $('#modelHeading').html("edit rincian pelaksanaan");
+            $.get("{{ route('wilayah.index') }}" + '/' + product_id + '/edit', function(data) {
+                $('#modelHeading').html("edit Wilayah");
                 $('#saveBtn').val("edit-user");
                 $('#ajaxModel').modal('show');
                 $('#product_id').val(data.id);
-                $('#t_realisasi_rkkl_id').val(data.t_realisasi_rkkl_id);
-                $('#nama_pelaksana').val(data.nama_pelaksana);
-                $('#nip').val(data.nip);
-                $('#eselon').val(data.eselon);
-                $('#golongan').val(data.golongan);
-                $('#jabatan').val(data.jabatan);
-                $('#tempat_pelaksana').val(data.tempat_pelaksana);
+                // $('#id_unitbagian').val(data.id_unitbagian);
+                // $('#urutan').val(data.urutan);
+                // $('#nama_satuankerja').val(data.nama_satuankerja);
+                $('#kode_wilayah').val(data.kode_wilayah);
+                $('#nama_wilayah').val(data.nama_wilayah);
+                $('#sbu_uangharian_luarkota').val(data.sbu_uangharian_luarkota);
+                $('#sbu_uangharian_dalamkota').val(data.sbu_uangharian_dalamkota);
+                $('#sbu_uangharian_diklat').val(data.sbu_uangharian_diklat);
+                $('#sbu_penginapan_eselon').val(data.sbu_penginapan_eselon);
+                $('#sbu_penginapan_golongan').val(data.sbu_penginapan_golongan);
+                $('#sbu_taksi_tempat_asal').val(data.sbu_taksi_tempat_asal);
+                $('#sbu_taksi_tempat_tujuan').val(data.sbu_taksi_tempat_tujuan);
+                $('#sbu_pesawat_bisnis').val(data.sbu_pesawat_bisnis);
+                $('#sbu_pesawat_ekonomi').val(data.sbu_pesawat_ekonomi);
+                // $('#locked').val(data.locked);
             })
         });
         $('body').on('click', '.editProductx', function() {
@@ -1284,7 +1059,6 @@
                 $('#product_idx').val(data.id);
                 $('#nama_pelaksana').val(data.nama_pelaksana);
                 $('#nip').val(data.nip);
-                $('#eselon').val(data.eselon);
                 $('#golongan').val(data.golongan);
                 $('#jabatan').val(data.jabatan);
                 $('#tempat_pelaksana').val(data.tempat_pelaksana);
@@ -1321,10 +1095,18 @@
                 // The key name on the left side is the name attribute
                 // of an input field. Validation rules are defined
                 // on the right side
-                t_realisasi_rkkl_id: "required",
-                nama_pelaksana: "required",
-                tempat_pelaksana: "required",
-                jabatan: "required",
+                nama_satuankerja: "required",
+                nama_wilayah: "required",
+                kode_wilayah: "required",
+                sbu_uangharian_luarkota: "required",
+                sbu_uangharian_dalamkota: "required",
+                sbu_uangharian_diklat: "required",
+                sbu_penginapan_eselon: "required",
+                sbu_penginapan_golongan: "required",
+                sbu_taksi_tempat_asal: "required",
+                sbu_taksi_tempat_tujuan: "required",
+                 sbu_pesawat_bisnis: "required",
+                sbu_pesawat_ekonomi: "required"
             },
         });
         $('#saveBtn').click(function(e) {
@@ -1333,36 +1115,30 @@
                 $(this).html('Sending..');
                 $.ajax({
                     data: $('#productForm').serialize(),
-                    url: "{{ route('nominatif.store') }}",
+                    url: "{{ route('wilayah.store') }}",
                     type: "POST",
                     dataType: 'json',
                     success: function(data) {
                         if (data.success) {
                             $('#productForm').trigger("reset");
                             $('#ajaxModel').modal('hide');
-                            $("#tempat_pelaksana").val(null).trigger("change");
                             $('#saveBtn').html('Save Changes');
-                            $('#ModalSuccess').modal('show');
-                            // $('#response').html(
-                            //     '<button type="button" class="btn mb-3 btn-info rounded-pill"><i class="ri-heart-fill"></i> edit rincian pelaksanaan berhasil <i class="ri-heart-fill"></i></button>'
-                            // );
-                            $("#ModalSuccess").fadeTo(5000, 500).slideUp(500, function() {
-                                $("#ModalSuccess").slideUp(500);
-                                $('#ModalSuccess').modal('hide');
+                            $('#response').html(
+                                '<button type="button" class="btn mb-3 btn-info rounded-pill"><i class="ri-heart-fill"></i> tambah atau edit Satuan Kerja berhasil <i class="ri-heart-fill"></i></button>'
+                            );
+                            $("#response").fadeTo(5000, 500).slideUp(500, function() {
+                                $("#response").slideUp(500);
                             });
                             table.draw();
                         } else {
                             $('#productForm').trigger("reset");
                             $('#ajaxModel').modal('hide');
-                            $("#tempat_pelaksana").val(null).trigger("change");
                             $('#saveBtn').html('Save Changes');
-                            $('#ModalFailure').modal('show');
-                            // $('#response').html(
-                            //     '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> edit rincian pelaksanaan gagal <i class="las la-skull-crossbones"></i></button>'
-                            // );
-                            $("#ModalFailure").fadeTo(5000, 500).slideUp(500, function() {
-                                $("#ModalFailure").slideUp(500);
-                                $('#ModalFailure').modal('hide');
+                            $('#response').html(
+                                '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> tambah atau edit Satuan Kerja gagal <i class="las la-skull-crossbones"></i></button>'
+                            );
+                            $("#response").fadeTo(5000, 500).slideUp(500, function() {
+                                $("#response").slideUp(500);
                             });
                             table.draw();
                         }
@@ -1379,7 +1155,7 @@
             $(this).html('Sending..');
             $.ajax({
                 data: $('#productFormx').serialize(),
-                url: "{{ route('nominatif.storex') }}",
+                url: "{{ route('realisasirkkl.storex') }}",
                 type: "POST",
                 dataType: 'json',
                 success: function(data) {
@@ -1399,7 +1175,7 @@
             $(this).html('Sending..');
             $.ajax({
                 data: $('#productFormz').serialize(),
-                url: "{{ route('nominatif.storez') }}",
+                url: "{{ route('realisasirkkl.storez') }}",
                 type: "POST",
                 dataType: 'json',
                 success: function(data) {
@@ -1421,7 +1197,7 @@
             $(this).html('Sending..');
             $.ajax({
                 data: $('#productFormy').serialize(),
-                url: "{{ route('nominatif.storey') }}",
+                url: "{{ route('realisasirkkl.storey') }}",
                 type: "POST",
                 dataType: 'json',
                 success: function(data) {
@@ -1461,33 +1237,24 @@
         });
         $('body').on('click', '.deleteProduct', function() {
             var product_id = $(this).data("id");
-            var result = confirm("kamu ingin delete rincian pelaksanaan ini !");
+            var result = confirm("kamu ingin delete Satuan Kerja ini !");
             if (result) {
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ route('nominatif.store') }}" + '/' + product_id,
+                    url: "{{ route('wilayah.store') }}" + '/' + product_id,
                     success: function(data) {
                         if (data.success) {
-                            $('#ModalSuccessDelete').modal('show');
-                            // $('#response').html(
-                            //     '<button type="button" class="btn mb-3 btn-warning rounded-pill"><i class="las la-exclamation-triangle"></i> data rincian pelaksanaan telah dihapus <i class="las la-exclamation-triangle"></i></button>'
-                            // );
-                            $("#ModalSuccessDelete").fadeTo(5000, 500).slideUp(500,
-                                function() {
-                                    $("#ModalSuccessDelete").slideUp(500);
-                                    $('#ModalSuccessDelete').modal('hide');
-                                });
+                            $('#response').html(
+                                '<button type="button" class="btn mb-3 btn-warning rounded-pill"><i class="las la-exclamation-triangle"></i> data Satuan Kerja telah dihapus <i class="las la-exclamation-triangle"></i></button>'
+                            );
+                            $("#response").fadeTo(5000, 500).slideUp(500, function() {
+                                $("#response").slideUp(500);
+                            });
                             table.draw();
                         } else {
-                            $('#ModalFailureDelete').modal('show');
-                            // $('#response').html(
-                            //     '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> data rincian pelaksanaan gagal dihapus <i class="las la-skull-crossbones"></i></button>'
-                            // );
-                            $("#ModalFailureDelete").fadeTo(5000, 500).slideUp(500,
-                                function() {
-                                    $("#ModalFailureDelete").slideUp(500);
-                                    $('#ModalFailureDelete').modal('hide');
-                                });
+                            $('#response').html(
+                                '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> data Satuan Kerja gagal dihapus <i class="las la-skull-crossbones"></i></button>'
+                            );
                             table.draw();
                         }
                     },
@@ -1499,8 +1266,6 @@
                 return false;
             }
         });
-
-
     });
 </script>
 

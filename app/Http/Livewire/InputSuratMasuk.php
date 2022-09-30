@@ -265,19 +265,35 @@ class InputSuratMasuk extends Component
         //     echo $key->name;
         // }
 
-        // $client = new Client(); //GuzzleHttp\Client
-        // $url = "https://api.github.com/users/kingsconsult/repos";
+        $client = new Client(); //GuzzleHttp\Client
+        $url = "https://sirup.lkpp.go.id/sirup/datatablectr/dataruppenyediakldi?idKldi=L40&tahun=2022";
 
 
-        // $response = $client->request('GET', $url, [
-        //     'verify'  => false,
-        // ]);
+        $response = $client->request('GET', $url, [
+            'verify'  => false,
+        ]);
 
-        // $responseBody = json_decode($response->getBody());
+        $responseBody = json_decode($response->getBody());
 
+        for ($i = 0; $i < count($responseBody->aaData); $i++) {
+            foreach ($responseBody as $item) {
+                print_r($item[$i][0] . "|");
+                print_r($item[$i][1] . "|");
+                print_r($item[$i][2] . "|");
+                print_r($item[$i][3] . "|");
+                print_r($item[$i][4] . "|");
+                print_r($item[$i][5] . "|");
+                print_r($item[$i][6] . "|");
+                print_r($item[$i][7] . "|");
+            }
+            print_r('<br>');
+        }
 
+        // print_r($responseBody->aaData[0][0]);
+        // echo "<br>";
+        // print_r($responseBody->aaData[0]);
 
-        // dd($responseBody[0]->license);
+        // print_r($responseBody->aaData);
 
         // $referensi_jabatanlengkap = DB::table("ref_jabatanlengkap")
         //     ->where("jabatan_id", '1')
@@ -299,64 +315,67 @@ class InputSuratMasuk extends Component
         //     echo "kasub";
         // }
 
-        $data = T_realisasi_tempatpelaksanaan::select(
-            't_realisasi_rkkl.nomor_surat_tugas',
-            't_realisasi_tempatpelaksanaan.nama_pelaksana',
-            't_realisasi_tempatpelaksanaan.nip',
-            't_realisasi_tempatpelaksanaan.golongan',
-            't_realisasi_tempatpelaksanaan.eselon',
-            't_realisasi_tempatpelaksanaan.jabatan',
-            't_realisasi_tempatpelaksanaan.tempat_pelaksana',
-            't_realisasi_tempatpelaksanaan.user_penginput_data',
-            't_realisasi_tempatpelaksanaan.tahun_anggaran',
-            't_realisasi_tempatpelaksanaan.created_at',
-            't_realisasi_tempatpelaksanaan.updated_at',
-            DB::raw('(CASE
-            WHEN t_realisasi_tempatpelaksanaan.eselon = "I" THEN  json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`,"$.I"))
-            WHEN t_realisasi_tempatpelaksanaan.eselon = "II" THEN json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`, "$.II"))
-            WHEN t_realisasi_tempatpelaksanaan.eselon = "III" THEN json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`, "$.III"))
-            ELSE json_unquote(json_extract(`ref_satuankerja`.`nominatif_penginapan`, "$.IV"))
-            END) AS active_lable')
-        )
-            ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
-            ->join('ref_satuankerja', 't_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'ref_satuankerja.nama_satuankerja')
-            ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
-            ->where('t_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'pengadilan tinggi agama bandung')
-            ->where(
-                't_realisasi_tempatpelaksanaan.tahun_anggaran',
-                '=',
-                Session::get('tahunanggaran')
-            )
-            ->get();
+        // $data = T_realisasi_tempatpelaksanaan::select(
+        //     't_realisasi_rkkl.nomor_surat_tugas',
+        //     't_realisasi_tempatpelaksanaan.nama_pelaksana',
+        //     't_realisasi_tempatpelaksanaan.nip',
+        //     't_realisasi_tempatpelaksanaan.golongan',
+        //     't_realisasi_tempatpelaksanaan.eselon',
+        //     't_realisasi_tempatpelaksanaan.jabatan',
+        //     't_realisasi_tempatpelaksanaan.tempat_pelaksana',
+        //     't_realisasi_tempatpelaksanaan.user_penginput_data',
+        //     't_realisasi_tempatpelaksanaan.tahun_anggaran',
+        //     't_realisasi_tempatpelaksanaan.created_at',
+        //     't_realisasi_tempatpelaksanaan.updated_at',
+        //     'ref_satuankerja.sbu_taksi',
+        //     DB::raw('(CASE
+        //     WHEN t_realisasi_tempatpelaksanaan.eselon = "I" THEN  json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`,"$.I"))
+        //     WHEN t_realisasi_tempatpelaksanaan.eselon = "II" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.II"))
+        //     WHEN t_realisasi_tempatpelaksanaan.eselon = "III" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.III"))
+        //     ELSE json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.IV"))
+        //     END) AS active_lable')
+        // )
+        //     ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
+        //     ->join('ref_satuankerja', 't_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'ref_satuankerja.nama_satuankerja')
+        //     ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
+        //     // ->where('t_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'PTA bandung')
+        //     ->where(
+        //         't_realisasi_tempatpelaksanaan.tahun_anggaran',
+        //         '=',
+        //         Session::get('tahunanggaran')
+        //     )
+        //     ->get();
 
-        foreach ($data as $x) {
-            echo $x->id;
-            echo "\t";
-            echo $x->t_realisasi_rkkl_id;
-            echo "\t";
-            echo $x->nomor_surat_tugas;
-            echo "\t";
-            echo $x->nama_pelaksana;
-            echo "\t";
-            echo $x->nip;
-            echo "\t";
-            echo $x->golongan;
-            echo "\t";
-            echo $x->eselon;
-            echo "\t";
-            echo $x->jabatan;
-            echo "\t";
-            echo $x->tempat_pelaksana;
-            echo "\t";
-            echo $x->user_penginput_data;
-            echo "\t";
-            echo $x->tahun_anggaran;
-            echo "\t";
-            echo $x->test;
-            echo "\t";
-            echo $x->active_lable;
-            echo "<br>";
-        }
+        // foreach ($data as $x) {
+        //     echo $x->id;
+        //     echo "\t";
+        //     echo $x->t_realisasi_rkkl_id;
+        //     echo "\t";
+        //     echo $x->nomor_surat_tugas;
+        //     echo "\t";
+        //     echo $x->nama_pelaksana;
+        //     echo "\t";
+        //     echo $x->nip;
+        //     echo "\t";
+        //     echo $x->golongan;
+        //     echo "\t";
+        //     echo $x->eselon;
+        //     echo "\t";
+        //     echo $x->jabatan;
+        //     echo "\t";
+        //     echo $x->tempat_pelaksana;
+        //     echo "\t";
+        //     echo $x->user_penginput_data;
+        //     echo "\t";
+        //     echo $x->tahun_anggaran;
+        //     echo "\t";
+        //     echo $x->test;
+        //     echo "\t";
+        //     echo $x->active_lable;
+        //     echo "<br>";
+        //     echo $x->sbu_taksi;
+        //     echo "<br>";
+        // }
     }
 
 

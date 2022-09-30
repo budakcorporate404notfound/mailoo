@@ -1148,7 +1148,7 @@
         });
         $('body').on('click', '.editProduct', function() {
             var product_id = $(this).data('id');
-            $.get("{{ route('realisasirkkl.index') }}" + '/' + product_id + '/edit', function(data) {
+            $.get("{{ route('spj.index') }}" + '/' + product_id + '/edit', function(data) {
                 $('#modelHeading').html("Edit Realisasi RKKL");
                 $('#saveBtn').val("edit-user");
                 $('#verifikasi_kelengkapan').show();

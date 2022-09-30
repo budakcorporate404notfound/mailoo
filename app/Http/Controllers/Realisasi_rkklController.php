@@ -143,8 +143,6 @@ class Realisasi_rkklController extends Controller
                     }
                 })
 
-
-
                 // ->toJson();
                 ->rawColumns(['verifikasi_kelengkapan', 'action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi',  'file_pdf'])
                 ->make(true);

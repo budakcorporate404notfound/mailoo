@@ -174,7 +174,9 @@
                {{-- <li><a href="{{url('/RealisasiRKKL')}}">Realiasasi RKKL</a></li> --}}
 
                {{-- <li><a href="{{url('ajaxproducts')}}">datatable</a></li> --}}
+               <li><a href="{{url('nominatif')}}"><i class="las la-percentage"></i><span>Nominatif</span></a></li>
                <li><a href="{{url('realisasirkkl')}}"><i class="las la-file-invoice-dollar"></i> Realisasi </a></li>
+               <li><a href="{{url('spj')}}"><i class="las la-file-invoice-dollar"></i> SPJ </a></li>
                <li><a href="{{url('unggahlaporan')}}"><i class="lar la-file-pdf"></i> Unggah Laporan </a></li>
 
                <li>
@@ -241,6 +243,7 @@
                <li><a href="{{url('jabatan')}}"><i class="las la-users-cog"></i> Jabatan</a></li>
                <li><a href="{{url('unitbagianxjabatan')}}"><i class="las la-users-cog"></i> Unit Bagian x Jabatan </a>
                </li> --}}
+               <li><a href="{{url('wilayah')}}"><i class="las la-globe"></i> Wilayah </a></li>
                <li><a href="{{url('satuankerja')}}"><i class="las la-users-cog"></i> Satuan Kerja </a></li>
                 <li><a href="{{url('namapelaksana')}}"><i class="las la-id-card-alt"></i> Nama Pelaksana </a></li>
                <li><a href="{{url('tahunanggaran')}}"><i class="las la-calendar-minus"></i> Tahun Anggaran </a></li>
@@ -250,7 +253,7 @@
 
                <li class="iq-menu-title"><i class="ri-separator"></i><span>Soon</span></li>
 
-               <li><a href="{{url('nominatif')}}" class="iq-waves-effect"><i class="las la-percentage"></i><span>Nominatif</span></a></li>
+
 
                </ul>
                </li>

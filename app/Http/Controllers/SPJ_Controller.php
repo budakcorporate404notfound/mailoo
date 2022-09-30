@@ -15,6 +15,7 @@ use App\Models\T_coba;
 use App\Models\T_pengirim_laporan;
 use App\Models\T_realisasi_pagu_rkkl;
 use App\Models\Ref_keuangan_uraian_kegiatan;
+// use App\Models\Ref_keuangan_uraian_kegiatan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Swift;
 
-class NominatifController extends Controller
+class SPJ_Controller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -50,33 +51,10 @@ class NominatifController extends Controller
             // $data = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans', 'Ref_satuankerjas', 'T_pengirim_laporans', 'T_pembuat_laporans', 'T_realisasi_pagu_rkkls')
             //     ->orderBy('verifikasi_kelengkapan', 'DESC');
 
-            // $data = T_realisasi_tempatpelaksanaan::select(
-            //     't_realisasi_tempatpelaksanaan.id',
-            //     't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id',
-            //     't_realisasi_rkkl.nomor_surat_tugas',
-            //     't_realisasi_tempatpelaksanaan.nama_pelaksana',
-            //     't_realisasi_tempatpelaksanaan.nip',
-            //     't_realisasi_tempatpelaksanaan.golongan',
-            //     't_realisasi_tempatpelaksanaan.eselon',
-            //     't_realisasi_tempatpelaksanaan.jabatan',
-            //     't_realisasi_tempatpelaksanaan.tempat_pelaksana',
-            //     't_realisasi_tempatpelaksanaan.user_penginput_data',
-            //     't_realisasi_tempatpelaksanaan.tahun_anggaran',
-            //     't_realisasi_tempatpelaksanaan.created_at',
-            //     't_realisasi_tempatpelaksanaan.updated_at'
-
-            // )
-            //     ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
-            //     ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
-            //     ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'));
-
             $data = T_realisasi_tempatpelaksanaan::select(
                 't_realisasi_tempatpelaksanaan.id',
                 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id',
                 't_realisasi_rkkl.nomor_surat_tugas',
-                't_realisasi_rkkl.tanggal_surat_tugas',
-                't_realisasi_rkkl.tanggal_pelaksana_dari',
-                't_realisasi_rkkl.tanggal_pelaksana_sampai',
                 't_realisasi_tempatpelaksanaan.nama_pelaksana',
                 't_realisasi_tempatpelaksanaan.nip',
                 't_realisasi_tempatpelaksanaan.golongan',
@@ -86,39 +64,12 @@ class NominatifController extends Controller
                 't_realisasi_tempatpelaksanaan.user_penginput_data',
                 't_realisasi_tempatpelaksanaan.tahun_anggaran',
                 't_realisasi_tempatpelaksanaan.created_at',
-                't_realisasi_tempatpelaksanaan.updated_at',
-                'ref_satuankerja.sbu_uangharian_luarkota',
-                'ref_satuankerja.sbu_uangharian_dalamkota',
-                'ref_satuankerja.sbu_uangharian_diklat',
-                'ref_satuankerja.sbu_taksi_tempat_asal',
-                'ref_satuankerja.sbu_taksi_tempat_tujuan',
-                'ref_satuankerja.sbu_pesawat_bisnis',
-                'ref_satuankerja.sbu_pesawat_ekonomi',
-                DB::raw("DATEDIFF(t_realisasi_rkkl.tanggal_pelaksana_sampai,t_realisasi_rkkl.tanggal_pelaksana_dari) + 1 AS lama_pelaksanaan"),
-                DB::raw('(CASE
-                WHEN t_realisasi_tempatpelaksanaan.eselon = "I" THEN  json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`,"$.I"))
-                WHEN t_realisasi_tempatpelaksanaan.eselon = "II" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.II"))
-                WHEN t_realisasi_tempatpelaksanaan.eselon = "III" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.III"))
-                WHEN t_realisasi_tempatpelaksanaan.eselon = "IV" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.IV"))
-                ELSE json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.-"))
-                END) AS sbu_penginapan_eselon'),
-                DB::raw('(CASE
-                WHEN t_realisasi_tempatpelaksanaan.golongan = "I" THEN  json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_golongan`,"$.I"))
-                WHEN t_realisasi_tempatpelaksanaan.golongan = "II" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_golongan`, "$.II"))
-                WHEN t_realisasi_tempatpelaksanaan.golongan = "III" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_golongan`, "$.III"))
-                WHEN t_realisasi_tempatpelaksanaan.golongan = "IV" THEN json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_golongan`, "$.IV"))
-                ELSE json_unquote(json_extract(`ref_satuankerja`.`sbu_penginapan_eselon`, "$.-"))
-                END) AS sbu_penginapan_golongan')
+                't_realisasi_tempatpelaksanaan.updated_at'
+
             )
                 ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
-                ->join('ref_satuankerja', 't_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'ref_satuankerja.nama_satuankerja')
                 ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
-                // ->where('t_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'PTA bandung')
-                ->where(
-                    't_realisasi_tempatpelaksanaan.tahun_anggaran',
-                    '=',
-                    Session::get('tahunanggaran')
-                );
+                ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'));
 
             return Datatables::eloquent($data)
 
@@ -129,12 +80,14 @@ class NominatifController extends Controller
                     switch (Auth::user()->jabatan) {
                         case '5':
                             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="hapus rincian pelaksanaan"><i class="las la-trash-alt"></i></a>';
                             return $btn;
                             break;
 
                         case '6':
                             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
                             return $btn;
                             break;
 
@@ -156,7 +109,7 @@ class NominatifController extends Controller
                 ->make(true);
         }
 
-        return view('nominatif', compact('datas', 'tempats', 'laporans'));
+        return view('spj', compact('datas', 'tempats', 'laporans'));
     }
 
     /**
@@ -340,7 +293,7 @@ class NominatifController extends Controller
     public function storev(Request $request)
     {
         // deklarasi pagu anggaran
-        $pagu_anggaran = DB::table('t_realisasi_tempatpelaksanaan')
+        $pagu_anggaran = DB::table('ref_keuangan_uraian_kegiatan')
             ->selectRaw("round(replace(pagu_anggaran, '.','')) as pagu_anggaran")
             ->where('id', '=', $request->ref_keuangan_uraian_kegiatan_id)
             ->get();
@@ -364,7 +317,8 @@ class NominatifController extends Controller
         } else {
             DB::table('t_realisasi_pagu_rkkl')->insert([
                 'ref_unitbagian_id' => Auth::user()->unit_kerja,
-                't_realisasi_rkkl_id' => $request->product_id,
+                // 't_realisasi_rkkl_id' => $request->product_id,
+                't_realisasi_rkkl_id' => $request->t_realisasi_rkkl_id,
                 'ref_keuangan_uraian_kegiatan_id' => $request->ref_keuangan_uraian_kegiatan_id,
                 'nilai_pagu_realisasi' => $request->nilai_pagu_realisasi,
                 'user_penginput_data' => Auth::user()->id
