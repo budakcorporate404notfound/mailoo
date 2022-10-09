@@ -3,13 +3,14 @@
 @section('nama_menu')
 
 <h5 class="mb-0">
-    Realisasi RKKL
+    Rekapitulasi Laporan
 </h5>
 
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Realisasi RKKL</li>
+        <li class="breadcrumb-item"><a href="index.html">Laporan Kegiatan</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Rekapitulasi Laporan</li>
     </ul>
 </nav>
 @endsection
@@ -186,7 +187,7 @@
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title">Realisasi RKKL </h4>
+                    <h4 class="card-title">Rekapitulasi Laporan</h4>
 
                     <div id="response"></div>
 
@@ -217,8 +218,8 @@
                                 <th>gol</th>
                                 <th>jabatan</th>
                                 <th>tempat pelaksanaan</th>
-                                <th>kode anggaran</th>
-                                <th>nilai anggaran</th>
+                                {{-- <th>kode anggaran</th>
+                                <th>nilai anggaran</th> --}}
                                 <th>Pembuat Laporan</th>
                                 <th>file pdf</th>
                                 <th>kelengkapan</th>
@@ -231,8 +232,6 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td></td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -1027,50 +1026,50 @@
                         return badge;
                     }
                 },
-                {
-                    data: 'ref_keuangan_uraian_kegiatan_id',
-                    name: 'ref_keuangan_uraian_kegiatan_id',
-                    searchable: true,
-                    className: 'textaligncenter',
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
-                {
-                    data: 'nilai_pagu_realisasi',
-                    name: 'nilai_pagu_realisasi',
-                    searchable: true,
-                    className: 'textaligncenter',
-                    render: function(data, type, row) {
-                        console.log('content of data is :' + data);
-                        badge = '';
-                        switch (data) {
-                            case 0:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                            default:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
-                                    data + '</span>';
-                                break;
-                        }
-                        console.log('content of badge is' + badge);
-                        return badge;
-                    }
-                },
+                // {
+                //     data: 'ref_keuangan_uraian_kegiatan_id',
+                //     name: 'ref_keuangan_uraian_kegiatan_id',
+                //     searchable: true,
+                //     className: 'textaligncenter',
+                //     render: function(data, type, row) {
+                //         console.log('content of data is :' + data);
+                //         badge = '';
+                //         switch (data) {
+                //             case 0:
+                //                 badge = '<span class="badge bg-softred" style="width : 100%">' +
+                //                     data + '</span>';
+                //                 break;
+                //             default:
+                //                 badge = '<span class="badge bg-softred" style="width : 100%">' +
+                //                     data + '</span>';
+                //                 break;
+                //         }
+                //         console.log('content of badge is' + badge);
+                //         return badge;
+                //     }
+                // },
+                // {
+                //     data: 'nilai_pagu_realisasi',
+                //     name: 'nilai_pagu_realisasi',
+                //     searchable: true,
+                //     className: 'textaligncenter',
+                //     render: function(data, type, row) {
+                //         console.log('content of data is :' + data);
+                //         badge = '';
+                //         switch (data) {
+                //             case 0:
+                //                 badge = '<span class="badge bg-softred" style="width : 100%">' +
+                //                     data + '</span>';
+                //                 break;
+                //             default:
+                //                 badge = '<span class="badge bg-softred" style="width : 100%">' +
+                //                     data + '</span>';
+                //                 break;
+                //         }
+                //         console.log('content of badge is' + badge);
+                //         return badge;
+                //     }
+                // },
                 {
                     data: 'pembuat_laporan',
                     name: 'pembuat_laporan',
@@ -1148,7 +1147,7 @@
         });
         $('body').on('click', '.editProduct', function() {
             var product_id = $(this).data('id');
-            $.get("{{ route('spj.index') }}" + '/' + product_id + '/edit', function(data) {
+            $.get("{{ route('realisasirkkl.index') }}" + '/' + product_id + '/edit', function(data) {
                 $('#modelHeading').html("Edit Realisasi RKKL");
                 $('#saveBtn').val("edit-user");
                 $('#verifikasi_kelengkapan').show();

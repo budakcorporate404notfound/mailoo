@@ -191,12 +191,16 @@
                                 <th>unit bagian</th>
                                 <th>id realisasi rkkl</th>
                                 <th>nomor surat tugas</th>
+                                <th>nama pelaksana</th>
                                 <th>kode anggaran</th>
                                 <th>kode uraian kegiatan</th>
                                 <th>nama uraian kegiatan</th>
                                 <th>sub menu uraian kegiatan</th>
                                 <th>kelompok pagu anggaran</th>
-                                <th>nilai realisasi</th>
+                                <th>hari</th>
+                                <th>nilai</th>
+                                <th>hari x nilai</th>
+                                <th>keterangan</th>
                                 <th>tahun anggaran</th>
                                 <th>created at</th>
                                 <th>updated at</th>
@@ -209,6 +213,10 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -285,7 +293,7 @@
                         <br>
 
                         <div class="div form-row">
-                               <div class="col">
+                            <div class="col">
                                 <label for="nilai_pagu_realisasi">nilai pagu realisasi <span
                                         style="color:red;font-weight:bold">*</span></label>
                                 <input id="nilai_pagu_realisasi" name="nilai_pagu_realisasi" placeholder="nilai_pagu_realisasi ..." class="form-control">
@@ -591,9 +599,14 @@
                     name: 't_realisasi_rkkl_id',
                     searchable: true
                 },
-                 {
+                {
                     data: 'nomor_surat_tugas',
                     name: 't_realisasi_rkkl.nomor_surat_tugas',
+                    searchable: true
+                },
+                {
+                    data: 'nama_pelaksana',
+                    name: 'nama_pelaksana',
                     searchable: true
                 },
                 {
@@ -622,11 +635,26 @@
                     searchable: true
                 },
                 {
+                    data: 'hari',
+                    name: 'hari',
+                    searchable: true
+                },
+                {
+                    data: 'nilai',
+                    name: 'nilai',
+                    searchable: true
+                },
+                {
                     data: 'nilai_pagu_realisasi',
                     name: 'nilai_pagu_realisasi',
                     searchable: true
                 },
-                  {
+                {
+                    data: 'keterangan',
+                    name: 'keterangan',
+                    searchable: true
+                },
+                {
                     data: 'tahun_anggaran',
                     name: 'tahun_anggaran',
                     searchable: true

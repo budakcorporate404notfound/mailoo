@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\T_realisasi_pagu_rkkl;
 use Illuminate\Support\Facades\Session;
+use App\Models\Referensi;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -265,29 +266,29 @@ class InputSuratMasuk extends Component
         //     echo $key->name;
         // }
 
-        $client = new Client(); //GuzzleHttp\Client
-        $url = "https://sirup.lkpp.go.id/sirup/datatablectr/dataruppenyediakldi?idKldi=L40&tahun=2022";
+        // $client = new Client(); //GuzzleHttp\Client
+        // $url = "https://sirup.lkpp.go.id/sirup/datatablectr/dataruppenyediakldi?idKldi=L40&tahun=2022";
 
 
-        $response = $client->request('GET', $url, [
-            'verify'  => false,
-        ]);
+        // $response = $client->request('GET', $url, [
+        //     'verify'  => false,
+        // ]);
 
-        $responseBody = json_decode($response->getBody());
+        // $responseBody = json_decode($response->getBody());
 
-        for ($i = 0; $i < count($responseBody->aaData); $i++) {
-            foreach ($responseBody as $item) {
-                print_r($item[$i][0] . "|");
-                print_r($item[$i][1] . "|");
-                print_r($item[$i][2] . "|");
-                print_r($item[$i][3] . "|");
-                print_r($item[$i][4] . "|");
-                print_r($item[$i][5] . "|");
-                print_r($item[$i][6] . "|");
-                print_r($item[$i][7] . "|");
-            }
-            print_r('<br>');
-        }
+        // for ($i = 0; $i < count($responseBody->aaData); $i++) {
+        //     foreach ($responseBody as $item) {
+        //         print_r($item[$i][0] . "|");
+        //         print_r($item[$i][1] . "|");
+        //         print_r($item[$i][2] . "|");
+        //         print_r($item[$i][3] . "|");
+        //         print_r($item[$i][4] . "|");
+        //         print_r($item[$i][5] . "|");
+        //         print_r($item[$i][6] . "|");
+        //         print_r($item[$i][7] . "|");
+        //     }
+        //     print_r('<br>');
+        // }
 
         // print_r($responseBody->aaData[0][0]);
         // echo "<br>";
@@ -376,7 +377,87 @@ class InputSuratMasuk extends Component
         //     echo $x->sbu_taksi;
         //     echo "<br>";
         // }
+
+        // $data = T_realisasi_tempatpelaksanaan::with(
+        //     'T_realisasi_rkkl',
+        //     'T_realisasi_paguu_rkkls'
+        //     // 't_realisasi_tempatpelaksanaan.id',
+        //     // 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id',
+        //     // 't_realisasi_rkkl.nomor_surat_tugas',
+        //     // 't_realisasi_tempatpelaksanaan.nama_pelaksana',
+        //     // 't_realisasi_tempatpelaksanaan.nip',
+        //     // 't_realisasi_tempatpelaksanaan.golongan',
+        //     // 't_realisasi_tempatpelaksanaan.eselon',
+        //     // 't_realisasi_tempatpelaksanaan.jabatan',
+        //     // 't_realisasi_tempatpelaksanaan.tempat_pelaksana',
+        //     // 't_realisasi_tempatpelaksanaan.user_penginput_data',
+        //     // 't_realisasi_tempatpelaksanaan.tahun_anggaran',
+        //     // 't_realisasi_tempatpelaksanaan.created_at',
+        //     // 't_realisasi_tempatpelaksanaan.updated_at'
+
+        // )
+        //     ->get();
+
+        // echo $data;
+
+
+        // $product = Referensi::select(
+        //     'ref_keuangan_uraian_kegiatan.id',
+        //     // 'ref_keuangan_uraian_kegiatan.id_unitbagian',
+        //     'ref_unitbagian.name as id_unitbagian',
+        //     'ref_keuangan_uraian_kegiatan.kode_uraian_kegiatan',
+        //     'ref_keuangan_uraian_kegiatan.nama_uraian_kegiatan',
+        //     'ref_keuangan_uraian_kegiatan.nama_sub_menu_uraian_kegiatan',
+        //     'ref_keuangan_uraian_kegiatan.kelompok_pagu',
+        //     // 'ref_keuangan_uraian_kegiatan.pagu_anggaran',
+        //     'ref_keuangan_uraian_kegiatan.user_penginput_data',
+        //     'ref_keuangan_uraian_kegiatan.tahun_anggaran',
+        //     'ref_keuangan_uraian_kegiatan.created_at',
+        //     'ref_keuangan_uraian_kegiatan.updated_at'
+
+        // )
+        //     ->selectRaw("ROUND(REPLACE(ref_keuangan_uraian_kegiatan.pagu_anggaran,'.','')) as pagu_anggaran")
+        //     ->join('ref_unitbagian', 'ref_unitbagian.id', '=', 'ref_keuangan_uraian_kegiatan.id_unitbagian')
+        //     ->where('id_unitbagian', '=', Auth::user()->unit_kerja)
+        //     ->where('ref_keuangan_uraian_kegiatan.id', '=', '1')
+        //     ->where('ref_keuangan_uraian_kegiatan.tahun_anggaran', '=', Session::get('tahunanggaran'))
+        //     ->first();
+        // dd(response()->json($product));
+        // dd($product);
+
+        // $product = Referensi::find(1);
+        // dd(response()->json($product));
+
+        $data = T_realisasi_pagu_rkkl::select(
+            't_realisasi_pagu_rkkl.id',
+            'ref_unitbagian.name as bagian',
+            't_realisasi_tempatpelaksanaan.nama_pelaksana as nama_pelaksana',
+            't_realisasi_pagu_rkkl.t_realisasi_rkkl_id',
+            't_realisasi_rkkl.nomor_surat_tugas',
+            'ref_keuangan_uraian_kegiatan.id as kode_anggaran',
+            'ref_keuangan_uraian_kegiatan.kode_uraian_kegiatan as kode_uraian_kegiatan',
+            'ref_keuangan_uraian_kegiatan.nama_uraian_kegiatan as nama_uraian_kegiatan',
+            'ref_keuangan_uraian_kegiatan.nama_sub_menu_uraian_kegiatan as nama_sub_menu_uraian_kegiatan',
+            'ref_keuangan_uraian_kegiatan.kelompok_pagu as kelompok_pagu',
+            't_realisasi_pagu_rkkl.nilai_pagu_realisasi',
+            't_realisasi_pagu_rkkl.user_penginput_data',
+            't_realisasi_pagu_rkkl.tahun_anggaran',
+            't_realisasi_pagu_rkkl.created_at',
+            't_realisasi_pagu_rkkl.updated_at'
+        )
+
+
+            ->join('ref_unitbagian', 'ref_unitbagian.id', '=', 't_realisasi_pagu_rkkl.ref_unitbagian_id')
+            ->join('t_realisasi_tempatpelaksanaan', 't_realisasi_tempatpelaksanaan.id', '=', 't_realisasi_pagu_rkkl.t_realisasi_tempatpelaksanaan_id')
+            ->join('ref_keuangan_uraian_kegiatan', 'ref_keuangan_uraian_kegiatan.id', '=', 't_realisasi_pagu_rkkl.ref_keuangan_uraian_kegiatan_id')
+            ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_pagu_rkkl.t_realisasi_rkkl_id')
+            ->where('t_realisasi_pagu_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
+            ->where('t_realisasi_pagu_rkkl.tahun_anggaran', '=', Session::get('tahunanggaran'))
+            ->get();
+
+        echo $data;
     }
+
 
 
     public function render()

@@ -64,8 +64,8 @@ class Realisasi_rkklController extends Controller
                     switch (Auth::user()->jabatan) {
                         case '5':
                             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit surat tugas"><i class="las la-pen-alt"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
+                            // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm editProductz" title="tambah pembuat laporan"><i class="las la-file-medical"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="hapus realisasi rkkl"><i class="las la-trash-alt"></i></a>';
                             return $btn;
@@ -73,8 +73,8 @@ class Realisasi_rkklController extends Controller
 
                         case '6':
                             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit realisasi rkkl"><i class="las la-pen-alt"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
+                            // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm editProductz" title="tambah pembuat laporan"><i class="las la-file-medical"></i></a>';
                             return $btn;
                             break;

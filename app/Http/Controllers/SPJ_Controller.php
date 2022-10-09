@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Ref_keterangan;
 use App\Models\T_realisasi_rkkl;
 use App\Models\T_realisasi_tempatpelaksanaan;
 use App\Models\T_realisasi_rkkl_dummy;
@@ -42,6 +43,19 @@ class SPJ_Controller extends Controller
             ->get();
 
         $tempats = Ref_satuankerja::all();
+        $keterangans = Ref_keterangan::select(
+            'id',
+            'ref_unitbagian_id',
+            'keterangan',
+            'locked',
+            'user_penginput_data',
+            'tahun_anggaran'
+
+        )
+            ->where('ref_keterangan.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
+            ->where('ref_keterangan.locked', '=', '1')
+            ->where('ref_keterangan.tahun_anggaran', '=', Session::get('tahunanggaran'))
+            ->get();
 
         $laporans = User::select('id', 'name')
             ->where('unit_kerja', '=', Auth::user()->unit_kerja)
@@ -50,6 +64,21 @@ class SPJ_Controller extends Controller
         if ($request->ajax()) {
             // $data = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans', 'Ref_satuankerjas', 'T_pengirim_laporans', 'T_pembuat_laporans', 'T_realisasi_pagu_rkkls')
             //     ->orderBy('verifikasi_kelengkapan', 'DESC');
+
+            // $data = T_realisasi_rkkl::with('T_realisasi_tempatpelaksanaans', 'Ref_satuankerjas', 'T_pengirim_laporans', 'T_pembuat_laporans', 'T_realisasi_pagu_rkkls')
+            //     ->where('ref_unitbagian_id', '=', Auth::user()->unit_kerja)
+            //     ->where('t_realisasi_rkkl.tahun_anggaran', '=', Session::get('tahunanggaran'))
+            //     ->whereNotNull('nomor_surat_tugas')
+            //     ->orderBy('verifikasi_kelengkapan', 'ASC');
+
+            // $data = T_realisasi_tempatpelaksanaan::with('T_realisasi_tempatpelaksanaans', 'Ref_satuankerjas', 'T_pengirim_laporans', 'T_pembuat_laporans', 'T_realisasi_pagu_rkkls')
+            // ->where('ref_unitbagian_id', '=', Auth::user()->unit_kerja)
+            // ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'));
+            // ->whereNotNull('nomor_surat_tugas')
+            // ->orderBy('verifikasi_kelengkapan', 'ASC');
+
+
+
 
             $data = T_realisasi_tempatpelaksanaan::select(
                 't_realisasi_tempatpelaksanaan.id',
@@ -69,7 +98,8 @@ class SPJ_Controller extends Controller
             )
                 ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
                 ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
-                ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'));
+                ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'))
+                ->orderBy('t_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id', 'desc');
 
             return Datatables::eloquent($data)
 
@@ -78,16 +108,17 @@ class SPJ_Controller extends Controller
                 ->addColumn('action', function ($row) {
 
                     switch (Auth::user()->jabatan) {
-                        case '5':
-                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="hapus rincian pelaksanaan"><i class="las la-trash-alt"></i></a>';
+                        case '5': //super user
+                            // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
+                            $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="hapus rincian pelaksanaan"><i class="las la-trash-alt"></i></a>';
                             return $btn;
                             break;
 
-                        case '6':
-                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                        case '6': // bendahara bagian
+                            $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
+                            // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
                             return $btn;
                             break;
 
@@ -96,20 +127,40 @@ class SPJ_Controller extends Controller
                             break;
                     }
                 })
+
                 ->editColumn('created_at', function ($data) {
                     return $data->created_at ? with(new Carbon($data->created_at))->format('Y-m-d') : '';
                 })
                 ->editColumn('updated_at', function ($data) {
                     return $data->updated_at ? with(new Carbon($data->updated_at))->format('Y-m-d') : '';
                 })
-
-
+                ->addColumn('ref_keuangan_uraian_kegiatan_id', function (T_realisasi_tempatpelaksanaan $T_realisasi_tempatpelaksanaan) {
+                    return $T_realisasi_tempatpelaksanaan->T_realisasi_pagu_rkkls->map(function ($x) {
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $x->ref_keuangan_uraian_kegiatan_id . '" data-original-title="Edit" class="detailProduct" title="edit rincian pelaksanaan">' . $x->ref_keuangan_uraian_kegiatan_id . '</a>';
+                        return $btn;
+                    })->implode('<br>');
+                })
+                ->addColumn('hari', function (T_realisasi_tempatpelaksanaan $T_realisasi_tempatpelaksanaan) {
+                    return $T_realisasi_tempatpelaksanaan->T_realisasi_pagu_rkkls->map(function ($x) {
+                        return $x->hari;
+                    })->implode('<br>');
+                })
+                ->addColumn('nilai', function (T_realisasi_tempatpelaksanaan $T_realisasi_tempatpelaksanaan) {
+                    return $T_realisasi_tempatpelaksanaan->T_realisasi_pagu_rkkls->map(function ($x) {
+                        return $x->nilai;
+                    })->implode('<br>');
+                })
+                ->addColumn('nilai_pagu_realisasi', function (T_realisasi_tempatpelaksanaan $T_realisasi_tempatpelaksanaan) {
+                    return $T_realisasi_tempatpelaksanaan->T_realisasi_pagu_rkkls->map(function ($x) {
+                        return $x->nilai_pagu_realisasi;
+                    })->implode('<br>');
+                })
                 // ->toJson();
-                ->rawColumns(['action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi',  'file_pdf'])
+                ->rawColumns(['action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi', 'hari', 'nilai', 'file_pdf'])
                 ->make(true);
         }
 
-        return view('spj', compact('datas', 'tempats', 'laporans'));
+        return view('spj', compact('datas', 'tempats', 'laporans', 'keterangans'));
     }
 
     /**
@@ -307,9 +358,9 @@ class SPJ_Controller extends Controller
         $realisasi_anggaran_tanpa_titik = $realisasi_anggaran[0]->realisasi_anggaran;
 
         // deklarasi nilai pagu yang baru diinput
-        $penginputan_tanpa_titik = str_replace('.', '', $request->nilai_pagu_realisasi);
+        $penginputan_tanpa_titik = str_replace('.', '', $request->nilai);
 
-        $hasil = $pagu_anggaran_tanpa_titik - $realisasi_anggaran_tanpa_titik - $penginputan_tanpa_titik;
+        $hasil = $pagu_anggaran_tanpa_titik - $realisasi_anggaran_tanpa_titik - ($penginputan_tanpa_titik * $request->hari);
 
 
         if ($hasil < 0) {
@@ -317,11 +368,16 @@ class SPJ_Controller extends Controller
         } else {
             DB::table('t_realisasi_pagu_rkkl')->insert([
                 'ref_unitbagian_id' => Auth::user()->unit_kerja,
-                // 't_realisasi_rkkl_id' => $request->product_id,
+                't_realisasi_tempatpelaksanaan_id' => $request->product_id,
                 't_realisasi_rkkl_id' => $request->t_realisasi_rkkl_id,
                 'ref_keuangan_uraian_kegiatan_id' => $request->ref_keuangan_uraian_kegiatan_id,
-                'nilai_pagu_realisasi' => $request->nilai_pagu_realisasi,
-                'user_penginput_data' => Auth::user()->id
+                'hari' => $request->hari,
+                'nilai' => $request->nilai,
+                'keterangan' => $request->keterangan,
+                'nilai_pagu_realisasi' => $request->hari * $request->nilai,
+                'user_penginput_data' => Auth::user()->id,
+                'tahun_anggaran' => Session::get('tahunanggaran')
+
 
 
             ]);

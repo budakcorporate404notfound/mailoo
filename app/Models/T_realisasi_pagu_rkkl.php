@@ -18,6 +18,9 @@ class T_realisasi_pagu_rkkl extends Model
         'ref_unitbagian_id',
         't_realisasi_rkkl_id',
         'ref_keuangan_uraian_kegiatan_id',
+        't_realisasi_tempatpelaksanaan_id',
+        'hari',
+        'nilai',
         'nilai_pagu_realisasi',
         'user_penginput_data',
         'tahun_anggaran'
@@ -27,5 +30,10 @@ class T_realisasi_pagu_rkkl extends Model
     public function T_realisasi_rkkl()
     {
         return $this->belongsTo('App\Models\T_realisasi_rkkl', 't_realisasi_rkkl_id', 'id');
+    }
+
+    public function T_realisasi_tempatpelaksanaans()
+    {
+        return $this->belongsTo('App\Models\T_realisasi_tempatpelaksanaan', 't_realisasi_tempatpelaksanaan_id', 'id');
     }
 }

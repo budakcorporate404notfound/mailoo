@@ -175,9 +175,21 @@
 
                {{-- <li><a href="{{url('ajaxproducts')}}">datatable</a></li> --}}
                <li><a href="{{url('nominatif')}}"><i class="las la-percentage"></i><span>Nominatif</span></a></li>
-               <li><a href="{{url('realisasirkkl')}}"><i class="las la-file-invoice-dollar"></i> Realisasi </a></li>
+
+               <li>
+                  <a href="#sub-laporankegiatan" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="las la-folder"></i><span>Laporan Kegiatan</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="sub-laporankegiatan" class="iq-submenu iq-submenu-data collapse">
+                     {{-- <li><a href="{{url('rincianpelaksanaan')}}"><i class="las la-campground"></i>Pelaksanaan</a>
+                     </li> --}}
+                     <li><a href="{{url('realisasirkkl')}}"><i class="las la-archive"></i> Rekapitulasi Laporan </a></li>
+                     <li><a href="{{url('unggahlaporan')}}"><i class="lar la-file-pdf"></i> Unggah Laporan </a></li>
+
+
+               </ul>
+               </li>
+
+
                <li><a href="{{url('spj')}}"><i class="las la-file-invoice-dollar"></i> SPJ </a></li>
-               <li><a href="{{url('unggahlaporan')}}"><i class="lar la-file-pdf"></i> Unggah Laporan </a></li>
 
                <li>
                   <a href="#sub-menu" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i

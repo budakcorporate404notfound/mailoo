@@ -36,7 +36,7 @@ class Rincian_PengeluaranController extends Controller
             ->where(
                 'Ref_keuangan_uraian_kegiatan.id_unitbagian',
                 '=',
-                Auth::user()->unit_kerja
+                'Auth::user()->unit_kerja'
             )
             ->get();
 
@@ -53,6 +53,7 @@ class Rincian_PengeluaranController extends Controller
             $data = T_realisasi_pagu_rkkl::select(
                 't_realisasi_pagu_rkkl.id',
                 'ref_unitbagian.name as bagian',
+                't_realisasi_tempatpelaksanaan.nama_pelaksana as nama_pelaksana',
                 't_realisasi_pagu_rkkl.t_realisasi_rkkl_id',
                 't_realisasi_rkkl.nomor_surat_tugas',
                 'ref_keuangan_uraian_kegiatan.id as kode_anggaran',
@@ -60,6 +61,9 @@ class Rincian_PengeluaranController extends Controller
                 'ref_keuangan_uraian_kegiatan.nama_uraian_kegiatan as nama_uraian_kegiatan',
                 'ref_keuangan_uraian_kegiatan.nama_sub_menu_uraian_kegiatan as nama_sub_menu_uraian_kegiatan',
                 'ref_keuangan_uraian_kegiatan.kelompok_pagu as kelompok_pagu',
+                't_realisasi_pagu_rkkl.hari',
+                't_realisasi_pagu_rkkl.nilai',
+                't_realisasi_pagu_rkkl.keterangan',
                 't_realisasi_pagu_rkkl.nilai_pagu_realisasi',
                 't_realisasi_pagu_rkkl.user_penginput_data',
                 't_realisasi_pagu_rkkl.tahun_anggaran',
@@ -69,6 +73,7 @@ class Rincian_PengeluaranController extends Controller
 
 
                 ->join('ref_unitbagian', 'ref_unitbagian.id', '=', 't_realisasi_pagu_rkkl.ref_unitbagian_id')
+                ->join('t_realisasi_tempatpelaksanaan', 't_realisasi_tempatpelaksanaan.id', '=', 't_realisasi_pagu_rkkl.t_realisasi_tempatpelaksanaan_id')
                 ->join('ref_keuangan_uraian_kegiatan', 'ref_keuangan_uraian_kegiatan.id', '=', 't_realisasi_pagu_rkkl.ref_keuangan_uraian_kegiatan_id')
                 ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_pagu_rkkl.t_realisasi_rkkl_id')
                 ->where('t_realisasi_pagu_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
@@ -97,14 +102,13 @@ class Rincian_PengeluaranController extends Controller
                             break;
                     }
                 })
+
                 ->editColumn('created_at', function ($data) {
                     return $data->created_at ? with(new Carbon($data->created_at))->format('Y-m-d') : '';
                 })
                 ->editColumn('updated_at', function ($data) {
                     return $data->updated_at ? with(new Carbon($data->updated_at))->format('Y-m-d') : '';
                 })
-
-
                 // ->toJson();
                 ->rawColumns(['created_at', 'updated_at', 'action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi',  'file_pdf'])
                 ->make(true);

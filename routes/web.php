@@ -30,6 +30,7 @@ use App\Http\Controllers\Status_UserController;
 use App\Http\Controllers\FullCalenderController;
 use App\Http\Controllers\User_Controller;
 use App\Http\Controllers\KonsepST_Controller;
+use App\Http\Controllers\ReferensiDetailController;
 use App\Http\Controllers\HomeController2;
 use App\Http\Controllers\Jabatan_Controller;
 use App\Http\Controllers\KodemakController;
@@ -73,6 +74,15 @@ Route::group(
         Route::resource('referensi', ReferensiController::class);
     }
 );
+
+Route::group(
+    ['middleware' => ['role']],
+    function () {
+        Route::resource('detailreferensianggaran', ReferensiDetailController::class);
+    }
+);
+
+
 // Route::resource('ajaxproducts', ProductAjaxController::class);
 
 Route::post('realisasirkkl/storex', [App\Http\Controllers\Realisasi_rkklController::class, 'storex'])->name('realisasirkkl.storex');
@@ -221,12 +231,8 @@ Route::group(
     }
 );
 
-
-
 // Route::get('generate-docx', 'HomeController2@generateDocx');
 // Route::get('generate-docx', [App\Http\Controllers\HomeController2::class, 'generateDocx'])->name('generateDocx');
-
-
 
 Route::get('search', [Select2SearchController::class, 'index']);
 Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectSearch']);

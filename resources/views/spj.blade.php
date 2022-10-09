@@ -3,13 +3,13 @@
 @section('nama_menu')
 
 <h5 class="mb-0">
-    Rincian Pelaksanaan
+    SPJ
 </h5>
 
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Rincian Pelaksanaan</li>
+        <li class="breadcrumb-item active" aria-current="page">SPJ</li>
     </ul>
 </nav>
 @endsection
@@ -130,7 +130,7 @@
                 <div class="modal-body" style="text-align: justify">
                     <i class="las la-skull-crossbones" style="color: red"></i>
                     <br> gagal dilakukan penginputan atau perubahan data
-                    <br> pastikan data yang diinputkan sudah benar
+                    <br> pastikan nilai yang terinput tidak melebihi pagu anggaran
                 </div>
 
             </div>
@@ -167,7 +167,7 @@
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title">Rincian Pelaksanaan</h4>
+                    <h4 class="card-title">SPJ</h4>
 
                     <div id="response"></div>
 
@@ -192,9 +192,13 @@
                                 <th>nama pelaksana</th>
                                 <th>nip</th>
                                 <th>golongan</th>
-                                 <th>eselon</th>
+                                <th>eselon</th>
                                 <th>jabatan</th>
                                 <th>tempat pelaksana</th>
+                                <th>kode anggaran</th>
+                                <th>hari</th>
+                                <th>nilai</th>
+                                <th>hari x nilai</th>
                                 <th>tahun anggaran</th>
                                 <th>created at</th>
                                 <th>updated at</th>
@@ -207,6 +211,10 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -239,30 +247,70 @@
                     <form id="productFormv" name="productFormv" class="form-horizontal">
 
                         <input type="hidden" name="product_id" id="product_idv">
-                        <input type="text" name="t_realisasi_rkkl_id" id="t_realisasi_rkkl_id">
+                        {{-- <input type="text" name="t_realisasi_rkkl_id" id="t_realisasi_rkkl_id"> --}}
 
-                        <div class="form-group">
-                            <label class="col-sm-12 control-label">referensi realisasi pagu anggaran <span
-                                    style="color:red;font-weight:bold">*</span></label>
-                            <div class="col-sm-12">
-                                <select id="ref_keuangan_uraian_kegiatan_id" name="ref_keuangan_uraian_kegiatan_id"
-                                    required>
-                                    <option value="">referensi realisasi pagu anggaran ...</option>
-                                    @foreach($datas as $data)
-                                    <option value="{{ $data->id}}"> {{$data->nama_uraian_kegiatan}} >>
-                                        {{$data->nama_sub_menu_uraian_kegiatan}} >> {{$data->kelompok_pagu}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="t_realisasi_rkkl_id"> id realisasi rkkl <span style="color:red"></label>
+                                    <input id="t_realisasi_rkkl_id" name="t_realisasi_rkkl_id"  required=""
+                                        placeholder="hari ..." class="form-control" autocomplete="on" readonly>
+                                    @error('t_realisasi_rkkl_id')
+                                    <span class="text-danger"> {{$message}} </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <br>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="col-sm-12 control-label">referensi realisasi<span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <div class="col-sm-12">
+                                    <select id="ref_keuangan_uraian_kegiatan_id" name="ref_keuangan_uraian_kegiatan_id" required>
+                                        <option value="">referensi realisasi ...</option>
+                                        @foreach($datas as $data)
+                                        <option value="{{ $data->id}}"> {{$data->nama_uraian_kegiatan}} >>
+                                            {{$data->nama_sub_menu_uraian_kegiatan}} >> {{$data->kelompok_pagu}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <label class="col-sm-12 control-label">keterangan<span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <div class="col-sm-12">
+                                    <select id="keterangan" name="keterangan" required>
+                                        <option value="">pilih keterangan ...</option>
+                                        @foreach($keterangans as $keterangan)
+                                        <option value="{{ $keterangan->keterangan}}"> {{$keterangan->keterangan}}
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-12 control-label">nilai realisasi <span
-                                    style="color:red;font-weight:bold">*</span></label>
-                            <div class="col-sm-12">
-                                <input type="text" id="nilai_pagu_realisasixx" name="nilai_pagu_realisasi" required
-                                    placeholder="nilai realisasi ..." class="form-control">
+                        <br>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="hari"> hari <span style="color:red"></label>
+                                <input id="hari" name="hari"  required=""
+                                    placeholder="hari ..." class="form-control" autocomplete="on">
+                                @error('hari')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+
+                            <div class="col">
+                                <label for="nilai"> nilai <span style="color:red"></label>
+                                <input id="nilai" name="nilai"  required=""
+                                    placeholder="nilai ..." class="form-control" autocomplete="on">
+                                @error('nilai')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -299,6 +347,105 @@
         </div>
     </div>
 
+    </div>
+    </div>
+
+     <div class="modal fade" id="ajaxModelDetail" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modelHeading"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm" name="productForm" class="form-horizontal">
+                        {{-- <input type="text" name="product_id" id="product_id"> --}}
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="product_id"> kode anggaran <span style="color:red">read
+                                        only</span></label>
+                                <input id="product_id_detail" name="product_id" readonly required=""
+                                    placeholder="product_id" class="form-control" autocomplete="on">
+                                @error('product_id')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+                            <div class="col">
+                                <label for="nama_pelaksana">unit bagian <span style="color:red">read
+                                        only</span></label></label>
+                                <input id="unit_bagian" name="unit_bagian" required=""
+                                    placeholder="nama pelaksana ..." class="form-control" autocomplete="on">
+                                @error('unit_bagian')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="kode_uraian_kegiatan"> kode uraian kegiatan <span style="color:red">read
+                                        only</span></label>
+                                <input id="kode_uraian_kegiatan" name="kode_uraian_kegiatan" readonly required=""
+                                    placeholder="kode_uraian_kegiatan" class="form-control" autocomplete="on">
+                                @error('kode_uraian_kegiatan')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="nama_uraian_kegiatan"> nama uraian kegiatan <span style="color:red">read
+                                        only</span></label>
+                                <input id="nama_uraian_kegiatan" name="nama_uraian_kegiatan" readonly required=""
+                                    placeholder="nama_uraian_kegiatan" class="form-control" autocomplete="on">
+                                @error('nama_uraian_kegiatan')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="nama_sub_menu_uraian_kegiatan"> nama sub uraian kegiatan <span style="color:red">read
+                                        only</span></label>
+                                <input id="nama_sub_menu_uraian_kegiatan" name="nama_sub_menu_uraian_kegiatan" readonly required=""
+                                    placeholder="nama_sub_menu_uraian_kegiatan" class="form-control" autocomplete="on">
+                                @error('nama_sub_menu_uraian_kegiatan')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="kelompok_pagu"> kelompok pagu  <span style="color:red">read
+                                        only</span></label>
+                                <input id="kelompok_pagu" name="kelompok_pagu" readonly required=""
+                                    placeholder="kelompok_pagu" class="form-control" autocomplete="on">
+                                @error('kelompok_pagu')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                        </div>
+
+                </form>
+            </div>
+        </div>
     </div>
     </div>
 
@@ -566,6 +713,13 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        // Initialize select2
+        $("#keterangan").select2();
+    });
+</script>
+
 
 <script type="text/javascript">
     $('.livesearch').select2({
@@ -666,7 +820,7 @@
                 },
                 {
                     data: 'nomor_surat_tugas',
-                    name: 't_realisasi_rkkl.nomor_surat_tugas',
+                    name: 'nomor_surat_tugas',
                     searchable: true
                 },
                 {
@@ -697,6 +851,26 @@
                 {
                     data: 'tempat_pelaksana',
                     name: 'tempat_pelaksana',
+                    searchable: true
+                },
+                {
+                    data: 'ref_keuangan_uraian_kegiatan_id',
+                    name: 'ref_keuangan_uraian_kegiatan_id',
+                    searchable: true
+                },
+                {
+                    data: 'hari',
+                    name: 'hari',
+                    searchable: true
+                },
+                {
+                    data: 'nilai',
+                    name: 'nilai',
+                    searchable: true
+                },
+                {
+                    data: 'nilai_pagu_realisasi',
+                    name: 'nilai_pagu_realisasi',
                     searchable: true
                 },
                 {
@@ -772,6 +946,27 @@
                 $('#tempat_pelaksana').val(data.tempat_pelaksana);
             })
         });
+            $('body').on('click', '.detailProduct', function() {
+            var product_id = $(this).data('id');
+            $.get("{{ route('detailreferensianggaran.index') }}" + '/' + product_id + '/edit', function(
+                data) {
+                $('#modelHeading').html("referensi anggaran");
+                // $('#saveBtn').val("edit-user");
+                $('#ajaxModelDetail').modal('show');
+                $('#product_id_detail').val(data.id);
+                $('#unit_bagian').val(data.id_unitbagian);
+                $('#kode_uraian_kegiatan').val(data.kode_uraian_kegiatan);
+                $('#nama_uraian_kegiatan').val(data.nama_uraian_kegiatan);
+                $('#nama_sub_menu_uraian_kegiatan').val(data.nama_sub_menu_uraian_kegiatan);
+                $('#kelompok_pagu').val(data.kelompok_pagu);
+                $('#pagu_anggaran').val(data.pagu_anggaran);
+                // $('#nip').val(data.nip);
+                // $('#eselon').val(data.eselon);
+                // $('#golongan').val(data.golongan);
+                // $('#jabatan').val(data.jabatan);
+                // $('#tempat_pelaksana').val(data.tempat_pelaksana);
+            })
+        });
         $('body').on('click', '.editProductx', function() {
             var product_id = $(this).data('id');
             $.get("{{ route('realisasirkkl.index') }}" + '/' + product_id + '/edit', function(data) {
@@ -821,7 +1016,9 @@
                 $('#product_idv').val(data.id);
                 $('#t_realisasi_rkkl_id').val(data.t_realisasi_rkkl_id);
                 $('#ref_keuangan_uraian_kegiatan_id').val(data.ref_keuangan_uraian_kegiatan_id);
-                $('#nilai_pagu_realisasixx').val(data.nilai_pagu_realisasi);
+                $('#keterangan').val(data.keterangan);
+                $('#nilai').val(data.nilai);
+                $('#hari').val(data.hari);
             })
         });
         $("#productForm").validate({
@@ -976,7 +1173,9 @@
                 // on the right side
                 t_realisasi_rkkl_id: "required",
                 ref_keuangan_uraian_kegiatan_id: "required",
-                nilai_pagu_realisasi: "required"
+                keterangan: "required",
+                nilai: "required",
+                hari: "required"
             },
         });
         $('#saveBtnv').click(function(e) {
@@ -994,6 +1193,8 @@
                             $('#ajaxModelv').modal('hide');
                             $("#ref_keuangan_uraian_kegiatan_id").val(null).trigger(
                                 "change");
+                            $("#keterangan").val(null).trigger(
+                                "change");
                             $('#saveBtnv').html('Save Changes');
                             $('#ModalSuccess').modal('show');
                             // $('#response').html(
@@ -1008,6 +1209,8 @@
                             $('#productFormv').trigger("reset");
                             $('#ajaxModelv').modal('hide');
                             $("#ref_keuangan_uraian_kegiatan_id").val(null).trigger(
+                                "change");
+                            $("#keterangan").val(null).trigger(
                                 "change");
                             $('#saveBtnv').html('Save Changes');
                             $('#ModalFailure').modal('show');
@@ -1048,11 +1251,11 @@
                                 });
                             table.draw();
                         } else {
-                              $('#ModalFailureDelete').modal('show');
+                            $('#ModalFailureDelete').modal('show');
                             // $('#response').html(
                             //     '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> data rincian pelaksanaan gagal dihapus <i class="las la-skull-crossbones"></i></button>'
                             // );
-                             $("#ModalFailureDelete").fadeTo(5000, 500).slideUp(500,
+                            $("#ModalFailureDelete").fadeTo(5000, 500).slideUp(500,
                                 function() {
                                     $("#ModalFailureDelete").slideUp(500);
                                     $('#ModalFailureDelete').modal('hide');

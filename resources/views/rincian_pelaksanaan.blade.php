@@ -192,7 +192,7 @@
                                 <th>nama pelaksana</th>
                                 <th>nip</th>
                                 <th>golongan</th>
-                                 <th>eselon</th>
+                                <th>eselon</th>
                                 <th>jabatan</th>
                                 <th>tempat pelaksana</th>
                                 <th>tahun anggaran</th>
