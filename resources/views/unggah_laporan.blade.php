@@ -9,6 +9,7 @@
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Laporan Kegiatan</li>
         <li class="breadcrumb-item active" aria-current="page">Unggah Laporan</li>
     </ul>
 </nav>
@@ -81,7 +82,7 @@
 
 <body>
 
-     @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
+    @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
     <script>
         $(function() {
             $('#myModal').modal('show');
@@ -139,7 +140,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>nama pelaksana</th>
-                                 <th>id realisasi rkkl</th>
+                                <th>id realisasi rkkl</th>
                                 <th>nomor surat tugas</th>
                                 <th>tahun anggaran</th>
                                 <th>created at</th>
@@ -187,7 +188,7 @@
 
                                 <input type="hidden" name="product_id" id="product_idy">
                                 <input type="hidden" name="t_realisasi_rkkl_id" id="t_realisasi_rkkl_id">
-                                 <input type="hidden" name="no_surat_tugas" id="no_surat_tugas">
+                                <input type="hidden" name="no_surat_tugas" id="no_surat_tugas">
 
                                 <div class="form-group">
                                     <b>File PDF</b><br />
@@ -364,7 +365,7 @@
                     name: 'nama_pelaksana',
                     searchable: true
                 },
-                   {
+                {
                     data: 't_realisasi_rkkl_id',
                     name: 't_realisasi_rkkl_id',
                     searchable: true
@@ -374,17 +375,17 @@
                     name: 'no_surat_tugas',
                     searchable: true
                 },
-                  {
+                {
                     data: 'tahun_anggaran',
                     name: 'tahun_anggaran',
                     searchable: true
                 },
-                   {
+                {
                     data: 'created_at',
                     name: 'created_at',
                     searchable: true
                 },
-                   {
+                {
                     data: 'updated_at',
                     name: 'updated_at',
                     searchable: true
@@ -467,7 +468,7 @@
                 $('#ajaxModely').modal('show');
                 $('#product_idy').val(data.id);
                 $('#t_realisasi_rkkl_id').val(data.t_realisasi_rkkl_id);
-                 $('#no_surat_tugas').val(data.no_surat_tugas);
+                $('#no_surat_tugas').val(data.no_surat_tugas);
                 $('#file').val(data.file);
                 $('#keterangan').val(data.keterangan);
             })

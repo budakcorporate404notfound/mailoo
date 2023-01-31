@@ -201,8 +201,8 @@
                                 @enderror
                             </div>
                             <div class="col">
-                                <label for="nip">nip <span style="color:red">*</span></label>
-                                <input id="nip" name="nip" required="" placeholder="nip user ..." class="form-control">
+                                <label for="nip">nip </label>
+                                <input id="nip" name="nip"  placeholder="nip user ..." class="form-control">
                                 @error('nip')
                                 <span class="text-danger"> {{$message}} </span>
                                 @enderror

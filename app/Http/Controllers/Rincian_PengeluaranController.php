@@ -15,6 +15,7 @@ use App\Models\T_coba;
 use App\Models\T_pengirim_laporan;
 use App\Models\T_realisasi_pagu_rkkl;
 use App\Models\Ref_keuangan_uraian_kegiatan;
+use App\Models\Ref_keterangan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +37,22 @@ class Rincian_PengeluaranController extends Controller
             ->where(
                 'Ref_keuangan_uraian_kegiatan.id_unitbagian',
                 '=',
-                'Auth::user()->unit_kerja'
+                Auth::user()->unit_kerja
             )
+            ->get();
+
+        $keterangans = Ref_keterangan::select(
+            'id',
+            'ref_unitbagian_id',
+            'keterangan',
+            'locked',
+            'user_penginput_data',
+            'tahun_anggaran'
+
+        )
+            ->where('ref_keterangan.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
+            ->where('ref_keterangan.locked', '=', '1')
+            ->where('ref_keterangan.tahun_anggaran', '=', Session::get('tahunanggaran'))
             ->get();
 
         $tempats = Ref_satuankerja::all();
@@ -54,6 +69,12 @@ class Rincian_PengeluaranController extends Controller
                 't_realisasi_pagu_rkkl.id',
                 'ref_unitbagian.name as bagian',
                 't_realisasi_tempatpelaksanaan.nama_pelaksana as nama_pelaksana',
+                't_realisasi_tempatpelaksanaan.jabatan as jabatan',
+                't_realisasi_tempatpelaksanaan.nip as nip',
+                't_realisasi_tempatpelaksanaan.golongan as golongan',
+                't_realisasi_rkkl.tanggal_pelaksana_dari as tanggal_pelaksana_dari',
+                't_realisasi_rkkl.tanggal_pelaksana_sampai as tanggal_pelaksana_sampai',
+                't_realisasi_tempatpelaksanaan.tempat_pelaksana as tempat_pelaksana',
                 't_realisasi_pagu_rkkl.t_realisasi_rkkl_id',
                 't_realisasi_rkkl.nomor_surat_tugas',
                 'ref_keuangan_uraian_kegiatan.id as kode_anggaran',
@@ -77,7 +98,9 @@ class Rincian_PengeluaranController extends Controller
                 ->join('ref_keuangan_uraian_kegiatan', 'ref_keuangan_uraian_kegiatan.id', '=', 't_realisasi_pagu_rkkl.ref_keuangan_uraian_kegiatan_id')
                 ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_pagu_rkkl.t_realisasi_rkkl_id')
                 ->where('t_realisasi_pagu_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
-                ->where('t_realisasi_pagu_rkkl.tahun_anggaran', '=', Session::get('tahunanggaran'));
+                ->where('t_realisasi_pagu_rkkl.tahun_anggaran', '=', Session::get('tahunanggaran'))
+                // ->whereNotNull('t_realisasi_rkkl.nomor_surat_tugas')
+                ->orderBy('t_realisasi_pagu_rkkl.id', 'desc');;
 
             return Datatables::eloquent($data)
 
@@ -102,6 +125,7 @@ class Rincian_PengeluaranController extends Controller
                             break;
                     }
                 })
+                ->addColumn('checkbox', '<input type="checkbox" name="pengeluaran_checkbox[]" class="pengeluaran_checkbox" value="{{$id}}" />')
 
                 ->editColumn('created_at', function ($data) {
                     return $data->created_at ? with(new Carbon($data->created_at))->format('Y-m-d') : '';
@@ -110,11 +134,11 @@ class Rincian_PengeluaranController extends Controller
                     return $data->updated_at ? with(new Carbon($data->updated_at))->format('Y-m-d') : '';
                 })
                 // ->toJson();
-                ->rawColumns(['created_at', 'updated_at', 'action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi',  'file_pdf'])
+                ->rawColumns(['checkbox', 'created_at', 'updated_at', 'action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi',  'file_pdf'])
                 ->make(true);
         }
 
-        return view('rincian_pengeluaran', compact('datas', 'tempats', 'laporans'));
+        return view('rincian_pengeluaran', compact('datas', 'tempats', 'laporans', 'keterangans'));
     }
 
     /**
@@ -141,9 +165,9 @@ class Rincian_PengeluaranController extends Controller
 
 
         // deklarasi nilai pagu yang baru diinput
-        $penginputan_tanpa_titik = str_replace('.', '', $request->nilai_pagu_realisasi);
+        $penginputan_tanpa_titik = str_replace('.', '', $request->nilai);
 
-        $hasil = $pagu_anggaran_tanpa_titik - $realisasi_anggaran_tanpa_titik - $penginputan_tanpa_titik;
+        $hasil = $pagu_anggaran_tanpa_titik - $realisasi_anggaran_tanpa_titik - ($penginputan_tanpa_titik * $request->hari);
 
         if ($hasil < 0) {
             return response()->json(['failed' => 'failed.']);
@@ -158,8 +182,11 @@ class Rincian_PengeluaranController extends Controller
                     // 'tempat_pelaksana' => $request->tempat_pelaksana,
                     // 'id_kode_uraian_kegiatan' => $request->id_kode_uraian_kegiatan,
                     // 'nilai_pagu_realisasi' => $request->nilai_pagu_realisasi,
-                    'nilai_pagu_realisasi' => $request->nilai_pagu_realisasi,
+                    'hari' => $request->hari,
+                    'nilai' => $request->nilai,
+                    'nilai_pagu_realisasi' =>  $request->hari *  $request->nilai,
                     'user_penginput_data' => Auth::user()->id,
+                    'keterangan' => $request->keterangan,
                     'tahun_anggaran' => Session::get('tahunanggaran')
                 ]
             );
@@ -398,5 +425,14 @@ class Rincian_PengeluaranController extends Controller
         T_realisasi_pagu_rkkl::find($id)->delete();
 
         return response()->json(['success' => 'success']);
+    }
+
+    public function massremove(Request $id)
+    {
+        $pengeluaran_id_array = $id->input('id');
+        $rincian_pengeluaran = T_realisasi_pagu_rkkl::whereIn('id', $pengeluaran_id_array);
+        if ($rincian_pengeluaran->delete()) {
+            echo 'Data Berhasil Terhapus';
+        }
     }
 }

@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Mailoo</title>
+    <title>grv✦</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
     <!-- Bootstrap CSS -->
@@ -33,8 +33,8 @@
             <div class="row no-gutters">
                 <div class="col-sm-12 align-self-center">
                     <div class="sign-in-from bg-white">
-                        <h1 class="mb-0">Sign In - Mailoo</h1>
-                        <p>Masukan (email atau username kamu) dan password untuk mengakses dashboard Mailoo</p>
+                        <h1 class="mb-0">Sign In - grv✦</h1>
+                        <p>Masukan (email atau username kamu) dan password untuk mengakses grv✦</p>
 
                         @if ($message = Session::get('error'))
                         {{ $message }}

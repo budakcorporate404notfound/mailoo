@@ -76,39 +76,39 @@
         text-align: center;
     }
 
-    .bg-cream{
+    .badge-primary{
     background-color: #FFCC8F;
     }
 
-    .bg-softcream{
+    .badge-secondary{
     background-color: #FFE182;
     }
 
-    .bg-softred{
+    .badge-success{
     background-color: #FFA282;
     }
 
-    .bg-blue-soft{
+    .badge-danger{
     background-color: #35F2EF;
     }
 
-    .bg-green-soft{
+    .badge-dark{
     background-color: #7BE897;
     }
 
-    .bg-purple-soft{
+    .badge-info{
     background-color: #DB9FD5;
     }
 
-    .bg-grey-soft{
+    .badge-primary{
     background-color: #ABADB0;
     }
 
-    .bg-pink-soft{
+    .badge-secondary{
     background-color: #FF798A;
     }
 
-    .bg-yellow-soft{
+    .badge-success{
     background-color: #FFFA55;
     }
 
@@ -254,15 +254,15 @@
                                 <th style="text-align: center">golongan</th>
                                 <th style="text-align: center">eselon</th>
                                 <th style="text-align: center">jabatan</th>
-                                <th>luar kota</th>
-                                <th>dalam kota</th>
-                                <th>diklat</th>
-                                <th>berdasarkan golongan</th>
-                                <th>berdasarkan eselon</th>
-                                <th>kota asal</th>
-                                <th>kota tujuan</th>
-                                <th>bisnis</th>
-                                <th>ekonomi</th>
+                                <th>sbu uang harian luar kota</th>
+                                <th>sbu uang harian dalam kota</th>
+                                <th>sbu uang harian diklat</th>
+                                <th>sbu penginapan berdasarkan golongan</th>
+                                <th>sbu penginapan berdasarkan eselon</th>
+                                <th>sbu taksi kota asal</th>
+                                <th>sbu taksi kota tujuan</th>
+                                <th>sbu pesawat bisnis</th>
+                                <th>sbu pesawat ekonomi</th>
                                 <th>created at</th>
                                 <th>updated at</th>
 
@@ -645,7 +645,10 @@
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
-
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
@@ -662,11 +665,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -684,11 +687,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -706,11 +709,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -729,11 +732,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -751,11 +754,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -773,11 +776,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -798,11 +801,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -820,12 +823,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -843,12 +846,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -867,12 +870,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -891,12 +894,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -914,12 +917,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -937,11 +940,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                badge = '<span class="badge badge-success" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                badge = '<span class="badge badge-success" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -959,11 +962,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                    parseInt(row.sbu_uangharian_luarkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_luarkota * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     parseInt(row.sbu_uangharian_luarkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_luarkota * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
                                 break;
                         }
@@ -983,11 +986,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     parseInt(row.sbu_uangharian_dalamkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_dalamkota * row.lama_pelaksanaan).toLocaleString('id')   + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     parseInt(row.sbu_uangharian_dalamkota).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_dalamkota * row.lama_pelaksanaan).toLocaleString('id')   + '</span>';
                                 break;
                         }
@@ -1005,11 +1008,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                      parseInt(row.sbu_uangharian_diklat).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_diklat * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                      parseInt(row.sbu_uangharian_diklat).toLocaleString('id') + ' x ( ' + row.lama_pelaksanaan  + ' hari ) = ' + parseInt(row.sbu_uangharian_diklat * row.lama_pelaksanaan).toLocaleString('id')  + '</span>';
                                 break;
                         }
@@ -1028,11 +1031,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                      parseInt(row.sbu_penginapan_golongan).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_golongan * ( row.lama_pelaksanaan - 1) ).toLocaleString('id')   + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                      parseInt(row.sbu_penginapan_golongan).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_golongan * ( row.lama_pelaksanaan - 1) ).toLocaleString('id')   + '</span>';
                                 break;
                         }
@@ -1051,11 +1054,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     parseInt(row.sbu_penginapan_eselon).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_eselon  * ( row.lama_pelaksanaan - 1) ).toLocaleString('id') + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     parseInt(row.sbu_penginapan_eselon).toLocaleString('id') + ' x ( ' + (row.lama_pelaksanaan - 1)  + ' hari ) = ' + parseInt(row.sbu_penginapan_eselon  * ( row.lama_pelaksanaan - 1) ).toLocaleString('id') + '</span>';
                                 break;
                         }
@@ -1074,11 +1077,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     parseInt(row.sbu_taksi_tempat_asal).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt( row.sbu_taksi_tempat_asal * 2).toLocaleString('id')  + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     parseInt(row.sbu_taksi_tempat_asal).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt( row.sbu_taksi_tempat_asal * 2).toLocaleString('id')  + '</span>';
                                 break;
                         }
@@ -1096,11 +1099,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     parseInt(row.sbu_taksi_tempat_tujuan).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt(row.sbu_taksi_tempat_tujuan * 2).toLocaleString('id')   + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-green-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     parseInt(row.sbu_taksi_tempat_tujuan).toLocaleString('id') + ' x ( 2 hari ) = ' + parseInt(row.sbu_taksi_tempat_tujuan * 2).toLocaleString('id')   + '</span>';
                                 break;
                         }
@@ -1118,11 +1121,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     parseInt(row.sbu_pesawat_bisnis).toLocaleString('id')  + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     parseInt(row.sbu_pesawat_bisnis).toLocaleString('id')  + '</span>';
                                 break;
                         }
@@ -1142,11 +1145,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     parseInt(row.sbu_pesawat_ekonomi).toLocaleString('id') + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-grey-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     parseInt(row.sbu_pesawat_ekonomi).toLocaleString('id') + '</span>';
                                 break;
                         }
@@ -1167,11 +1170,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-pink-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-pink-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1189,11 +1192,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1211,11 +1214,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-yellow-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }

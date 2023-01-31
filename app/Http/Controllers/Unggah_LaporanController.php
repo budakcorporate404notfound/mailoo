@@ -265,6 +265,7 @@ class Unggah_LaporanController extends Controller
                 'ref_unitbagian_id' => Auth::user()->unit_kerja,
                 'pengirim_laporan' => Auth::user()->name,
                 't_realisasi_rkkl_id' => $request->t_realisasi_rkkl_id,
+                't_pembuat_laporan_id' => $request->product_id,
                 'no_surat_tugas' => $request->no_surat_tugas,
                 'file' => $nama_file,
                 'keterangan' => $request->keterangan,

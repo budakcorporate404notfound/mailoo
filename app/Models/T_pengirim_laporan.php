@@ -16,6 +16,7 @@ class T_pengirim_laporan extends Model
         'ref_unitbagian_id',
         'pengirim_laporan',
         't_realisasi_rkkl_id',
+        't_pembuat_laporan_id',
         'no_surat_tugas',
         'file',
         'keterangan',

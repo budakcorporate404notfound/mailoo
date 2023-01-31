@@ -73,19 +73,19 @@
     }
 
 
-    .bg-cream{
+    .badge-info{
     background-color: #FFCC8F;
     }
 
-    .bg-softcream{
+    .badge-dark{
     background-color: #FFE182;
     }
 
-    .bg-softred{
+    .badge-primary{
     background-color: #FFA282;
     }
 
-    .bg-blue-soft{
+    .badge-secondary{
     background-color: #35F2EF;
     }
 
@@ -93,7 +93,7 @@
     background-color: #7BE897;
     }
 
-    .bg-purple-soft{
+    .badge-warning{
     background-color: #DB9FD5;
     }
 
@@ -154,16 +154,23 @@
                     <div id="response"></div>
 
                 </div>
-
                 @switch(Auth::user()->jabatan)
                 @case(5)
                 <div>
                     <br>
+                    <a class="btn btn-danger rounded-pill mb-3" href="javascript:void(0)" id="bulk_delete" name="bulk_delete"
+                        title="hapus referensi satuan kerja"> x </a>
                     <a class="btn btn-primary rounded-pill mb-3" href="javascript:void(0)" id="createNewProduct"
-                        title="tambah referensi menimbang"> + </a>
+                        title="tambah referensi satuan kerja"> + </a>
+                </div>
+                @break
+                @case(6)
+                <div>
+
                 </div>
                 @break
                 @default
+
                 @endswitch
 
             </div>
@@ -173,6 +180,7 @@
                     <table id="datatable" class="table table-striped table-bordered data-table">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th colspan="4"  style="text-align: center">data satuan kerja</th>
                                 <th colspan="3"  style="text-align: center">sbu uangharian </th>
                                 <th colspan="2"  style="text-align: center">sbu penginapan </th>
@@ -183,6 +191,7 @@
                             </tr>
 
                             <tr>
+                                <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>
                                 <th>No</th>
                                 <th>kode wilayah</th>
                                 <th>nama wilayah</th>
@@ -205,6 +214,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -674,6 +684,7 @@
         var table = $('.data-table').DataTable({
             dom: 'lBfrtip',
             buttons: [
+
                 {
                     extend:    'copyHtml5',
                     text:      '<i class="fa fa-files-o"></i>',
@@ -697,12 +708,23 @@
 
 
             ],
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
             // scrollX: true,
             ajax: "{{ route('satuankerja.index') }}",
-            columns: [{
+            columns: [
+                {
+                    data:'checkbox',
+                    targets: 0,
+                    orderable:false,
+                    searchable:false
+                },
+                {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
@@ -712,11 +734,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -733,11 +755,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -754,11 +776,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -775,11 +797,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-info" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -796,11 +818,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -818,11 +840,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -839,11 +861,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-softcream" style="width : 100%">' +
+                                badge = '<span class="badge badge-dark" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -860,11 +882,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -881,11 +903,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-softred" style="width : 100%">' +
+                                badge = '<span class="badge badge-primary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -902,11 +924,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -923,11 +945,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-blue-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-secondary" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -944,11 +966,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -965,11 +987,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-purple-soft" style="width : 100%">' +
+                                badge = '<span class="badge badge-warning" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -988,6 +1010,7 @@
                     searchable: false
                 },
             ],
+            order: [1, 'asc'],
             // initComplete: function() {
             //     this.api().columns().every(function() {
             //         var column = this;
@@ -1014,6 +1037,48 @@
                         });
                 });
             }
+        });
+        $('#example-select-all').on('click', function(){
+        // Check/uncheck all checkboxes in the table
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+        $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+        // If checkbox is not checked
+        if(!this.checked){
+            var el = $('#example-select-all').get(0);
+            // If "Select all" control is checked and has 'indeterminate' property
+            if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control
+            // as 'indeterminate'
+            el.indeterminate = true;
+                }
+            }
+        });
+        $('#frm-example').on('submit', function(e){
+        var form = this;
+
+        // Iterate over all checkboxes in the table
+        table.$('input[type="checkbox"]').each(function(){
+         // If checkbox doesn't exist in DOM
+            if(!$.contains(document, this)){
+            // If checkbox is checked
+                if(this.checked){
+                // Create a hidden element
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', this.name)
+                        .val(this.value)
+                );
+                }
+            }
+        });
+        $('#example-console').text($(form).serialize());
+        console.log("Form submission", $(form).serialize());
+
+        // Prevent actual form submission
+        e.preventDefault();
         });
         $('#createNewProduct').click(function() {
             $('#saveBtn').val("create-product");
@@ -1101,7 +1166,7 @@
                 sbu_penginapan_golongan: "required",
                 sbu_taksi_tempat_asal: "required",
                 sbu_taksi_tempat_tujuan: "required",
-                 sbu_pesawat_bisnis: "required",
+                sbu_pesawat_bisnis: "required",
                 sbu_pesawat_ekonomi: "required"
             },
         });
@@ -1262,6 +1327,32 @@
                 return false;
             }
         });
+        $(document).on('click', '#bulk_delete', function(){
+        var id = [];
+        if(confirm("kamu yakin akan menghapus data ini?"))
+        {
+            $('.pengeluaran_checkbox:checked').each(function(){
+                id.push($(this).val());
+            });
+            if(id.length > 0)
+            {
+                $.ajax({
+                    url:"{{ route('satuankerja.massremove')}}",
+                    method:"get",
+                    data:{id:id},
+                    success:function(data)
+                    {
+                        alert(data);
+                        $('.data-table').DataTable().ajax.reload();
+                    }
+                });
+            }
+            else
+            {
+                alert("pilih data yang ingin dihapus terlebih dahulu");
+            }
+        }
+    });
     });
 </script>
 

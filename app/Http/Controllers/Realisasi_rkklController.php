@@ -63,19 +63,19 @@ class Realisasi_rkklController extends Controller
 
                     switch (Auth::user()->jabatan) {
                         case '5':
-                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit surat tugas"><i class="las la-pen-alt"></i></a>';
+                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductz" title="tambah pembuat laporan"><i class="las la-file-medical"></i></a>';
                             // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
                             // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm editProductz" title="tambah pembuat laporan"><i class="las la-file-medical"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm editProduct" title="edit realisasi rkkl"><i class="las la-pen-alt"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="hapus realisasi rkkl"><i class="las la-trash-alt"></i></a>';
                             return $btn;
                             break;
 
                         case '6':
-                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit realisasi rkkl"><i class="las la-pen-alt"></i></a>';
+                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductz" title="tambah pembuat laporan"><i class="las la-file-medical"></i></a>';
                             // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
                             // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm editProductz" title="tambah pembuat laporan"><i class="las la-file-medical"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-secondary btn-sm editProduct" title="edit realisasi rkkl"><i class="las la-pen-alt"></i></a>';
                             return $btn;
                             break;
 
@@ -129,7 +129,7 @@ class Realisasi_rkklController extends Controller
                     return $T_realisasi_rkkl->T_pengirim_laporans->map(function ($x) {
 
                         $link = asset('storage/laporan_kegiatan/' . $x->file);
-                        $button = '<a href="' . $link . '" target="_blank"> <span class="badge badge-info" style="width : 100%">download</span></a>';
+                        $button = '<a href="' . $link . '" target="_blank"> <span class="badge badge-warning" style="width : 100%">download</span></a>';
 
                         return $button;
                     })->implode('<br>');
@@ -446,8 +446,34 @@ class Realisasi_rkklController extends Controller
      */
     public function destroy($id)
     {
-        T_realisasi_rkkl::find($id)->delete();
+        // T_realisasi_rkkl::find($id)->delete();
 
-        return response()->json(['success' => 'success']);
+        // return response()->json(['success' => 'success']);
+
+        $check_keterkaitan_dengan_pagu_anggaran = DB::table('t_realisasi_pagu_rkkl')
+            ->select(DB::raw("count(*) as count"))
+            ->where('t_realisasi_rkkl_id', '=', $id)
+            ->get();
+
+        $decode_check_realisasi = $check_keterkaitan_dengan_pagu_anggaran;
+
+        $count = $decode_check_realisasi[0]->count;
+
+
+        $check_keterkaitan_dengan_pelaksana = DB::table('t_realisasi_tempatpelaksanaan')
+            ->select(DB::raw("count(*) as count"))
+            ->where('t_realisasi_rkkl_id', '=', $id)
+            ->get();
+
+        $decode_check_pelaksana = $check_keterkaitan_dengan_pelaksana;
+
+        $count_pelaksana = $decode_check_pelaksana[0]->count;
+
+        if ($count <= 0 && $count_pelaksana <= 0) {
+            T_realisasi_rkkl::find($id)->delete();
+            return response()->json(['success' => 'success']);
+        } else {
+            return response()->json(['failed' => 'failed.']);
+        }
     }
 }

@@ -3,13 +3,13 @@
 @section('nama_menu')
 
 <h5 class="mb-0">
-    Dashboard I
+    Dashboard II
 </h5>
 
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dashboard I</li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard II</li>
     </ul>
 </nav>
 @endsection
@@ -168,7 +168,17 @@ tfoot input {
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <a href="index.html">
-                                <img src="assets/images/logo.gif" class="img-fluid" alt="">
+                                @php
+                                    $x = $datas->nilai_pagu_realisasi / $datas->pagu_anggaran * 100;
+
+                                    if (round($x) >= 80) {
+                                        echo '<img src="assets/images/hijau.gif" class="img-fluid" alt="">';
+                                    } elseif (round($x) < 80 && round($x) >= 50 ) {
+                                        echo '<img src="assets/images/kuning.gif" class="img-fluid" alt="">';
+                                    } else {
+                                        echo '<img src="assets/images/merah.gif" class="img-fluid" alt="">';
+                                    }
+                                @endphp
                             </a>
 
                         </div>
@@ -199,16 +209,17 @@ tfoot input {
                             <tr>
                                 <td><small class="text-muted"><i style="color: white"
                                             class="las la-dot-circle"></i></small></td>
-                                <td><small class="text-muted">{{$datas->pagu_anggaran}}</small></td>
+                                <td><small class="text-muted">{{number_format($datas->pagu_anggaran, 0, ",", ".")}}</small></td>
+                                {{-- number_format($request->hari * $penginputan_tanpa_titik, 0, ",", "."), --}}
                                 <td><small class="text-muted"><i style="color: white"
                                             class="las la-dot-circle"></i></small></td>
-                                <td><small class="text-muted">{{$datas->nilai_pagu_realisasi}}</small></td>
+                                <td><small class="text-muted">{{number_format($datas->nilai_pagu_realisasi, 0, ",", ".")}}</small></td>
                                 <td><small class="text-muted"><i style="color: white"
                                             class="las la-dot-circle"></i></small></td>
                                 <td><small class="text-muted">
                                         @php
                                         $sisa = $datas->pagu_anggaran - $datas->nilai_pagu_realisasi;
-                                        echo $sisa;
+                                        echo number_format($sisa, 0, ",", ".");
                                         @endphp
                                     </small>
                                 </td>

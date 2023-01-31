@@ -9,7 +9,8 @@
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Rincian Pengeluaran</li>
+        <li class="breadcrumb-item active" aria-current="page">Rincian</li>
+        <li class="breadcrumb-item active" aria-current="page">Pengeluaran</li>
     </ul>
 </nav>
 @endsection
@@ -77,7 +78,7 @@
 
 <body>
 
-     @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
+    @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
     <script>
         $(function() {
             $('#myModal').modal('show');
@@ -110,7 +111,7 @@
         </div>
     </div>
 
-     <div class="modal fade" id="ModalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="ModalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -174,24 +175,44 @@
 
                 </div>
 
-                {{-- <div>
+            @switch(Auth::user()->jabatan)
+                @case(5)
+                <div>
                     <br>
-                    <a class="btn btn-primary rounded-pill mb-3" href="javascript:void(0)" id="createNewProduct"
-                        title="tambah referensi"> + </a>
-                </div> --}}
+                    <a class="btn btn-danger rounded-pill mb-3" href="javascript:void(0)" id="bulk_delete" name="bulk_delete"
+                        title="tambah referensi"> x </a>
+                </div>
+                @break
+                @case(6)
+                <div>
+
+                </div>
+                @break
+                @default
+
+                @endswitch
 
             </div>
             <div class="iq-card-body">
                 <div class="table-responsive">
                     {{-- <table class="table table-bordered data-table"> --}}
                     <table id="datatable" class="table table-striped table-bordered data-table">
+
+                        {{-- <button type="button" name="bulk_delete" id="bulk_delete" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></button> --}}
                         <thead>
                             <tr>
+                                <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>
                                 <th>No</th>
                                 <th>unit bagian</th>
                                 <th>id realisasi rkkl</th>
                                 <th>nomor surat tugas</th>
                                 <th>nama pelaksana</th>
+                                <th>jabatan</th>
+                                <th>nip</th>
+                                <th>golongan</th>
+                                <th>tanggal pelaksanaan dari</th>
+                                <th>tanggal pelaksanaan sampai</th>
+                                <th>tempat pelaksana</th>
                                 <th>kode anggaran</th>
                                 <th>kode uraian kegiatan</th>
                                 <th>nama uraian kegiatan</th>
@@ -213,6 +234,13 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -274,11 +302,11 @@
                         <br>
                         <div class="form-row">
                             <div class="col">
-                            <label for="ref_keuangan_uraian_kegiatan_id"> referensi keuangan uraian kegiatan <span
+                            <label for="ref_keuangan_uraian_kegiatan_id"> referensi anggaran <span
                                         style="color:red;font-weight:bold">*</span></label>
                                 <br>
                                 <select id="ref_keuangan_uraian_kegiatan_id" name="ref_keuangan_uraian_kegiatan_id" required>
-                                    <option value="">referensi keuangan uraian kegiatan ...</option>
+                                    <option value="">referensi anggaran ...</option>
                                     @foreach($datas as $data)
                                     <option value="{{ $data->id}}">
                                         {{$data->nama_uraian_kegiatan}} - {{$data->nama_sub_menu_uraian_kegiatan}} - {{$data->kelompok_pagu}}
@@ -287,17 +315,39 @@
                                 </select>
                             </div>
 
+                            <div class="col">
+                                <label class="col-sm-12 control-label">keterangan<span
+                                        style="color:red;font-weight:bold">*</span></label>
+                                <div class="col-sm-12">
+                                    <select id="keterangan" name="keterangan" required>
+                                        <option value="">pilih keterangan ...</option>
+                                        @foreach($keterangans as $keterangan)
+                                        <option value="{{ $keterangan->keterangan}}"> {{$keterangan->keterangan}}
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
 
                         </div>
 
                         <br>
 
-                        <div class="div form-row">
+                        <div class="form-row">
                             <div class="col">
-                                <label for="nilai_pagu_realisasi">nilai pagu realisasi <span
-                                        style="color:red;font-weight:bold">*</span></label>
-                                <input id="nilai_pagu_realisasi" name="nilai_pagu_realisasi" placeholder="nilai_pagu_realisasi ..." class="form-control">
-                                @error('nilai_pagu_realisasi')
+                                <label for="hari"> hari <span style="color:red"></label>
+                                <input id="hari" name="hari"  required=""
+                                    placeholder="hari ..." class="form-control" autocomplete="on">
+                                @error('hari')
+                                <span class="text-danger"> {{$message}} </span>
+                                @enderror
+                            </div>
+
+                            <div class="col">
+                                <label for="nilai"> nilai <span style="color:red"></label>
+                                <input id="nilai" name="nilai"  required=""
+                                    placeholder="nilai ..." class="form-control" autocomplete="on">
+                                @error('nilai')
                                 <span class="text-danger"> {{$message}} </span>
                                 @enderror
                             </div>
@@ -497,6 +547,13 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        // Initialize select2
+        $("#keterangan").select2();
+    });
+</script>
+
 <script type="text/javascript">
     $('.livesearch').select2({
         placeholder: 'Pilih nama pembuat laporan ...',
@@ -573,17 +630,30 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         var table = $('.data-table').DataTable({
             dom: 'lBfrtip',
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
+
             autoWidth: true,
             processing: true,
             serverSide: true,
             // scrollX: true,
             ajax: "{{ route('rincianpengeluaran.index') }}",
-            columns: [{
+            columns: [
+                {   data:'checkbox',
+                    targets: 0,
+                    orderable:false,
+                    searchable:false,
+
+                },
+                {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
@@ -606,7 +676,37 @@
                 },
                 {
                     data: 'nama_pelaksana',
-                    name: 'nama_pelaksana',
+                    name: 't_realisasi_tempatpelaksanaan.nama_pelaksana',
+                    searchable: true
+                },
+                {
+                    data: 'jabatan',
+                    name: 't_realisasi_tempatpelaksanaan.jabatan',
+                    searchable: true
+                },
+                {
+                    data: 'nip',
+                    name: 't_realisasi_tempatpelaksanaan.nip',
+                    searchable: true
+                },
+                {
+                    data: 'golongan',
+                    name: 't_realisasi_tempatpelaksanaan.golongan',
+                    searchable: true
+                },
+                {
+                    data: 'tanggal_pelaksana_dari',
+                    name: 't_realisasi_rkkl.tanggal_pelaksana_dari',
+                    searchable: true
+                },
+                {
+                    data: 'tanggal_pelaksana_sampai',
+                    name: 't_realisasi_rkkl.tanggal_pelaksana_sampai',
+                    searchable: true
+                },
+                {
+                    data: 'tempat_pelaksana',
+                    name: 't_realisasi_tempatpelaksanaan.tempat_pelaksana',
                     searchable: true
                 },
                 {
@@ -676,6 +776,7 @@
                     searchable: false
                 },
             ],
+            order: [1, 'asc'],
             // initComplete: function() {
             //     this.api().columns().every(function() {
             //         var column = this;
@@ -703,6 +804,48 @@
                 });
             }
         });
+        $('#example-select-all').on('click', function(){
+        // Check/uncheck all checkboxes in the table
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+        $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+        // If checkbox is not checked
+        if(!this.checked){
+            var el = $('#example-select-all').get(0);
+            // If "Select all" control is checked and has 'indeterminate' property
+            if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control
+            // as 'indeterminate'
+            el.indeterminate = true;
+                }
+            }
+        });
+        $('#frm-example').on('submit', function(e){
+        var form = this;
+
+        // Iterate over all checkboxes in the table
+        table.$('input[type="checkbox"]').each(function(){
+         // If checkbox doesn't exist in DOM
+            if(!$.contains(document, this)){
+            // If checkbox is checked
+                if(this.checked){
+                // Create a hidden element
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', this.name)
+                        .val(this.value)
+                );
+                }
+            }
+        });
+        $('#example-console').text($(form).serialize());
+        console.log("Form submission", $(form).serialize());
+
+        // Prevent actual form submission
+        e.preventDefault();
+        });
         $('#createNewProduct').click(function() {
             $('#saveBtn').val("create-product");
             $('#product_id').val('');
@@ -721,7 +864,9 @@
                 $('#bagian').val(data.bagian);
                 $('#t_realisasi_rkkl_id').val(data.t_realisasi_rkkl_id);
                 $('#ref_keuangan_uraian_kegiatan_id').val(data.ref_keuangan_uraian_kegiatan_id);
-                $('#nilai_pagu_realisasi').val(data.nilai_pagu_realisasi);
+                $('#hari').val(data.hari);
+                $('#nilai').val(data.nilai);
+                $('#nilai').val(data.keterangan);
             })
         });
         $('body').on('click', '.editProductx', function() {
@@ -770,7 +915,9 @@
                 // of an input field. Validation rules are defined
                 // on the right side
                 ref_keuangan_uraian_kegiatan_id: "required",
-                nilai_pagu_realisasi: "required"
+                hari: "required",
+                nilai: "required",
+                keterangan: "required"
             },
         });
         $('#saveBtn').click(function(e) {
@@ -787,27 +934,29 @@
                             $('#productForm').trigger("reset");
                             $('#ajaxModel').modal('hide');
                             $("#ref_keuangan_uraian_kegiatan_id").val(null).trigger("change");
+                            $("#keterangan").val(null).trigger("change");
                             $('#saveBtn').html('Save Changes');
-                             $('#ModalSuccess').modal('show');
+                            $('#ModalSuccess').modal('show');
                             // $('#response').html(
                             //     '<button type="button" class="btn mb-3 btn-info rounded-pill"><i class="ri-heart-fill"></i> perubahan data pengeluaran berhasil <i class="ri-heart-fill"></i></button>'
                             // );
                             $("#ModalSuccess").fadeTo(5000, 500).slideUp(500, function() {
                                 $("#ModalSuccess").slideUp(500);
-                                 $('#ModalSuccess').modal('hide');
+                                $('#ModalSuccess').modal('hide');
                             });
                             table.draw();
                         } else {
                             $('#productForm').trigger("reset");
                             $('#ajaxModel').modal('hide');
                             $("#ref_keuangan_uraian_kegiatan_id").val(null).trigger("change");
+                            $("#keterangan").val(null).trigger("change");
                             $('#saveBtn').html('Save Changes');
-                              $('#ModalFailure').modal('show');
+                            $('#ModalFailure').modal('show');
                             // $('#response').html(
                             //    '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> perubahan data pengeluaran gagal <i class="las la-skull-crossbones"></i></button> <button type="button" class="btn mb-3 btn-warning rounded-pill"><i class="las la-exclamation-triangle"></i> pastikan sisa anggaran mencukupi <i class="las la-exclamation-triangle"></i></button>'
                             // );
                             $("#ModalFailure").fadeTo(5000, 500).slideUp(500, function() {
-                                 $("#ModalFailure").slideUp(500);
+                                $("#ModalFailure").slideUp(500);
                                 $('#ModalFailure').modal('hide');
                             });
                             table.draw();
@@ -914,13 +1063,13 @@
                     url: "{{ route('rincianpengeluaran.store') }}" + '/' + product_id,
                     success: function(data) {
                         if (data.success) {
-                              $('#ModalSuccessDelete').modal('show');
+                            $('#ModalSuccessDelete').modal('show');
                             // $('#response').html(
                             //     '<button type="button" class="btn mb-3 btn-warning rounded-pill"><i class="las la-exclamation-triangle"></i> data rincian pengeluaran telah dihapus <i class="las la-exclamation-triangle"></i></button>'
                             // );
                             $("#ModalSuccessDelete").fadeTo(5000, 500).slideUp(500, function() {
                                 $("#ModalSuccessDelete").slideUp(500);
-                                 $('#ModalSuccessDelete').modal('hide');
+                                $('#ModalSuccessDelete').modal('hide');
                             });
                             table.draw();
                         } else {
@@ -944,6 +1093,32 @@
                 return false;
             }
         });
+        $(document).on('click', '#bulk_delete', function(){
+        var id = [];
+        if(confirm("kamu yakin akan menghapus data ini?"))
+        {
+            $('.pengeluaran_checkbox:checked').each(function(){
+                id.push($(this).val());
+            });
+            if(id.length > 0)
+            {
+                $.ajax({
+                    url:"{{ route('rincianpengeluaran.massremove')}}",
+                    method:"get",
+                    data:{id:id},
+                    success:function(data)
+                    {
+                        alert(data);
+                        $('.data-table').DataTable().ajax.reload();
+                    }
+                });
+            }
+            else
+            {
+                alert("pilih data yang ingin dihapus terlebih dahulu");
+            }
+        }
+    });
     });
 </script>
 

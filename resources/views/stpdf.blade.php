@@ -367,24 +367,35 @@
                             <td rowspan="{{$data->T_realisasi_tempatpelaksanaans->count();}}"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                                @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="{{$data->T_realisasi_tempatpelaksanaans->count();}}"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size:10.5pt; text-align:center">
@@ -481,24 +492,35 @@
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                               @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -592,24 +614,35 @@
                                         <td rowspan="{{$jumlahrow - 10 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="{{$jumlahrow - 10 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -707,24 +740,35 @@
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                               @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -818,24 +862,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -931,24 +986,35 @@
                                         <td rowspan="{{$jumlahrow - 38 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="{{$jumlahrow - 38 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1046,24 +1112,35 @@
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                               @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1157,24 +1234,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                          @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1270,24 +1358,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1383,24 +1482,35 @@
                                         <td rowspan="{{$jumlahrow - 66 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="{{$jumlahrow - 66 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1498,24 +1608,35 @@
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                               @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1609,24 +1730,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1722,24 +1854,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                          @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1835,24 +1978,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -1947,24 +2101,35 @@
                                         <td rowspan="{{$jumlahrow - 94 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                          @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="{{$jumlahrow - 94 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2062,24 +2227,35 @@
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                               @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2173,24 +2349,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                            @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2286,24 +2473,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2399,24 +2597,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2512,24 +2721,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                             @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2624,24 +2844,35 @@
                                         <td rowspan="{{$jumlahrow - 122 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="{{$jumlahrow - 122 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2739,24 +2970,35 @@
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                               @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2850,24 +3092,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -2963,24 +3216,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3076,24 +3340,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                          @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3189,24 +3464,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3302,24 +3588,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3414,24 +3711,35 @@
                                         <td rowspan="{{$jumlahrow - 150 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                          @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="{{$jumlahrow - 150 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3528,24 +3836,35 @@
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                 {{-- Carbon::tomorrow()->format('l'); --}}
-                                @php
-                                $namahari_tanggalpelaksana_dari =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_dari->format('l');
-                                @endphp
-                                -
-                                @php
-                                $namahari_tanggalpelaksana_sampai =
-                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                echo $namahari_tanggalpelaksana_sampai->format('l');
-                                @endphp
+                               @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                @else
+                                    @php
+                                    $namahari_tanggalpelaksana_dari =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                    $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_dari->format('l');
+                                    @endphp
+                                    -
+                                    @php
+                                    $namahari_tanggalpelaksana_sampai =
+                                    \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                    $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                    echo $namahari_tanggalpelaksana_sampai->format('l');
+                                    @endphp
 
-                                <br>
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                    <br>
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                    {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                    {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                @endif
                             </td>
                             <td rowspan="10"
                                 style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3639,24 +3958,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                            @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3752,24 +4082,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3865,24 +4206,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                          @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -3978,24 +4330,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -4091,24 +4454,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -4204,24 +4578,35 @@
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                          @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="28"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
@@ -4316,24 +4701,35 @@
                                         <td rowspan="{{$jumlahrow - 178 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">
                                             {{-- Carbon::tomorrow()->format('l'); --}}
-                                            @php
-                                            $namahari_tanggalpelaksana_dari =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
-                                            $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_dari->format('l');
-                                            @endphp
-                                            -
-                                            @php
-                                            $namahari_tanggalpelaksana_sampai =
-                                            \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
-                                            $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
-                                            echo $namahari_tanggalpelaksana_sampai->format('l');
-                                            @endphp
+                                           @if (\Carbon\Carbon::parse($data->tanggal_pelaksana_dari) == \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai))
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                            @else
+                                                @php
+                                                $namahari_tanggalpelaksana_dari =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->locale('id');
+                                                $namahari_tanggalpelaksana_dari->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_dari->format('l');
+                                                @endphp
+                                                -
+                                                @php
+                                                $namahari_tanggalpelaksana_sampai =
+                                                \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->locale('id');
+                                                $namahari_tanggalpelaksana_sampai->settings(['formatFunction' => 'translatedFormat']);
+                                                echo $namahari_tanggalpelaksana_sampai->format('l');
+                                                @endphp
 
-                                            <br>
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
-                                            {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
-                                            {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                                <br>
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_dari)->isoformat('D')}} -
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pelaksana_sampai)->isoformat('D MMMM Y')}}
+                                                {{-- Carbon::parse($tanggal_pelaksanaan)->isoFormat('D MMMM Y'); --}}
+                                            @endif
                                         </td>
                                         <td rowspan="{{$jumlahrow - 178 }}"
                                             style="page-break-inside:avoid; page-break-after:auto; border: 1px solid black; border-collapse: collapse; font-size: 10.5pt; text-align:center">

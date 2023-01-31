@@ -3,13 +3,13 @@
 @section('nama_menu')
 
 <h5 class="mb-0">
-    Dashboard II
+    Dashboard III
 </h5>
 
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dashboard II</li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard III</li>
     </ul>
 </nav>
 @endsection
@@ -114,7 +114,7 @@
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title">Dashboard II</h4>
+                    <h4 class="card-title">Dashboard III</h4>
 
                     <div id="response"></div>
 
@@ -507,6 +507,10 @@
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
+        lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+        ],
             autoWidth: true,
             processing: true,
             serverSide: true,
@@ -546,17 +550,26 @@
                 {
                     data: 'pagu_anggaran',
                     name: 'pagu_anggaran',
-                    searchable: true
+                    searchable: true,
+                    render: function ( data, type, row, meta ) {
+                    return parseInt(data).toLocaleString('id');
+                    }
                 },
                 {
                     data: 'nilai_pagu_realisasi',
                     name: 't_realisasi_pagu_rkkl.nilai_pagu_realisasi',
-                    searchable: true
+                    searchable: true,
+                    render: function ( data, type, row, meta ) {
+                    return parseInt(data).toLocaleString('id');
+                    }
                 },
                 {
                     data: 'sisa',
                     name: 'sisa',
-                    searchable: false
+                    searchable: false,
+                    render: function ( data, type, row, meta ) {
+                    return parseInt(data).toLocaleString('id');
+                    }
                 },
                 {
                     data: 'persen',
@@ -632,7 +645,7 @@
                         return intVal(a) + intVal(b);
                     }, 0);
                 // Update footer
-                $(api.column(6).header()).html('pagu' + '<br>' + total_1);
+                $(api.column(6).header()).html('pagu' + '<br>' + parseInt(total_1).toLocaleString('id'));
                 total_2 = api
                     .column(8)
                     .data()
@@ -649,13 +662,14 @@
                         return intVal(a) + intVal(b);
                     }, 0);
                 // Update footer
-                $(api.column(8).header()).html('sisa' + '<br>' + total_2);
+                $(api.column(8).header()).html('sisa' + '<br>' + parseInt(total_2).toLocaleString('id'));
+                // parseInt(data).toLocaleString('id');
 
                 total_3 = api
                     .column(9)
                     .data()
                     .reduce(function(a, b) {
-                   return intVal(a) + intVal(b);
+                    return intVal(a) + intVal(b);
                     }, 0);
                 // Total over this page
                 pageTotal_3 = api

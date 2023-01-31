@@ -22,6 +22,7 @@ class T_realisasi_pagu_rkkl extends Model
         'hari',
         'nilai',
         'nilai_pagu_realisasi',
+        'keterangan',
         'user_penginput_data',
         'tahun_anggaran'
 

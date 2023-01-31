@@ -114,11 +114,13 @@ class NominatifController extends Controller
                 ->join('ref_satuankerja', 't_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'ref_satuankerja.nama_satuankerja')
                 ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
                 // ->where('t_realisasi_tempatpelaksanaan.tempat_pelaksana', '=', 'PTA bandung')
+                // ->whereNotNull('t_realisasi_rkkl.nomor_surat_tugas')
                 ->where(
                     't_realisasi_tempatpelaksanaan.tahun_anggaran',
                     '=',
                     Session::get('tahunanggaran')
-                );
+                )
+                ->orderBy('t_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id', 'DESC');
 
             return Datatables::eloquent($data)
 

@@ -19,6 +19,7 @@
 
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+     <link rel="shortcut icon" href="assets/images/favicon.ico" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -272,11 +273,11 @@
         });
 
         function displayMessage(message) {
-            toastr.info(message, 'Hi, Mailoovers');
+            toastr.info(message, 'Hi, Kawan ku');
         }
 
         function displayMessageFailure(message) {
-            toastr.error(message, 'Hi, Mailoovers');
+            toastr.error(message, 'Hi, Kawan ku');
         }
     </script>
 

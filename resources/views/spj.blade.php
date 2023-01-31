@@ -116,7 +116,7 @@
             <div class="modal-content">
                 <div class="modal-body" style="text-align: justify">
                     <i class="las la-check-circle" style="color: green"></i>
-                    <br> perubahan data rincian pelaksanaan berhasil dilakukan
+                    <br> penambahan atau perubahan rincian spj berhasil dilakukan
                 </div>
 
             </div>
@@ -199,6 +199,7 @@
                                 <th>hari</th>
                                 <th>nilai</th>
                                 <th>hari x nilai</th>
+                                <th>keterangan</th>
                                 <th>tahun anggaran</th>
                                 <th>created at</th>
                                 <th>updated at</th>
@@ -228,9 +229,35 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                             </tr>
 
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ajaxModelg" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modelHeadingg"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <form action="{{url('/spj/storeg')}}" method="get" enctype="multipart/form-data"
+                        class="form-horizontal">
+
+                        <input type="hidden" name="product_id" id="product_idg">
+                            <button type="submit" class="btn btn-primary" id="saveBtng" value="create">Download</button>
+                            <br>
+                            <br>
+                        <div class="modal-footer">
+
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -253,7 +280,7 @@
                                 <div class="col">
                                     <label for="t_realisasi_rkkl_id"> id realisasi rkkl <span style="color:red"></label>
                                     <input id="t_realisasi_rkkl_id" name="t_realisasi_rkkl_id"  required=""
-                                        placeholder="hari ..." class="form-control" autocomplete="on" readonly>
+                                        placeholder="id realisasi rkkl ..." class="form-control" autocomplete="on" readonly>
                                     @error('t_realisasi_rkkl_id')
                                     <span class="text-danger"> {{$message}} </span>
                                     @enderror
@@ -802,6 +829,10 @@
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
@@ -820,7 +851,7 @@
                 },
                 {
                     data: 'nomor_surat_tugas',
-                    name: 'nomor_surat_tugas',
+                    name: 't_realisasi_rkkl.nomor_surat_tugas',
                     searchable: true
                 },
                 {
@@ -871,6 +902,11 @@
                 {
                     data: 'nilai_pagu_realisasi',
                     name: 'nilai_pagu_realisasi',
+                    searchable: true
+                },
+                {
+                    data: 'keterangan',
+                    name: 'keterangan',
                     searchable: true
                 },
                 {
@@ -1019,6 +1055,21 @@
                 $('#keterangan').val(data.keterangan);
                 $('#nilai').val(data.nilai);
                 $('#hari').val(data.hari);
+            })
+        });
+        $('body').on('click', '.editProductg', function() {
+            var product_id = $(this).data('id');
+            $.get("{{ route('spj.index') }}" + '/' + product_id + '/edit', function(data) {
+                $('#modelHeadingg').html("Download Word SPJ");
+                $('#saveBtng').val("edit-user");
+                $('#ajaxModelg').modal('show');
+                $('#product_idg').val(data.id);
+                $('#nama_pelaksana').val(data.nama_pelaksana);
+                $('#nip').val(data.nip);
+                $('#golongan').val(data.golongan);
+                $('#jabatan').val(data.jabatan);
+                $('#tempat_pelaksana').val(data.tempat_pelaksana);
+
             })
         });
         $("#productForm").validate({
@@ -1275,7 +1326,7 @@
 </script>
 
 <script type="text/javascript">
-    var rupiah_add_rkkl = document.getElementById('pagu_anggaran');
+    var rupiah_add_rkkl = document.getElementById('nilai');
     rupiah_add_rkkl.addEventListener('keyup', function(e) {
         // tambahkan 'Rp.' pada saat form di ketik
         // gunakan fungsi formatrupiah_add_rkkl() untuk mengubah angka yang di ketik menjadi format angka

@@ -44,6 +44,7 @@ class NamaPelaksana_Controller extends Controller
 
                     return $btn;
                 })
+                ->addColumn('checkbox', '<input type="checkbox" name="pengeluaran_checkbox[]" class="pengeluaran_checkbox" value="{{$id}}" />')
                 ->editColumn(
                     'locked',
                     function ($data) {
@@ -55,7 +56,7 @@ class NamaPelaksana_Controller extends Controller
                     }
                 )
 
-                ->rawColumns(['action', 'locked'])
+                ->rawColumns(['action', 'checkbox', 'locked'])
                 ->make(true);
         }
 
@@ -110,5 +111,14 @@ class NamaPelaksana_Controller extends Controller
         Ref_pelaksana::find($id)->delete();
 
         return response()->json(['success' => 'success']);
+    }
+
+    public function massremove(Request $id)
+    {
+        $pengeluaran_id_array = $id->input('id');
+        $rincian_pengeluaran = Ref_pelaksana::whereIn('id', $pengeluaran_id_array);
+        if ($rincian_pengeluaran->delete()) {
+            echo 'Data Berhasil Terhapus';
+        }
     }
 }

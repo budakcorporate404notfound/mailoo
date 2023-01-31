@@ -39,7 +39,7 @@ class Dashboard1_Controller extends Controller
         )
             ->selectRaw("ROUND(REPLACE(ref_keuangan_uraian_kegiatan.pagu_anggaran,'.','')) as pagu_anggaran")
             ->selectRaw("IFNULL(SUM(ROUND(REPLACE(t_realisasi_pagu_rkkl.nilai_pagu_realisasi,'.',''))),0) as nilai_pagu_realisasi")
-            ->selectRaw(" ROUND(REPLACE(ref_keuangan_uraian_kegiatan.pagu_anggaran,'.','')) - IFNULL(SUM(ROUND(REPLACE(t_realisasi_pagu_rkkl.nilai_pagu_realisasi,'.',''))),0)   as sisa")
+            ->selectRaw("ROUND(REPLACE(ref_keuangan_uraian_kegiatan.pagu_anggaran,'.','')) - IFNULL(SUM(ROUND(REPLACE(t_realisasi_pagu_rkkl.nilai_pagu_realisasi,'.',''))),0)   as sisa")
             ->selectRaw("ROUND(IFNULL(SUM(ROUND(REPLACE(t_realisasi_pagu_rkkl.nilai_pagu_realisasi,'.',''))),0) / ROUND(REPLACE(ref_keuangan_uraian_kegiatan.pagu_anggaran,'.','')),2) * 100 as persen")
             ->leftjoin('t_realisasi_pagu_rkkl', 'ref_keuangan_uraian_kegiatan.id', '=', 't_realisasi_pagu_rkkl.ref_keuangan_uraian_kegiatan_id')
             ->where('ref_keuangan_uraian_kegiatan.id_unitbagian', '=', Auth::user()->unit_kerja)

@@ -76,12 +76,12 @@
         text-align: center;
     }
 
-    .bg-cream{
-    background-color: #FFCC8F;
+    .badge-danger{
+    background-color: #FF8DC7;
     }
 
-    .bg-softcream{
-    background-color: #FFE182;
+    .badge-danger{
+    background-color: #FF8DC7;
     }
 </style>
 
@@ -874,6 +874,10 @@
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
@@ -890,11 +894,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -912,11 +916,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -934,11 +938,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -956,10 +960,10 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -977,11 +981,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream"  style="width : 100%"; color: red>' +
+                                badge = '<span class="badge badge-danger"  style="width : 100%"; color: red>' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%" ;color: red>' +
+                                badge = '<span class="badge badge-danger" style="width : 100%" ;color: red>' +
                                     data + '</span>';
                                 break;
                         }
@@ -999,11 +1003,11 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
-                                badge = '<span class="badge bg-cream" style="width : 100%">' +
+                                badge = '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1023,12 +1027,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1048,12 +1052,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1073,12 +1077,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1098,12 +1102,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1123,12 +1127,12 @@
                         switch (data) {
                             case 0:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                             default:
                                 badge =
-                                    '<span class="badge bg-softcream" style="width : 100%">' +
+                                    '<span class="badge badge-danger" style="width : 100%">' +
                                     data + '</span>';
                                 break;
                         }
@@ -1173,12 +1177,10 @@
                         badge = '';
                         switch (data) {
                             case 0:
-                                badge = '<span class="badge badge-dark" style="width : 100%">' +
-                                    data + '</span>';
+                                badge =  data;
                                 break;
                             default:
-                                badge = '<span class="badge badge-dark" style="width : 100%">' +
-                                    data + '</span>';
+                                badge =  data;
                                 break;
                         }
                         console.log('content of badge is' + badge);

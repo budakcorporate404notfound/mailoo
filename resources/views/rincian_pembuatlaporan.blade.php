@@ -9,7 +9,9 @@
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Rincian Pembuat Laporan</li>
+        <li class="breadcrumb-item active" aria-current="page">Rincian</li>
+        <li class="breadcrumb-item active" aria-current="page">Laporan</li>
+        <li class="breadcrumb-item active" aria-current="page">Pembuat</li>
     </ul>
 </nav>
 @endsection
@@ -517,7 +519,7 @@
                 },
                 {
                     data: 'namabagian',
-                    name: 'namabagian',
+                    name: 'ref_unitbagian.name',
                     searchable: true
                 },
                 {
@@ -802,8 +804,11 @@
                             table.draw();
                         } else {
                             $('#response').html(
-                                '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> data rincian laporan gagal dihapus <i class="las la-skull-crossbones"></i></button>'
+                                '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> data rincian laporan gagal dihapus. kemungkinan terdapat file yang sudah dikirim <i class="las la-skull-crossbones"></i></button>'
                             );
+                            $("#response").fadeTo(5000, 500).slideUp(500, function() {
+                                $("#response").slideUp(500);
+                            });
                             table.draw();
                         }
                     },

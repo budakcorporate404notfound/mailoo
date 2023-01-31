@@ -68,6 +68,7 @@ class Rincian_PelaksanaanController extends Controller
             )
                 ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
                 ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
+                // ->whereNotNull('t_realisasi_rkkl.nomor_surat_tugas')
                 ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'));
 
             return Datatables::eloquent($data)
@@ -350,8 +351,24 @@ class Rincian_PelaksanaanController extends Controller
      */
     public function destroy($id)
     {
-        T_realisasi_tempatpelaksanaan::find($id)->delete();
+        // T_realisasi_tempatpelaksanaan::find($id)->delete();
 
-        return response()->json(['success' => 'success']);
+        // return response()->json(['success' => 'success']);
+
+        $check_keterkaitan_dengan_pagu_anggaran = DB::table('t_realisasi_pagu_rkkl')
+            ->select(DB::raw("count(*) as count"))
+            ->where('t_realisasi_tempatpelaksanaan_id', '=', $id)
+            ->get();
+
+        $decode_check_realisasi = $check_keterkaitan_dengan_pagu_anggaran;
+
+        $count = $decode_check_realisasi[0]->count;
+
+        if ($count <= 0) {
+            T_realisasi_tempatpelaksanaan::find($id)->delete();
+            return response()->json(['success' => 'success']);
+        } else {
+            return response()->json(['failed' => 'failed.']);
+        }
     }
 }

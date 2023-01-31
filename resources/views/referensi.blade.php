@@ -3,7 +3,7 @@
 @section('nama_menu')
 
 <h5 class="mb-0">
-    Referensi Anggaran
+    Nilai Anggaran
 </h5>
 
 <nav aria-label="breadcrumb">
@@ -11,6 +11,7 @@
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
         <li class="breadcrumb-item active" aria-current="page">Referensi</li>
         <li class="breadcrumb-item active" aria-current="page">Anggaran</li>
+        <li class="breadcrumb-item active" aria-current="page">Nilai Anggaran</li>
     </ul>
 </nav>
 @endsection
@@ -169,7 +170,7 @@
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title">Data Referensi Anggaran</h4>
+                    <h4 class="card-title">Data Nilai Anggaran</h4>
 
                     <div id="response"></div>
 
@@ -552,6 +553,10 @@
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
@@ -685,6 +690,7 @@
                 $('#pagu_anggaran').val(data.pagu_anggaran);
             })
         });
+
         $('body').on('click', '.editProductx', function() {
             var product_id = $(this).data('id');
             $.get("{{ route('realisasirkkl.index') }}" + '/' + product_id + '/edit', function(data) {

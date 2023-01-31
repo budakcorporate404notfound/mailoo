@@ -122,12 +122,21 @@
                 @case(5)
                 <div>
                     <br>
+                    <a class="btn btn-danger rounded-pill mb-3" href="javascript:void(0)" id="bulk_delete" name="bulk_delete"
+                        title="hapus referensi satuan kerja"> x </a>
                     <a class="btn btn-primary rounded-pill mb-3" href="javascript:void(0)" id="createNewProduct"
                         title="tambah referensi menimbang"> + </a>
                 </div>
                 @break
+                @case(6)
+                <div>
+
+                </div>
+                @break
                 @default
+
                 @endswitch
+
 
             </div>
             <div class="iq-card-body">
@@ -136,6 +145,7 @@
                     <table id="datatable" class="table table-striped table-bordered data-table">
                         <thead>
                             <tr>
+                                <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>
                                 <th>No</th>
                                 <th>nama</th>
                                 <th>nip</th>
@@ -152,6 +162,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -201,7 +212,7 @@
                             </div>
                         </div>
 
-                          <div class="form-row">
+                        <div class="form-row">
                             <div class="col">
                                 <label for="golongan">golongan</label>
                                 <input id="golongan" name="golongan"
@@ -496,12 +507,23 @@
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
             // scrollX: true,
             ajax: "{{ route('namapelaksana.index') }}",
-            columns: [{
+            columns: [
+                {
+                    data:'checkbox',
+                    targets: 0,
+                    orderable:false,
+                    searchable:false
+                },
+                {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
@@ -511,19 +533,19 @@
                     data: 'nama',
                     name: 'ref_pelaksana.nama'
                 },
-                  {
+                {
                     data: 'nip',
                     name: 'ref_pelaksana.nip'
                 },
-                  {
+                {
                     data: 'gol',
                     name: 'ref_pelaksana.gol'
                 },
-                  {
+                {
                     data: 'eselon',
                     name: 'ref_pelaksana.eselon'
                 },
-                  {
+                {
                     data: 'jabatan',
                     name: 'ref_pelaksana.jabatan'
                 },
@@ -538,6 +560,7 @@
                     searchable: false
                 },
             ],
+            order: [1, 'asc'],
             // initComplete: function() {
             //     this.api().columns().every(function() {
             //         var column = this;
@@ -564,6 +587,48 @@
                         });
                 });
             }
+        });
+         $('#example-select-all').on('click', function(){
+        // Check/uncheck all checkboxes in the table
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+        $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+        // If checkbox is not checked
+        if(!this.checked){
+            var el = $('#example-select-all').get(0);
+            // If "Select all" control is checked and has 'indeterminate' property
+            if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control
+            // as 'indeterminate'
+            el.indeterminate = true;
+                }
+            }
+        });
+        $('#frm-example').on('submit', function(e){
+        var form = this;
+
+        // Iterate over all checkboxes in the table
+        table.$('input[type="checkbox"]').each(function(){
+         // If checkbox doesn't exist in DOM
+            if(!$.contains(document, this)){
+            // If checkbox is checked
+                if(this.checked){
+                // Create a hidden element
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', this.name)
+                        .val(this.value)
+                );
+                }
+            }
+        });
+        $('#example-console').text($(form).serialize());
+        console.log("Form submission", $(form).serialize());
+
+        // Prevent actual form submission
+        e.preventDefault();
         });
         $('#createNewProduct').click(function() {
             $('#saveBtn').val("create-product");
@@ -797,6 +862,32 @@
                 return false;
             }
         });
+        $(document).on('click', '#bulk_delete', function(){
+        var id = [];
+        if(confirm("kamu yakin akan menghapus data ini?"))
+        {
+            $('.pengeluaran_checkbox:checked').each(function(){
+                id.push($(this).val());
+            });
+            if(id.length > 0)
+            {
+                $.ajax({
+                    url:"{{ route('namapelaksana.massremove')}}",
+                    method:"get",
+                    data:{id:id},
+                    success:function(data)
+                    {
+                        alert(data);
+                        $('.data-table').DataTable().ajax.reload();
+                    }
+                });
+            }
+            else
+            {
+                alert("pilih data yang ingin dihapus terlebih dahulu");
+            }
+        }
+    });
     });
 </script>
 

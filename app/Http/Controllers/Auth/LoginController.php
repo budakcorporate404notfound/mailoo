@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\Tahun_anggaran;
 // use Session;
 
 class LoginController extends Controller
@@ -68,5 +69,11 @@ class LoginController extends Controller
             return redirect()->route('login')
                 ->with('error', '( Email atau username ) atau password yang anda masukan salah ');
         }
+    }
+
+    public function showLoginForm()
+    {
+        $tahunanggarans = Tahun_anggaran::all()->where('locked', '=', '1');
+        return view('auth.login', compact('tahunanggarans'));
     }
 }

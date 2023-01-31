@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\Product;
 use App\Models\Ref_keterangan;
 use App\Models\T_realisasi_rkkl;
@@ -16,11 +17,14 @@ use App\Models\T_coba;
 use App\Models\T_pengirim_laporan;
 use App\Models\T_realisasi_pagu_rkkl;
 use App\Models\Ref_keuangan_uraian_kegiatan;
+use Riskihajar\Terbilang\Facades\Terbilang as FacadesTerbilang;
+
 // use App\Models\Ref_keuangan_uraian_kegiatan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use DataTables;
+use PDF;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Swift;
@@ -99,6 +103,8 @@ class SPJ_Controller extends Controller
                 ->join('t_realisasi_rkkl', 't_realisasi_rkkl.id', '=', 't_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id')
                 ->where('t_realisasi_rkkl.ref_unitbagian_id', '=', Auth::user()->unit_kerja)
                 ->where('t_realisasi_tempatpelaksanaan.tahun_anggaran', '=', Session::get('tahunanggaran'))
+                ->whereNotNull('t_realisasi_rkkl.nomor_surat_tugas')
+                ->where('t_realisasi_rkkl.verifikasi_kelengkapan', '=', 'sudah lengkap')
                 ->orderBy('t_realisasi_tempatpelaksanaan.t_realisasi_rkkl_id', 'desc');
 
             return Datatables::eloquent($data)
@@ -110,13 +116,15 @@ class SPJ_Controller extends Controller
                     switch (Auth::user()->jabatan) {
                         case '5': //super user
                             // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
-                            $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-danger btn-sm editProductg" title="word spj"><i class="las la-download"></i></a>';
                             // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="hapus rincian pelaksanaan"><i class="las la-trash-alt"></i></a>';
                             return $btn;
                             break;
 
                         case '6': // bendahara bagian
-                            $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-danger btn-sm editProductg" title="word spj"><i class="las la-download"></i></a>';
                             // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit rincian pelaksanaan"><i class="las la-pen-alt"></i></a>';
                             // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-success btn-sm editProductv" title="tambah realisasi anggaran"><i class="las la-dollar-sign"></i></a>';
                             return $btn;
@@ -155,8 +163,13 @@ class SPJ_Controller extends Controller
                         return $x->nilai_pagu_realisasi;
                     })->implode('<br>');
                 })
+                ->addColumn('keterangan', function (T_realisasi_tempatpelaksanaan $T_realisasi_tempatpelaksanaan) {
+                    return $T_realisasi_tempatpelaksanaan->T_realisasi_pagu_rkkls->map(function ($x) {
+                        return $x->keterangan;
+                    })->implode('<br>');
+                })
                 // ->toJson();
-                ->rawColumns(['action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi', 'hari', 'nilai', 'file_pdf'])
+                ->rawColumns(['action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi', 'hari', 'nilai', 'file_pdf', 'keterangan'])
                 ->make(true);
         }
 
@@ -374,7 +387,7 @@ class SPJ_Controller extends Controller
                 'hari' => $request->hari,
                 'nilai' => $request->nilai,
                 'keterangan' => $request->keterangan,
-                'nilai_pagu_realisasi' => $request->hari * $request->nilai,
+                'nilai_pagu_realisasi' => number_format($request->hari * $penginputan_tanpa_titik, 0, ",", "."),
                 'user_penginput_data' => Auth::user()->id,
                 'tahun_anggaran' => Session::get('tahunanggaran')
 
@@ -383,6 +396,161 @@ class SPJ_Controller extends Controller
             ]);
             return response()->json(['success' => 'success.']);
         }
+    }
+
+    public function storeg(Request $request)
+    {
+        $templateProcessor = new TemplateProcessor('template_spjku.docx');
+
+        $datax = T_realisasi_tempatpelaksanaan::find($request->product_id);
+        $templateProcessor->setValue('tahun_anggaran', $datax->tahun_anggaran);
+        $templateProcessor->setValue('nama_pelaksana', $datax->nama_pelaksana);
+        $templateProcessor->setValue('nip', $datax->nip);
+        $templateProcessor->setValue('gol', $datax->golongan);
+        $templateProcessor->setValue('jabatan', $datax->jabatan);
+
+        $datax2 = T_realisasi_rkkl::find($datax->t_realisasi_rkkl_id);
+
+        $datax3 = T_realisasi_pagu_rkkl::select('*')
+            ->where('t_realisasi_rkkl_id', $datax2->id)
+            ->where('t_realisasi_tempatpelaksanaan_id', $datax->id)
+            ->get();
+        $replacements = json_decode(json_encode($datax3), true);
+        $templateProcessor->cloneBlock('ang', 0, true, false, $replacements);
+        $templateProcessor->cloneBlock('angg', 0, true, false, $replacements);
+        $templateProcessor->cloneBlock('anggg', 0, true, false, $replacements);
+
+        $datax4 = T_realisasi_pagu_rkkl::select('ref_keuangan_uraian_kegiatan.kode_uraian_kegiatan as kode_kegiatan')->distinct()
+            ->join('ref_keuangan_uraian_kegiatan', 'ref_keuangan_uraian_kegiatan.id', '=', 't_realisasi_pagu_rkkl.ref_keuangan_uraian_kegiatan_id')
+            ->where('t_realisasi_rkkl_id', $datax2->id)
+            ->where('t_realisasi_tempatpelaksanaan_id', $datax->id)
+            ->get();
+        $replacements2 = json_decode(json_encode($datax4), true);
+        $templateProcessor->cloneBlock('block_kodeanggaran', 0, true, false, $replacements2);
+        $templateProcessor->cloneBlock('kd_angg', 0, true, false, $replacements2);
+
+
+        $datax5 = T_realisasi_pagu_rkkl::selectRaw("IFNULL(SUM(ROUND(REPLACE(t_realisasi_pagu_rkkl.nilai_pagu_realisasi,'.',''))),0) as total_jumlahuang")
+            ->where('t_realisasi_rkkl_id', $datax2->id)
+            ->where('t_realisasi_tempatpelaksanaan_id', $datax->id)
+            ->get();
+
+        foreach ($datax5 as $data5) {
+            $templateProcessor->setValue('jumlah_uang', number_format($data5->total_jumlahuang, 0, ",", "."));
+        }
+        foreach ($datax5 as $dataterbilang) {
+            $templateProcessor->setValue('terbilang', FacadesTerbilang::make($dataterbilang->total_jumlahuang));
+        }
+
+        $datax6 = T_realisasi_tempatpelaksanaan::select('*')
+            ->where('id', '=', $datax->id)
+            ->where('t_realisasi_rkkl_id', '=', $datax2->id)
+            ->first();
+        $templateProcessor->setValue('pelaksanaan', $datax6->tempat_pelaksana);
+
+
+        $datax7 = T_realisasi_pagu_rkkl::select('*')
+            ->where('t_realisasi_rkkl_id', $datax2->id)
+            ->where('t_realisasi_tempatpelaksanaan_id', $datax->id)
+            ->count();
+
+        if ($datax7 == 1) {
+            $templateProcessor->setValue('no1', '1');
+            $templateProcessor->setValue('no2', '');
+            $templateProcessor->setValue('no3', '');
+            $templateProcessor->setValue('no4', '');
+            $templateProcessor->setValue('no5', '');
+            $templateProcessor->setValue('no6', '');
+            $templateProcessor->setValue('no7', '');
+        }
+        if ($datax7 == 2) {
+            $templateProcessor->setValue('no1', '1');
+            $templateProcessor->setValue('no2', '2');
+            $templateProcessor->setValue('no3', '');
+            $templateProcessor->setValue('no4', '');
+            $templateProcessor->setValue('no5', '');
+            $templateProcessor->setValue('no6', '');
+            $templateProcessor->setValue('no7', '');
+        }
+        if ($datax7 == 3) {
+            $templateProcessor->setValue('no1', '1');
+            $templateProcessor->setValue('no2', '2');
+            $templateProcessor->setValue('no3', '3');
+            $templateProcessor->setValue('no4', '');
+            $templateProcessor->setValue('no5', '');
+            $templateProcessor->setValue('no6', '');
+            $templateProcessor->setValue('no7', '');
+        }
+        if ($datax7 == 4) {
+            $templateProcessor->setValue('no1', '1');
+            $templateProcessor->setValue('no2', '2');
+            $templateProcessor->setValue('no3', '3');
+            $templateProcessor->setValue('no4', '4');
+            $templateProcessor->setValue('no5', '');
+            $templateProcessor->setValue('no6', '');
+            $templateProcessor->setValue('no7', '');
+        }
+        if ($datax7 == 5) {
+            $templateProcessor->setValue('no1', '1');
+            $templateProcessor->setValue('no2', '2');
+            $templateProcessor->setValue('no3', '3');
+            $templateProcessor->setValue('no4', '4');
+            $templateProcessor->setValue('no5', '5');
+            $templateProcessor->setValue('no6', '');
+            $templateProcessor->setValue('no7', '');
+        }
+        if ($datax7 == 6) {
+            $templateProcessor->setValue('no1', '1');
+            $templateProcessor->setValue('no2', '2');
+            $templateProcessor->setValue('no3', '3');
+            $templateProcessor->setValue('no4', '4');
+            $templateProcessor->setValue('no5', '5');
+            $templateProcessor->setValue('no6', '6');
+            $templateProcessor->setValue('no7', '');
+        }
+        if ($datax7 == 7) {
+            $templateProcessor->setValue('no1', '1');
+            $templateProcessor->setValue('no2', '2');
+            $templateProcessor->setValue('no3', '3');
+            $templateProcessor->setValue('no4', '4');
+            $templateProcessor->setValue('no5', '5');
+            $templateProcessor->setValue('no6', '6');
+            $templateProcessor->setValue('no7', '7');
+        }
+
+
+        $datax8 = T_realisasi_rkkl::select("*")
+            ->where('id', $datax->t_realisasi_rkkl_id)
+            // ->where('t_realisasi_tempatpelaksanaan_id', '234')
+            ->get();
+        // $replacements = json_decode(json_encode($datax3), true);
+        // $start_date = $datax3[0]->tanggal_pelaksana_dari;
+        // $end_date =  $datax3[0]->tanggal_pelaksana_sampai;
+        $start_date = \Carbon\Carbon::createFromFormat('Y-m-d', $datax8[0]->tanggal_pelaksana_dari);
+        $end_date = \Carbon\Carbon::createFromFormat('Y-m-d', $datax8[0]->tanggal_pelaksana_sampai);
+        $st_date = \Carbon\Carbon::createFromFormat('Y-m-d', $datax8[0]->tanggal_surat_tugas);
+        setlocale(LC_ALL, 'IND');
+        $tanggal_pelaksanaan_dari = \Carbon\Carbon::parse($start_date)->formatLocalized('%d %B %Y');
+        $tanggal_pelaksanaan_sampai = \Carbon\Carbon::parse($end_date)->formatLocalized('%d %B %Y');
+        $tanggal_st = \Carbon\Carbon::parse($st_date)->formatLocalized('%d %B %Y');
+        $calculate_days = $start_date->diffInDays($end_date);
+        $lamahari = $calculate_days + 1;
+
+
+
+        $templateProcessor->setValue('no_st', $datax8[0]->nomor_surat_tugas);
+        $templateProcessor->setValue('tgl_st', $tanggal_st);
+        $templateProcessor->setValue('lama', $lamahari);
+        $templateProcessor->setValue('start_date', $start_date);
+        $templateProcessor->setValue('end_date', $end_date);
+        $templateProcessor->setValue('tanggal_pelaksanaan_dari', $tanggal_pelaksanaan_dari);
+        $templateProcessor->setValue('tanggal_pelaksanaan_sampai', $tanggal_pelaksanaan_sampai);
+
+
+        // $templateProcessor->setValue('nama_pelaksana', $datax->nama_pelaksana);
+        $save_file_name =  $datax->nama_pelaksana . '-' . $datax6->tempat_pelaksana . '.docx';
+        $templateProcessor->saveAs($save_file_name);
+        return response()->download($save_file_name)->deleteFileAfterSend(true);
     }
 
 

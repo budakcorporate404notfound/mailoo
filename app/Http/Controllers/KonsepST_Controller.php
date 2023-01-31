@@ -70,8 +70,8 @@ class KonsepST_Controller extends Controller
 
                     switch (Auth::user()->jabatan) {
                         case '5':
-                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit surat tugas"><i class="las la-pen-alt"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
+                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksana"><i class="las la-campground"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit surat tugas"><i class="las la-pen-alt"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm editProductg" title="sketsa pdf"><i class="las la-download"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-info btn-sm editProductpdf" title="pdf"><i class="las la-download"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="hapus surat tugas"><i class="las la-trash-alt"></i></a>';
@@ -79,8 +79,8 @@ class KonsepST_Controller extends Controller
                             break;
 
                         case '6':
-                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit surat tugas"><i class="las la-pen-alt"></i></a>';
-                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksanaan"><i class="las la-campground"></i></a>';
+                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProductx" title="tambah tempat pelaksana"><i class="las la-campground"></i></a>';
+                            $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit surat tugas"><i class="las la-pen-alt"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-warning btn-sm editProductg" title="sketsa pdf"><i class="las la-download"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-info btn-sm editProductpdf" title="pdf"><i class="las la-download"></i></a>';
                             return $btn;
@@ -804,7 +804,7 @@ class KonsepST_Controller extends Controller
         ));
 
 
-        return $pdf->download('surattugas.pdf');
+        return $pdf->download('surattugas' . $tempat_pelx . ".pdf");
     }
 
 

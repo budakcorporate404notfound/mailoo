@@ -60,8 +60,8 @@
 
         ],true);
         var options = {
-             colors: ['#fbf8cc', '#fde4cf', '#ffcfd2', '#f1c0e8', '#cfbaf0',
-                    '#a3c4f3', '#90dbf4', '#8eecf5', '#98f5e1', '#b9fbc0'],
+             colors: ['#2E0249', '#570A57', '#A91079', '#F806CC', '#E60965',
+                    '#F94892', '#FFA1C9'],
         //   title: 'Persentase Anggaran yang sudah direalisasikan',
           pieHole: 0.5,
           pieSliceText: 'value',

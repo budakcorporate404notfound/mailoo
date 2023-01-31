@@ -86,6 +86,7 @@ class Rincian_LaporanController extends Controller
                             break;
                     }
                 })
+                ->addColumn('checkbox', '<input type="checkbox" name="pengeluaran_checkbox[]" class="pengeluaran_checkbox" value="{{$id}}" />')
                 ->editColumn('created_at', function ($data) {
                     return $data->created_at ? with(new Carbon($data->created_at))->format('Y-m-d') : '';
                 })
@@ -94,14 +95,14 @@ class Rincian_LaporanController extends Controller
                 })
                 ->addColumn('file', function ($data) {
                     $url_edit = url('storage/laporan_kegiatan/' . $data->file);
-                    $button = '<a href="' . $url_edit . '" target="_blank" ><span class="badge badge-info">download</span></a>';
+                    $button = '<a href="' . $url_edit . '" target="_blank" ><span class="badge badge-warning">download</span></a>';
                     // $button = '<a href="' . $link . '" target="_blank"> <span class="badge badge-info">download</span></a>';
                     return $button;
                 })
 
 
                 // ->toJson();
-                ->rawColumns(['file', 'created_at', 'updated_at', 'action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi',  'file_pdf'])
+                ->rawColumns(['file', 'checkbox', 'created_at', 'updated_at', 'action', 'nama_pelaksana', 'nip', 'gol', 'jabatan', 'tempat_pelaksana', 'pembuat_laporan', 'ref_keuangan_uraian_kegiatan_id', 'nilai_pagu_realisasi',  'file_pdf'])
                 ->make(true);
         }
 
@@ -389,5 +390,13 @@ class Rincian_LaporanController extends Controller
         T_pengirim_laporan::find($id)->delete();
 
         return response()->json(['success' => 'success']);
+    }
+    public function massremove(Request $id)
+    {
+        $pengeluaran_id_array = $id->input('id');
+        $rincian_pengeluaran = T_pengirim_laporan::whereIn('id', $pengeluaran_id_array);
+        if ($rincian_pengeluaran->delete()) {
+            echo 'Data Berhasil Terhapus';
+        }
     }
 }

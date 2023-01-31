@@ -48,7 +48,13 @@ class ReferensiController extends Controller
                     switch (Auth::user()->jabatan) {
                         case '5': //super user
                             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-dark btn-sm editProduct" title="edit referensi"><i class="las la-pen-alt"></i></a>';
+                            $btn = $btn . ' <a href="' .  url("ujicobaslug", $row->kelompok_pagu)    . '" target="_blank()" data-toggle="tooltip"  data-original-title="Delete" class="btn btn-secondary btn-sm " title="ujicoba slug"><i class="las la-info"></i></a>';
                             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct" title="delete referensi"><i class="las la-trash-alt"></i></a>';
+
+
+                            // $btn = $btn . '<a href="' .  url("ujicobaslug", $row->kelompok_pagu)    . '" class="btn btn-flat pink accent-3 waves-effect waves-light white-text"> <i class="material-icons right"> ujicoba slug</i></a>';
+                            // $btn = $btn . ' <a href="{{ url("read", $data->slug_judul) }}" class="btn btn-flat pink accent-3 waves-effect waves-light white-text">Readmore <i class="material-icons right">send</i></a>';
+
                             return $btn;
                             break;
                         case '6': //bendahara
@@ -165,5 +171,11 @@ class ReferensiController extends Controller
         } else {
             return response()->json(['failed' => 'failed.']);
         }
+    }
+
+    public function show($slug)
+    {
+        $tampilkan = Referensi::where('kelompok_pagu', $slug)->first();
+        return dd($tampilkan);
     }
 }

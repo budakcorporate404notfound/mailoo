@@ -56,6 +56,7 @@ class Wilayah_Controller extends Controller
 
                     return $btn;
                 })
+                ->addColumn('checkbox', '<input type="checkbox" name="pengeluaran_checkbox[]" class="pengeluaran_checkbox" value="{{$id}}" />')
                 ->editColumn(
                     'locked',
                     function ($data) {
@@ -67,7 +68,7 @@ class Wilayah_Controller extends Controller
                     }
                 )
 
-                ->rawColumns(['action', 'locked'])
+                ->rawColumns(['action', 'checkbox', 'locked'])
                 ->make(true);
         }
 
@@ -134,5 +135,13 @@ class Wilayah_Controller extends Controller
     {
         $data = Ref_kodewilayah::where('kode_wilayah', $id)->first();
         return response()->json($data);
+    }
+    public function massremove(Request $id)
+    {
+        $pengeluaran_id_array = $id->input('id');
+        $rincian_pengeluaran = Ref_kodewilayah::whereIn('id', $pengeluaran_id_array);
+        if ($rincian_pengeluaran->delete()) {
+            echo 'Data Berhasil Terhapus';
+        }
     }
 }

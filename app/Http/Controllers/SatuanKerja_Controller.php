@@ -66,8 +66,8 @@ class SatuanKerja_Controller extends Controller
                         }
                     }
                 )
-
-                ->rawColumns(['action', 'locked'])
+                ->addColumn('checkbox', '<input type="checkbox" name="pengeluaran_checkbox[]" class="pengeluaran_checkbox" value="{{$id}}" />')
+                ->rawColumns(['action', 'checkbox', 'locked'])
                 ->make(true);
         }
 
@@ -134,5 +134,13 @@ class SatuanKerja_Controller extends Controller
     {
         $data = Ref_kodewilayah::where('kode_wilayah', $id)->first();
         return response()->json($data);
+    }
+    public function massremove(Request $id)
+    {
+        $pengeluaran_id_array = $id->input('id');
+        $rincian_pengeluaran = Ref_satuankerja::whereIn('id', $pengeluaran_id_array);
+        if ($rincian_pengeluaran->delete()) {
+            echo 'Data Berhasil Terhapus';
+        }
     }
 }

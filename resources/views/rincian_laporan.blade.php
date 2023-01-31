@@ -3,13 +3,15 @@
 @section('nama_menu')
 
 <h5 class="mb-0">
-    Rincian Laporan
+    Rincian Pengirim Laporan
 </h5>
 
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Rincian Laporan</li>
+        <li class="breadcrumb-item active" aria-current="page">Rincian</li>
+        <li class="breadcrumb-item active" aria-current="page">Laporan</li>
+        <li class="breadcrumb-item active" aria-current="page">Pengirim</li>
     </ul>
 </nav>
 @endsection
@@ -77,7 +79,7 @@
 
 <body>
 
-     @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
+    @if(!empty(Session::get('errcode')) && Session::get('errcode') == 5)
     <script>
         $(function() {
             $('#myModal').modal('show');
@@ -113,17 +115,28 @@
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title">Rincian Laporan</h4>
+                    <h4 class="card-title">Rincian Pengirim Laporan</h4>
 
                     <div id="response"></div>
 
                 </div>
 
-                {{-- <div>
+                @switch(Auth::user()->jabatan)
+                @case(5)
+                <div>
                     <br>
-                    <a class="btn btn-primary rounded-pill mb-3" href="javascript:void(0)" id="createNewProduct"
-                        title="tambah referensi"> + </a>
-                </div> --}}
+                    <a class="btn btn-danger rounded-pill mb-3" href="javascript:void(0)" id="bulk_delete" name="bulk_delete"
+                        title="tambah referensi"> x </a>
+                </div>
+                @break
+                @case(6)
+                <div>
+
+                </div>
+                @break
+                @default
+
+                @endswitch
 
             </div>
             <div class="iq-card-body">
@@ -132,6 +145,7 @@
                     <table id="datatable" class="table table-striped table-bordered data-table">
                         <thead>
                             <tr>
+                                <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>
                                 <th>no</th>
                                 <th>pengirim Laporan</th>
                                 <th>id realisasi rkkl</th>
@@ -150,6 +164,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -511,7 +526,14 @@
             serverSide: true,
             // scrollX: true,
             ajax: "{{ route('rincianlaporan.index') }}",
-            columns: [{
+            columns: [
+                {   data:'checkbox',
+                    targets: 0,
+                    orderable:false,
+                    searchable:false,
+
+                },
+                {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
@@ -527,7 +549,7 @@
                     name: 't_realisasi_rkkl_id',
                     searchable: true
                 },
-                 {
+                {
                     data: 'no_surat_tugas',
                     name: 'no_surat_tugas',
                     searchable: true
@@ -564,6 +586,7 @@
                     searchable: false
                 },
             ],
+            order: [1, 'asc'],
             // initComplete: function() {
             //     this.api().columns().every(function() {
             //         var column = this;
@@ -590,6 +613,48 @@
                         });
                 });
             }
+        });
+        $('#example-select-all').on('click', function(){
+        // Check/uncheck all checkboxes in the table
+        var rows = table.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+        $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+        // If checkbox is not checked
+        if(!this.checked){
+            var el = $('#example-select-all').get(0);
+            // If "Select all" control is checked and has 'indeterminate' property
+            if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control
+            // as 'indeterminate'
+            el.indeterminate = true;
+                }
+            }
+        });
+        $('#frm-example').on('submit', function(e){
+        var form = this;
+
+        // Iterate over all checkboxes in the table
+        table.$('input[type="checkbox"]').each(function(){
+         // If checkbox doesn't exist in DOM
+            if(!$.contains(document, this)){
+            // If checkbox is checked
+                if(this.checked){
+                // Create a hidden element
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', this.name)
+                        .val(this.value)
+                );
+                }
+            }
+        });
+        $('#example-console').text($(form).serialize());
+        console.log("Form submission", $(form).serialize());
+
+        // Prevent actual form submission
+        e.preventDefault();
         });
         $('#createNewProduct').click(function() {
             $('#saveBtn').val("create-product");
@@ -691,7 +756,7 @@
                             $("#ref_keuangan_uraian_kegiatan_id").val(null).trigger("change");
                             $('#saveBtn').html('Save Changes');
                             $('#response').html(
-                               '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> perubahan data pengeluaran gagal <i class="las la-skull-crossbones"></i></button> <button type="button" class="btn mb-3 btn-warning rounded-pill"><i class="las la-exclamation-triangle"></i> pastikan sisa anggaran mencukupi <i class="las la-exclamation-triangle"></i></button>'
+                            '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> perubahan data pengeluaran gagal <i class="las la-skull-crossbones"></i></button> <button type="button" class="btn mb-3 btn-warning rounded-pill"><i class="las la-exclamation-triangle"></i> pastikan sisa anggaran mencukupi <i class="las la-exclamation-triangle"></i></button>'
                             );
                             $("#response").fadeTo(5000, 500).slideUp(500, function() {
                                 $("#response").slideUp(500);
@@ -822,6 +887,32 @@
                 return false;
             }
         });
+        $(document).on('click', '#bulk_delete', function(){
+        var id = [];
+        if(confirm("kamu yakin akan menghapus data ini?"))
+        {
+            $('.pengeluaran_checkbox:checked').each(function(){
+                id.push($(this).val());
+            });
+            if(id.length > 0)
+            {
+                $.ajax({
+                    url:"{{ route('rincianlaporan.massremove')}}",
+                    method:"get",
+                    data:{id:id},
+                    success:function(data)
+                    {
+                        alert(data);
+                        $('.data-table').DataTable().ajax.reload();
+                    }
+                });
+            }
+            else
+            {
+                alert("pilih data yang ingin dihapus terlebih dahulu");
+            }
+        }
+    });
     });
 </script>
 

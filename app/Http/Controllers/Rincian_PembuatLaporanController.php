@@ -386,8 +386,24 @@ class Rincian_PembuatLaporanController extends Controller
      */
     public function destroy($id)
     {
-        T_pembuat_laporan::find($id)->delete();
+        // T_pembuat_laporan::find($id)->delete();
 
-        return response()->json(['success' => 'success']);
+        // return response()->json(['success' => 'success']);
+
+        $check_keterkaitan_dengan_pengirim_laporan = DB::table('t_pengirim_laporan')
+            ->select(DB::raw("count(*) as count"))
+            ->where('t_pembuat_laporan_id', '=', $id)
+            ->get();
+
+        $decode_check_pengirim = $check_keterkaitan_dengan_pengirim_laporan;
+
+        $count = $decode_check_pengirim[0]->count;
+
+        if ($count <= 0) {
+            T_pembuat_laporan::find($id)->delete();
+            return response()->json(['success' => 'success']);
+        } else {
+            return response()->json(['failed' => 'failed.']);
+        }
     }
 }

@@ -7,14 +7,16 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <title>Mailoo</title>
+   <title>grv✦</title>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
 
    <!-- Favicon -->
-   <link rel="shortcut icon" href="assets/images/favicon.ico" />
+      <link rel="shortcut icon" href="assets/images/favicon.ico" />
+   {{-- <link rel="shortcut icon" href="/mailoo/public/assets/images/favicon.ico" /> --}}
+   {{-- <link rel="shortcut icon" href="{{ asset('images/grv.png') }}"> --}}
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
    <!-- Typography CSS -->
@@ -82,7 +84,7 @@
          <div class="iq-sidebar-logo d-flex justify-content-between">
             <a href="index.html">
                <img src="assets/images/logo.gif" class="img-fluid" alt="">
-               <span>Mailoo</span>
+               <span>grv✦</span>
             </a>
             <div class="iq-menu-bt align-self-center">
                <div class="wrapper-menu">
@@ -130,6 +132,13 @@
                            {{-- <li><a href="{{url('rincianpelaksanaan')}}"><i
                               class="las la-campground"></i>Pelaksanaan</a>
                      </li> --}}
+                     {{-- slug --}}
+                     {{-- <div>
+                        {{$foo}}
+                     </div> --}}
+
+
+
                      <li><a href="{{url('dashboard_1')}}"><i class="las la-chart-pie"></i>Dashboard I </a></li>
                      <li><a href="{{url('dashboard_3')}}"><i class="las la-chart-area"></i>Dashboard II </a></li>
                      <li><a href="{{url('dashboard_2')}}"><i class="las la-chart-bar"></i>Dashboard III </a></li>
@@ -147,7 +156,16 @@
                   <ul id="sub-referensi" class="iq-submenu iq-submenu-data collapse">
                      {{-- <li><a href="{{url('rincianpelaksanaan')}}"><i class="las la-campground"></i>Pelaksanaan</a>
                </li> --}}
-               <li><a href="{{url('referensi')}}"><i class="las la-money-bill-wave"></i> Anggaran </a></li>
+
+               <li>
+                  <a href="#sub-anggaran" class="iq-waves-effect collapsed" data-toggle="collapse"
+                     aria-expanded="false"><i class="las la-money-bill-wave"></i><span>Anggaran</span><i
+                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                  <ul id="sub-anggaran" class="iq-submenu iq-submenu-data collapse">
+                     <li><a href="{{url('referensi')}}"> &nbsp; &nbsp; &nbsp; <i class="las la-hand-point-right"></i> Nilai Anggaran </a></li>
+                     <li><a href="{{url('ket_anggaran')}}"> &nbsp; &nbsp; &nbsp; <i class="las la-hand-point-right"></i> keterangan </a></li>
+                  </ul>
+               </li>
                <li>
                   <a href="#sub-surattugas" class="iq-waves-effect collapsed" data-toggle="collapse"
                      aria-expanded="false"><i class="las la-ribbon"></i><span>Surat Tugas</span><i
@@ -190,6 +208,7 @@
 
 
                <li><a href="{{url('spj')}}"><i class="las la-file-invoice-dollar"></i> SPJ </a></li>
+               {{-- <li><a href="{{url('nominatif_spj')}}"><i class="las la-file-invoice-dollar"></i> Nominatif SPJ </a></li> --}}
 
                <li>
                   <a href="#sub-menu" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
@@ -232,35 +251,26 @@
 
                <li class="iq-menu-title"><i class="ri-separator"></i><span>Pengaturan</span></li>
 
-               <li>
 
-                  <a href="#user-info" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
-                        class="las la-user-circle"></i><span>User</span><i
-                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                  <ul id="user-info" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                     <li><a href="{{url('/Profil_saya')}}"><i class="las la-user-shield"></i> Profil user</a></li>
-                     <li><a href="{{url('/Edit_profil')}}"><i class="las la-user-edit"></i> Edit Profil</a></li>
-                     <li><a href="{{url('statususer')}}"><i class="las la-user-lock"></i> Status User </a></li>
-                  </ul>
-               </li>
 
                <li>
 
-                  <a href="#user-cog" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i
-                        class="las la-cog"></i><span>Configure</span><i
-                        class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                  <ul id="user-cog" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                     {{-- <li><a href="{{url('unitbagian')}}"><i class="las la-users-cog"></i> Unit Bagian</a>
-               </li>
-               <li><a href="{{url('jabatan')}}"><i class="las la-users-cog"></i> Jabatan</a></li>
-               <li><a href="{{url('unitbagianxjabatan')}}"><i class="las la-users-cog"></i> Unit Bagian x Jabatan </a>
-               </li> --}}
-               <li><a href="{{url('wilayah')}}"><i class="las la-globe"></i> Wilayah </a></li>
-               <li><a href="{{url('satuankerja')}}"><i class="las la-users-cog"></i> Satuan Kerja </a></li>
-                <li><a href="{{url('namapelaksana')}}"><i class="las la-id-card-alt"></i> Nama Pelaksana </a></li>
-               <li><a href="{{url('tahunanggaran')}}"><i class="las la-calendar-minus"></i> Tahun Anggaran </a></li>
+                    @foreach ($menu as $menus)
+                       <a href="#{{$menus->href}}" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false">
+                        <i class="{{$menus->icon}}"></i><span>  {{$menus->slug}}</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
 
-               </ul>
+                        @foreach ($menus->ref_menu_subs as $sub_menus)
+
+                           <ul id="{{$menus->href}}" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                              <li><a href="{{url('/'.$sub_menus->url .'')}}"><i class="{{$sub_menus->icon}}"></i>{{$sub_menus->slug}}</a></li>
+
+                           </ul>
+
+                        @endforeach
+
+                     @endforeach
+
                </li>
 
                <li class="iq-menu-title"><i class="ri-separator"></i><span>Soon</span></li>

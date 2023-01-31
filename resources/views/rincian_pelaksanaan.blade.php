@@ -9,7 +9,8 @@
 <nav aria-label="breadcrumb">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Keuangan</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Rincian Pelaksanaan</li>
+        <li class="breadcrumb-item active" aria-current="page">Rincian</li>
+        <li class="breadcrumb-item active" aria-current="page">Pelaksanaan</li>
     </ul>
 </nav>
 @endsection
@@ -157,6 +158,7 @@
                 <div class="modal-body" style="text-align: justify">
                     <i class="las la-skull-crossbones" style="color: red"></i>
                     <br> gagal dilakukan dilakukan penghapusan
+                    <br> data masih ada keterkaitan dengan menu rincian pengeluaran
                 </div>
 
             </div>
@@ -566,6 +568,10 @@
             buttons: [
                 'copy', 'excel', 'pdf', 'csv', 'print'
             ],
+            lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, 'All'],
+            ],
             autoWidth: true,
             processing: true,
             serverSide: true,
@@ -894,11 +900,11 @@
                                 });
                             table.draw();
                         } else {
-                              $('#ModalFailureDelete').modal('show');
+                            $('#ModalFailureDelete').modal('show');
                             // $('#response').html(
                             //     '<button type="button" class="btn mb-3 btn-danger rounded-pill"><i class="las la-skull-crossbones"></i> data rincian pelaksanaan gagal dihapus <i class="las la-skull-crossbones"></i></button>'
                             // );
-                             $("#ModalFailureDelete").fadeTo(5000, 500).slideUp(500,
+                            $("#ModalFailureDelete").fadeTo(5000, 500).slideUp(500,
                                 function() {
                                     $("#ModalFailureDelete").slideUp(500);
                                     $('#ModalFailureDelete').modal('hide');
